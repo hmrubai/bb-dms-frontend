@@ -1,18 +1,17 @@
 import React from 'react';
-import { Row, Col, Card, Tab, Tabs, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import avatar1 from '../../../assets/images/user/avatar-1.jpg';
-import avatar2 from '../../../assets/images/user/avatar-2.jpg';
-import avatar3 from '../../../assets/images/user/avatar-3.jpg';
+import { useGetAllCatagoryQuery } from '../../../services/catagoryApi';
+
+
 
 const DashDefault = () => {
- 
+  const { data, isFetching } = useGetAllCatagoryQuery();
+  if (isFetching) {
+    console.log("hi")
+  }
+  console.log(data)
   return (
     <React.Fragment>
-      <Row>
-        <h1>Welcome To Bacbon </h1>
     
-      </Row>
     </React.Fragment>
   );
 };
