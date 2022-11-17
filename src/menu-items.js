@@ -16,6 +16,30 @@ const menuItems = {
       ]
     },
     {
+      id: 'catagories',
+      title: 'CATAGORIES',
+      type: 'group',
+      icon: 'icon-ui',
+      children: [
+        {
+          id: 'catagories',
+          title: 'catagories',
+          type: 'collapse',
+          icon: 'feather icon-box',
+          children: [
+            
+            {
+              id: 'catagory',
+              title: 'catagory',
+              type: 'item',
+              url: '/catagories/catagory'
+            },
+
+          ]
+        }
+      ]
+    },
+    {
       id: 'ui-element',
       title: 'UI ELEMENT',
       type: 'group',
@@ -96,6 +120,7 @@ const menuItems = {
         }
       ]
     },
+  
     {
       id: 'chart-maps',
       title: 'Chart & Maps',

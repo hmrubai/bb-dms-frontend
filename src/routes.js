@@ -46,6 +46,24 @@ const routes = [
         path: '/app/dashboard/default',
         component: lazy(() => import('./views/dashboard/DashDefault'))
       },
+      // foysal
+      {
+        exact: true,
+        path: '/catagories/catagory',
+        component: lazy(() => import('./views/catagories/catagory/Catagory'))
+      },
+      {
+        exact: true,
+        path: '/catagories/catagory_view/:id',
+        component: lazy(() => import('./views/catagories/catagory/CatagoryView.js'))
+      },
+      {
+        exact: true,
+        path: '/catagories/catagory_edit/:id',
+        component: lazy(() => import('./views/catagories/catagory/CatagoryEdit.js'))
+      },
+
+      
       {
         exact: true,
         path: '/basic/button',
