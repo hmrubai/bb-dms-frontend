@@ -54,6 +54,11 @@ const routes = [
       },
       {
         exact: true,
+        path: '/catagories/catagory_add',
+        component: lazy(() => import('./views/catagories/catagory/CatagoryAdd'))
+      },
+      {
+        exact: true,
         path: '/catagories/catagory_view/:id',
         component: lazy(() => import('./views/catagories/catagory/CatagoryView.js'))
       },

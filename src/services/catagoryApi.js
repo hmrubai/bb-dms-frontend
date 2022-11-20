@@ -8,15 +8,15 @@ export const catagoryApi = createApi({
   tagTypes: ['Catagory'],
   endpoints: (builder) => ({
     getAllCatagory: builder.query({
-      query: () => ({
-        url: 'catagory',
+      query: (page = 1) => ({
+        url: `catagory?page=${page}`,
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
-      transformResponse: (res) => res.reverse(),
+      // transformResponse: (res) => res.reverse(),
       providesTags: ['Catagory']
     }),
 
@@ -33,17 +33,14 @@ export const catagoryApi = createApi({
     }),
 
     addCatagory: builder.mutation({
-      query: (catagory) => {
-        console.log('Create Post: ', catagory);
-        return {
-          url: `catagory`,
-          method: 'POST',
-          body: catagory,
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        };
-      },
+      query: (catagory) => ({
+        url: `catagory`,
+        method: 'POST',
+        body: catagory,
+        headers: {
+          // 'Content-type': 'application/json; charset=UTF-8'
+        }
+      }),
       invalidatesTags: ['Catagory']
     }),
     updateCatagory: builder.mutation({

@@ -56,6 +56,7 @@ const SignUp1 = () => {
                         name="email"
                         value={allData.email}
                         onChange={handleChange}
+                        
                         required
                       />
                     </div>
