@@ -3,27 +3,26 @@ import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 
 import { useAddCatagoryMutation } from '../../../services/catagoryApi';
+import { useHistory } from 'react-router-dom';
 function CatagoryAdd() {
+  const history = useHistory();
   const [addCatagory, response] = useAddCatagoryMutation();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [user_id, setUserId] = useState(1);
   const [image, setImage] = useState();
 
-  const submitHandel = async(e) => {
+  
+  const submitHandel = async (e) => {
     e.preventDefault();
-    console.log(name);
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("user_id", user_id);
-    formData.append("image", image);
-    console.log(formData);
-    
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('user_id', user_id);
+    formData.append('image', image);
     await addCatagory(formData);
-  }
-
-  console.log(response);
+    history.push('/catagories/catagory');
+  };
 
   return (
     <Card>
@@ -36,12 +35,9 @@ function CatagoryAdd() {
             <Form onSubmit={submitHandel} encType="multipart/form-data">
               <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Catagory Name"
+                <Form.Control type="text" placeholder="Catagory Name"
                   name="name"
-                  onChange={(e) => setName(e.target.value)}
-                />
+                  onChange={(e) => setName(e.target.value)} />
               </Form.Group>
 
               <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -55,7 +51,6 @@ function CatagoryAdd() {
                 />
               </Form.Group>
               <Form.Group controlId="exampleForm.ControlInput1">
-               
                 <input
                   type="file"
                   name="image"

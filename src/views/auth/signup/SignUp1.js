@@ -19,6 +19,7 @@ const SignIn1 = () => {
   });
 
   const handleChange = (e) => setData({ ...allData, [e.target.name]: e.target.value });
+  
   const handleSubmit = async (e) => {
   
     e.preventDefault();
