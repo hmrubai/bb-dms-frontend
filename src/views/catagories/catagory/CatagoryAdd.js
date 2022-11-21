@@ -1,18 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-
 import { useAddCatagoryMutation } from '../../../services/catagoryApi';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 function CatagoryAdd() {
   const history = useHistory();
-  const [addCatagory, response] = useAddCatagoryMutation();
+  const [addCatagory, { data, isSuccess }] = useAddCatagoryMutation();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [user_id, setUserId] = useState(1);
   const [image, setImage] = useState();
 
-  
   const submitHandel = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -21,8 +20,12 @@ function CatagoryAdd() {
     formData.append('user_id', user_id);
     formData.append('image', image);
     await addCatagory(formData);
-    history.push('/catagories/catagory');
   };
+
+  if (isSuccess) {
+    toast.success(data.message);
+   
+  }
 
   return (
     <Card>
@@ -35,9 +38,7 @@ function CatagoryAdd() {
             <Form onSubmit={submitHandel} encType="multipart/form-data">
               <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Catagory Name"
-                  name="name"
-                  onChange={(e) => setName(e.target.value)} />
+                <Form.Control type="text" placeholder="Catagory Name" name="name" onChange={(e) => setName(e.target.value)} required />
               </Form.Group>
 
               <Form.Group controlId="exampleForm.ControlTextarea1">

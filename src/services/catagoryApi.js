@@ -10,6 +10,8 @@ export const catagoryApi = createApi({
     getAllCatagory: builder.query({
       query: (page = 1) => ({
         url: `catagory?page=${page}`,
+        // transformResponse: res => res.sort((a, b) => b.id - a.id),
+        // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8'
@@ -33,23 +35,30 @@ export const catagoryApi = createApi({
     }),
 
     addCatagory: builder.mutation({
-      query: (catagory) => ({
-        url: `catagory`,
-        method: 'POST',
-        body: catagory,
-        headers: {
-          // 'Content-type': 'application/json; charset=UTF-8'
-        }
-      }),
+      query: (catagory) => {
+        return {
+          url: `catagory`,
+          method: 'POST',
+          body: catagory,
+          headers: {
+            // 'Content-type': 'application/json; charset=UTF-8'
+          }
+        };
+      },
       invalidatesTags: ['Catagory']
     }),
     updateCatagory: builder.mutation({
-      query: ({ id, ...catagory }) => ({
-        url: `catagory/${id}`,
-        method: 'PUT',
-        body: catagory
-      }),
-      invalidatesTags: ['Catagory']
+      query:(data)=> {
+        const { id, ...body } = data;
+        console.log(body)
+        return {
+          url: `catagory/${18}`,
+          method: 'POST',
+          body
+        };
+      },
+
+      invalidatesTags: (result, error, { id }) => [{ type: 'Catagory', id }]
     }),
 
     deleteCatagory: builder.mutation({

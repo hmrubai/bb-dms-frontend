@@ -6,10 +6,15 @@ import { useGetAllCatagoryQuery } from '../../../services/catagoryApi';
 import CatagoryTableBody from './CatagoryTableBody';
 import Pagination from 'react-bootstrap/Pagination';
 import { Link } from 'react-router-dom';
+import { BsFillPlusCircleFill } from 'react-icons/bs';
+import { ToastContainer } from 'react-toastify';
+import Modal from 'react-bootstrap/Modal';
+import CatagoryAdd from './CatagoryAdd';
 function Catagory() {
   const [page, setPage] = useState(1);
-  const { data, isFetching, isLoading, isError, isSuccess } = useGetAllCatagoryQuery(page);
+  const [show, setShow] = useState(false);
 
+  const { data, isFetching, isLoading, isError, isSuccess } = useGetAllCatagoryQuery(page);
   if (isLoading) {
     return (
       <>
@@ -22,19 +27,31 @@ function Catagory() {
   }
   return (
     <>
+      <Modal show={show} onHide={() => setShow(false)} dialogClassName="modal-90w" aria-labelledby="example-custom-modal-styling-title">
+        <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title"></Modal.Title>
+        </Modal.Header>
+        <CatagoryAdd />
+      </Modal>
+      <ToastContainer />
       <div className="mb-2">
-        <Link to={`/catagories/catagory_add`}>
-          <Button>Add Catagory</Button>
-        </Link>
+        <Button
+          onClick={() => {
+            setShow(true);
+          }}
+        >
+          <BsFillPlusCircleFill color="white" className="mr-2 " />
+          Add Catagory
+        </Button>
       </div>
       <Card>
         <Card.Header>
           <Card.Title as="h5">Catagory</Card.Title>
         </Card.Header>
         <Card.Body>
-          <Table responsive hover>
-            <thead>
-              <tr>
+          <Table responsive striped >
+            <thead style={{ background:"grey"}}>
+              <tr className=' text-white'>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Created By</th>
