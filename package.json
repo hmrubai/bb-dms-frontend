@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://document-management-system/",
   "dependencies": {
-    "@reduxjs/toolkit": "1.8.6",
+    "@reduxjs/toolkit": "^1.9.0",
     "@tanem/react-nprogress": "^4.0.9",
     "async": "^2.6.4",
     "axios": "^1.1.3",

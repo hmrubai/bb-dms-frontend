@@ -3,22 +3,24 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { ToastContainer } from 'react-toastify';
-import CatagoryTable from './CatagoryTable';
-function Catagory() {
+
+import SubSubCategoryTable from './SubSubCategoryTable';
+
+function SubSubCategory() {
   return (
     <>
-      <ToastContainer />
+     
       <div className="mb-2">
-        <Link to={`/catagories/catagory_add`}>
+        <Link to={`/catagories/sub_sub_category_add`}>
           <Button>
             <BsFillPlusCircleFill color="white" className="mr-2 " />
-            Add Catagory
+            Add Sub Sub Category
           </Button>
         </Link>
       </div>
-      <CatagoryTable />
+      <SubSubCategoryTable />
     </>
   );
 }
 
-export default Catagory;
+export default SubSubCategory;

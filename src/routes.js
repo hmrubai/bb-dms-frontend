@@ -46,7 +46,7 @@ const routes = [
         path: '/app/dashboard/default',
         component: lazy(() => import('./views/dashboard/DashDefault'))
       },
-      // foysal
+      // catagory
       {
         exact: true,
         path: '/catagories/catagory',
@@ -67,8 +67,48 @@ const routes = [
         path: '/catagories/catagory_edit/:id',
         component: lazy(() => import('./views/catagories/catagory/CatagoryEdit.js'))
       },
-
-      
+      //subcatagory
+      {
+        exact: true,
+        path: '/catagories/sub_category',
+        component: lazy(() => import('./views/catagories/subCategory/SubCategory'))
+      },
+      {
+        exact: true,
+        path: '/catagories/sub_category_add',
+        component: lazy(() => import('./views/catagories/subCategory/SubCategoryAdd'))
+      },
+      {
+        exact: true,
+        path: '/catagories/sub_category_view/:id',
+        component: lazy(() => import('./views/catagories/subCategory/SubCategoryView'))
+      },
+      {
+        exact: true,
+        path: '/catagories/sub_category_edit/:id',
+        component: lazy(() => import('./views/catagories/subCategory/SubCategoryEdit'))
+      },
+        //subsubcatagory
+        {
+          exact: true,
+          path: '/catagories/sub_sub_category',
+          component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategory'))
+        },
+        {
+          exact: true,
+          path: '/catagories/sub_sub_category_add',
+          component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryAdd'))
+        },
+        {
+          exact: true,
+          path: '/catagories/sub_sub_category_view/:id',
+          component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryView'))
+        },
+        {
+          exact: true,
+          path: '/catagories/sub_sub_category_edit/:id',
+          component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryEdit'))
+        },
       {
         exact: true,
         path: '/basic/button',

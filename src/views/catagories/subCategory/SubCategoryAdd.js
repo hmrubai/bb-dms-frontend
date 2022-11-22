@@ -1,37 +1,43 @@
 import React from 'react';
 import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { useAddCatagoryMutation } from '../../../services/catagoryApi';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-function CatagoryAdd() {
+import { useGetAllCatagoryQuery } from '../../../services/catagoryApi';
+import { useAddSubCategoryMutation } from '../../../services/subCategoryApi';
+function SubCategoryAdd() {
   const history = useHistory();
-  const [addCatagory, { data, isSuccess }] = useAddCatagoryMutation();
+  const [addSubCategory, { data, isSuccess }] = useAddSubCategoryMutation();
+  const { data: category } = useGetAllCatagoryQuery();
+
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [user_id, setUserId] = useState(1);
+  const [catagory_id, setCatagoryId] = useState();
   const [image, setImage] = useState();
 
   const submitHandel = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
-    formData.append('description', description);
     formData.append('user_id', user_id);
+    formData.append('catagory_id', catagory_id)
+    formData.append('description', description);
     formData.append('image', image);
-    await addCatagory(formData);
+    await addSubCategory(formData);
   };
 
   if (isSuccess) {
     toast.success(data.message);
-    history.push('/catagories/catagory');
-   
+    history.push('/catagories/sub_category');
   }
+
+  // {category.data.map(val=>console.log(val.id))}
 
   return (
     <Card>
       <Card.Header>
-        <Card.Title as="h5">Add Catagory</Card.Title>
+        <Card.Title as="h5">Add Sub Category</Card.Title>
       </Card.Header>
       <Card.Body>
         <Row>
@@ -52,6 +58,13 @@ function CatagoryAdd() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </Form.Group>
+              <Form.Label>Category</Form.Label>
+              <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagoryId(e.target.value)}>
+                <option>Selact Category</option>
+                {category?.data.map((cate) => (
+                  <option value={cate.id}>{cate.name}</option>
+                ))}
+              </Form.Control>
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input
                   type="file"
@@ -71,4 +84,4 @@ function CatagoryAdd() {
   );
 }
 
-export default CatagoryAdd;
+export default SubCategoryAdd;

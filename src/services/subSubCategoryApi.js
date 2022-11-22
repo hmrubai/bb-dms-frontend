@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const catagoryApi = createApi({
-  reducerPath: 'catagoryApi',
+export const subSubCategoryApi = createApi({
+  reducerPath: 'subSubCategoryApi',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL
   }),
-  tagTypes: ['Catagory'],
+  tagTypes: ['SubSubCategory'],
   endpoints: (builder) => ({
-    getAllCatagory: builder.query({
+    getAllSubSubCategory: builder.query({
       query: (page = 1) => ({
-        url: `catagory?page=${page}`,
+        url: `sub_sub_category?page=${page}`,
         // transformResponse: res => res.sort((a, b) => b.id - a.id),
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
@@ -19,61 +19,59 @@ export const catagoryApi = createApi({
         }
       }),
       // transformResponse: (res) => res.reverse(),
-      providesTags: ['Catagory']
+      providesTags: ['SubSubCategory']
     }),
 
-    getCatagoryById: builder.query({
+    getSubSubCategoryById: builder.query({
       query: (id) => ({
-        url: `catagory/${id}`,
+        url: `sub_sub_category/${id}`,
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
-      invalidatesTags: ['Catagory']
+      invalidatesTags: ['SubSubCategory']
     }),
 
-    addCatagory: builder.mutation({
-      query: (catagory) => {
+    addSubSubCategory: builder.mutation({
+      query: (SubSubCategory) => {
         return {
-          url: `catagory`,
+          url: `sub_sub_category`,
           method: 'POST',
-          body: catagory,
+          body: SubSubCategory,
           headers: {
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
       },
-      invalidatesTags: ['Catagory']
+      invalidatesTags: ['SubSubCategory']
     }),
-    updateCatagory: builder.mutation({
-      query: ({id ,data}) => {
+    updateSubSubCatagory: builder.mutation({
+      query: ({ id, data }) => {
         return {
-          url: `catagory/${id}`,
+          url: `sub_sub_category/${id}`,
           method: 'POST',
-          body: data,
-       
+          body: data
         };
       },
-      invalidatesTags: ['Catagory']
-      
+      invalidatesTags: ['SubSubCategory']
     }),
 
-    deleteCatagory: builder.mutation({
+    deleteSubSubCategory: builder.mutation({
       query: (id) => ({
-        url: `catagory/${id}`,
+        url: `sub_sub_category/${id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['Catagory']
+      invalidatesTags: ['SubSubCategory']
     })
   })
 });
 
 export const {
-  useGetAllCatagoryQuery,
-  useGetCatagoryByIdQuery,
-  useAddCatagoryMutation,
-  useUpdateCatagoryMutation,
-  useDeleteCatagoryMutation
-} = catagoryApi;
+  useGetAllSubSubCategoryQuery,
+  useGetSubSubCategoryByIdQuery,
+useAddSubSubCategoryMutation,
+  useUpdateSubSubCatagoryMutation,
+  useDeleteSubSubCategoryMutation
+} = subSubCategoryApi;

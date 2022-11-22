@@ -3,15 +3,15 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
-import { useGetCatagoryByIdQuery, useUpdateCatagoryMutation, } from '../../../services/catagoryApi';
 import { toast } from 'react-toastify';
+import { useGetSubCategoryByIdQuery, useUpdateSubCatagoryMutation } from '../../../services/subCategoryApi';
 
 function CatagoryEdit() {
     const {  id } = useParams();
   const history = useHistory();
 
-  const [updateCatagory, {data:cataResData ,isSuccess:cataResSucess}] = useUpdateCatagoryMutation() || {};
-  const { data, isSuccess, isFetching } = useGetCatagoryByIdQuery(id);
+  const [updateCatagory, {data:cataResData ,isSuccess:cataResSucess}] = useUpdateSubCatagoryMutation() || {};
+  const { data, isSuccess, isFetching } = useGetSubCategoryByIdQuery(id);
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [status, setStatus] = useState();
@@ -28,21 +28,7 @@ function CatagoryEdit() {
     }
   }, [id, isSuccess, data]);
 
-//   const cataUpdate = async ( data,id) => {
-        
-//     try {
-//         const response = await axios.post(`${process.env.REACT_APP_BASE_URL}catagory/${id}`,data, {
-//         });
-//         console.log(response)
-       
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
 
-
-
-  
   const submitHandel = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -55,14 +41,14 @@ function CatagoryEdit() {
     // if (cataResSucess) {
     //   toast.success(cataResData.message);
     // }
-    history.push('/catagories/catagory');
+    history.push('/catagories/sub_category');
   };
-  // console.log(data)
+  console.log(status)
  
   return (
     <Card>
       <Card.Header>
-        <Card.Title as="h5">Edit Catagory</Card.Title>
+        <Card.Title as="h5">Edit Sub Category</Card.Title>
       </Card.Header>
       <Card.Body>
         <Row>

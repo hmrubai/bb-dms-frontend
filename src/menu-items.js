@@ -29,12 +29,23 @@ const menuItems = {
           children: [
             
             {
-              id: 'catagory',
-              title: 'catagory',
+              id: 'category',
+              title: 'Category',
               type: 'item',
               url: '/catagories/catagory'
             },
-
+            {
+              id: 'sub_category',
+              title: 'Sub Category',
+              type: 'item',
+              url: '/catagories/sub_category'
+            },
+            {
+              id: 'sub_sub_category',
+              title: 'Sub Sub Category',
+              type: 'item',
+              url: '/catagories/sub_sub_category'
+            },
           ]
         }
       ]

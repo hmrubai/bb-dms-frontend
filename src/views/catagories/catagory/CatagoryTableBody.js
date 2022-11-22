@@ -16,8 +16,8 @@ function CatagoryTableBody({ catagory }) {
       <tr>
         <th scope="row">{catagory.id}</th>
         <td>{catagory.name}</td>
-        <td>{catagory.user.name}</td>
-        <img className="img-circle" src={`${process.env.REACT_APP_IMAGE_URL}${catagory.image}`} width="50px" alt="" />
+        <td >{catagory.user.name}</td>
+        <img className="img-circle mt-3" src={`${process.env.REACT_APP_IMAGE_URL}${catagory.image}`} width="60px" alt="" />
         <td>
           <Link to={`/catagories/catagory_view/${catagory.id}`}>
             <BsFillEyeFill color="black" size={20} />
