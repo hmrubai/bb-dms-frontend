@@ -1,19 +1,21 @@
 import React from 'react';
 import { useState } from 'react';
 import { Card, Table } from 'react-bootstrap';
-import Loading from '../../../components/Loading/Loading';
-import SubSubCategoryTableBody from '../../../views/catagories/subSubCategory/SubSubCategoryTableBody'
 
 import Pagination from 'react-bootstrap/Pagination';
+
 import { ToastContainer } from 'react-toastify';
-import { useGetAllSubSubCategoryQuery } from '../../../services/subSubCategoryApi';
+import UserTableBody from './UserTableBody';
+import Loading from '../../components/Loading/Loading';
+import { useGetAllUserQuery } from '../../services/userApi';
 
-
-function SubSubCategoryTable() {
+function UserTable() {
   const [page, setPage] = useState(1);
-  // const [show, setShow] = useState(false);
 
-  const { data, isFetching, isLoading, isError, isSuccess } =useGetAllSubSubCategoryQuery (page);
+  const  { data, isFetching, isLoading, isError, isSuccess } = useGetAllUserQuery(page)
+  
+  console.log(data)
+  
 
   if (isLoading) {
     return (
@@ -30,23 +32,26 @@ function SubSubCategoryTable() {
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Sub Sub Catagory</Card.Title>
+            <Card.Title as="h5">Users</Card.Title>
           </Card.Header>
           <Card.Body>
             <Table responsive striped>
               <thead style={{ background: 'grey' }}>
                 <tr className=" text-white">
+   
                   <th>ID</th>
                   <th>Name</th>
-                  <th>Created By</th>
-                  <th>Category Name</th>
-                  <th>Sub Category Name</th>
+                  <th>username</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Gender</th>
+                  <th>Number</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>
               </thead>
-              {data.data.map((subSubCatagory) => (
-                <SubSubCategoryTableBody subSubCatagory={subSubCatagory} />
+              {data.data.map((user) => (
+                <UserTableBody user={user} />
               ))}
             </Table>
 
@@ -61,4 +66,4 @@ function SubSubCategoryTable() {
   }
 }
 
-export default SubSubCategoryTable;
+export default UserTable;

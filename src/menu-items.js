@@ -16,14 +16,30 @@ const menuItems = {
       ]
     },
     {
-      id: 'catagories',
-      title: 'CATAGORIES',
+      id: 'users',
+      title: 'Users',
+      type: 'group',
+      icon: 'icon-group',
+      children: [
+        {
+          id: 'users',
+          title: 'Users',
+          type: 'item',
+          url: '/users/user',
+          icon: 'feather icon-user',
+        },
+        // addnew
+      ]
+    },
+    {
+      id: 'categories',
+      title: 'CATEGORIES',
       type: 'group',
       icon: 'icon-ui',
       children: [
         {
-          id: 'catagories',
-          title: 'catagories',
+          id: 'categories',
+          title: 'Categories',
           type: 'collapse',
           icon: 'feather icon-box',
           children: [

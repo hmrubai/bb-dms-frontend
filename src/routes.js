@@ -46,6 +46,26 @@ const routes = [
         path: '/app/dashboard/default',
         component: lazy(() => import('./views/dashboard/DashDefault'))
       },
+      {
+        exact: true,
+        path: '/users/user',
+        component: lazy(() => import('./views/users/User'))
+      },
+      {
+        exact: true,
+        path: '/users/user_add',
+        component: lazy(() => import('./views/users/UserAdd'))
+      },
+      {
+        exact: true,
+        path: '/users/user_view/:id',
+        component: lazy(() => import('./views/users/UserView'))
+      },
+      {
+        exact: true,
+        path: '/users/user_edit/:id',
+        component: lazy(() => import('./views/users/UserEdit'))
+      },
       // catagory
       {
         exact: true,

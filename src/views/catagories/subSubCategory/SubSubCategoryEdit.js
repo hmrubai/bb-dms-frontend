@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetSubCategoryByIdQuery, useUpdateSubCatagoryMutation } from '../../../services/subCategoryApi';
+import { useGetSubSubCategoryByIdQuery, useUpdateSubSubCatagoryMutation } from '../../../services/subSubCategoryApi';
 
 function CatagoryEdit() {
     const {  id } = useParams();
   const history = useHistory();
 
-  const [updateCatagory, {data:cataResData ,isSuccess:cataResSucess}] = useUpdateSubCatagoryMutation() || {};
-  const { data, isSuccess, isFetching } = useGetSubCategoryByIdQuery(id);
+  const [updateSubSubCatagory, {data:cataResData ,isSuccess:cataResSucess}] = useUpdateSubSubCatagoryMutation() || {};
+  const { data, isSuccess, isFetching } = useGetSubSubCategoryByIdQuery(id);
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [status, setStatus] = useState();
@@ -36,19 +36,19 @@ function CatagoryEdit() {
     formData.append('description', description)
     formData.append('status', status)
     formData.append('image', image)
-    updateCatagory({ id: id, data: formData });
+    updateSubSubCatagory({ id: id, data: formData });
 
     // if (cataResSucess) {
     //   toast.success(cataResData.message);
     // }
-    history.push('/catagories/sub_category');
+    history.push('/catagories/sub_sub_category');
   };
   console.log(status)
  
   return (
     <Card>
       <Card.Header>
-        <Card.Title as="h5">Edit Sub Category</Card.Title>
+        <Card.Title as="h5">Edit Sub Sub Category</Card.Title>
       </Card.Header>
       <Card.Body>
         <Row>
