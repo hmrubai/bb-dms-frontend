@@ -64,8 +64,21 @@ export const subCategoryApi = createApi({
         method: 'DELETE'
       }),
       invalidatesTags: ['SubCategory']
+    }),
+
+    getSubSubCatagoryShow: builder.query({
+      query: (id) => ({
+        url: `sub_category_show/${id}`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }),
+      invalidatesTags: ['SubCategory']
     })
   })
+  
 });
 
 export const {
@@ -73,5 +86,6 @@ export const {
   useGetSubCategoryByIdQuery,
   useAddSubCategoryMutation,
   useUpdateSubCatagoryMutation,
-  useDeleteSubCategoryMutation
+  useDeleteSubCategoryMutation,
+  useGetSubSubCatagoryShowQuery
 } = subCategoryApi;

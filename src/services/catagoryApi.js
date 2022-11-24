@@ -66,7 +66,35 @@ export const catagoryApi = createApi({
         method: 'DELETE'
       }),
       invalidatesTags: ['Catagory']
+    }),
+   
+    getCategoryAllShow: builder.query({
+      query: () => ({
+        url: `category_all`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }),
+      // transformResponse: (res) => res.reverse(),
+      providesTags: ['Catagory']
+    }),
+
+
+    getSubCatagoryShow: builder.query({
+      query: (id) => ({
+        url: `category_show/${id}`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }),
+      invalidatesTags: ['Catagory']
     })
+
+
   })
 });
 
@@ -75,5 +103,7 @@ export const {
   useGetCatagoryByIdQuery,
   useAddCatagoryMutation,
   useUpdateCatagoryMutation,
-  useDeleteCatagoryMutation
+  useDeleteCatagoryMutation,
+  useGetCategoryAllShowQuery,
+  useGetSubCatagoryShowQuery
 } = catagoryApi;

@@ -67,6 +67,22 @@ const menuItems = {
       ]
     },
     {
+      id: 'documents',
+      title: 'Documents',
+      type: 'group',
+      icon: 'icon-group',
+      children: [
+        {
+          id: 'documents',
+          title: 'Documents',
+          type: 'item',
+          url: '/documents/document',
+          icon: 'feather icon-layout',
+        },
+        // addnew
+      ]
+    },
+    {
       id: 'ui-element',
       title: 'UI ELEMENT',
       type: 'group',

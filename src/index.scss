@@ -2,6 +2,13 @@
 
 
 
+
+
+.pointer{
+  cursor: pointer;
+}
+
+
 .nav-outside.mob-backdrop {
   &.mob-fixed .pcoded-navbar {
     z-index: 1032;

@@ -108,27 +108,93 @@ const routes = [
         path: '/catagories/sub_category_edit/:id',
         component: lazy(() => import('./views/catagories/subCategory/SubCategoryEdit'))
       },
-        //subsubcatagory
-        {
-          exact: true,
-          path: '/catagories/sub_sub_category',
-          component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategory'))
-        },
-        {
-          exact: true,
-          path: '/catagories/sub_sub_category_add',
-          component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryAdd'))
-        },
-        {
-          exact: true,
-          path: '/catagories/sub_sub_category_view/:id',
-          component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryView'))
-        },
-        {
-          exact: true,
-          path: '/catagories/sub_sub_category_edit/:id',
-          component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryEdit'))
-        },
+      //subsubcatagory
+      {
+        exact: true,
+        path: '/catagories/sub_sub_category',
+        component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategory'))
+      },
+      {
+        exact: true,
+        path: '/catagories/sub_sub_category_add',
+        component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryAdd'))
+      },
+      {
+        exact: true,
+        path: '/catagories/sub_sub_category_view/:id',
+        component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryView'))
+      },
+      {
+        exact: true,
+        path: '/catagories/sub_sub_category_edit/:id',
+        component: lazy(() => import('./views/catagories/subSubCategory/SubSubCategoryEdit'))
+      },
+
+      //document
+
+      {
+        exact: true,
+        path: '/documents/document',
+        component: lazy(() => import('./views/documents/Document'))
+      },
+      {
+        exact: true,
+        path: '/documents/document_add',
+        component: lazy(() => import('./views/documents/DocumentAdd'))
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {
         exact: true,
         path: '/basic/button',
