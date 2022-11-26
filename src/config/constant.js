@@ -1,5 +1,5 @@
-export const BASENAME = 'dms'; // don't add '/' at end off BASENAME
-export const BASE_URL = '/app/dashboard/default';
+export const BASENAME = '/dms'; // don't add '/' at end off BASENAME
+export const BASE_URL = '/dashboard'; // don't add '/' at end off BASE_URL
 export const BASE_TITLE = 'Document Management System';
 
 export const CONFIG = {

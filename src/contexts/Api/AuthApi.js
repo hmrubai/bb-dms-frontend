@@ -3,13 +3,13 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useHistory } from 'react-router-dom';
-import authUser from '../../utils/authUser';
+import { useDispatch } from 'react-redux';
+import { authUser } from '../../features/authSlice';
+
 export const authApiContext = React.createContext();
 
 const AuthApi = ({ children }) => {
-  // const [resData, setResData] = useState(null);
-  // const [resError, setResError] = useState(null);
-  const history=useHistory()
+  const dispatch = useDispatch();
   const registration = async (data) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/register`, data, {
@@ -19,8 +19,7 @@ const AuthApi = ({ children }) => {
         withCredentials: true
       });
       toast.success(response.data.message);
-      window.location.replace("http://localhost:3000/auth/signin");
-      
+      window.location.replace('http://localhost:3000/auth/signin');
     } catch (error) {
       if (error.response.data.errors.password) {
         toast.warning(error.response.data.errors.password[0]);
@@ -39,10 +38,10 @@ const AuthApi = ({ children }) => {
           'Content-Type': 'application/json'
         }
       });
-      console.log(response);
+
       toast.success(response.data[0].message);
-      Cookies.set('token', response.data[0].token);
-      window.location.reload(false)
+      dispatch(authUser(response.data[0]));
+      window.location.reload(false);
 
     } catch (error) {
       console.log(error.response.data.message);
@@ -68,6 +67,7 @@ const AuthApi = ({ children }) => {
 
   const logOut = () => {
     Cookies.remove('token');
+    localStorage.removeItem('user');
     toast.success('Logout Successfully');
     window.location.reload(false);
   };

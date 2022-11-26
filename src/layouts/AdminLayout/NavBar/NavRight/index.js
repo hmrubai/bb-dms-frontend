@@ -12,9 +12,13 @@ import avatar2 from '../../../../assets/images/user/avatar-2.jpg';
 import avatar3 from '../../../../assets/images/user/avatar-3.jpg';
 import avatar4 from '../../../../assets/images/user/avatar-4.jpg';
 import  { authApiContext } from '../../../../contexts/Api/AuthApi';
+import { useSelector } from './../../../../store/index';
 
 const NavRight = () => {
   const configContext = useContext(ConfigContext);
+  const users = useSelector((state) => state.auth.user);
+  
+
   // const { logout } = useAuth();
   const { rtlLayout } = configContext.state;
   const{logOut}=useContext(authApiContext)
@@ -139,7 +143,7 @@ const NavRight = () => {
             <Dropdown.Menu alignRight className="profile-notification">
               <div className="pro-head">
                 <img src={avatar1} className="img-radius" alt="User Profile" />
-                <span>John Doe</span>
+                <span>{users.name}</span>
                 <Link to="#" className="dud-logout" title="Logout">
                   <i className="feather icon-log-out" />
                 </Link>

@@ -6,9 +6,10 @@ import { authApiContext } from '../../../contexts/Api/AuthApi';
 import Breadcrumb from '../../../layouts/AdminLayout/Breadcrumb';
 import logo from '../../../../src/assets/images/logo.png';
 import { ToastContainer } from 'react-toastify';
-const SignUp1 = () => {
 
+const SignUp1 = () => {
   const { login } = useContext(authApiContext);
+
   const [allData, setData] = useState({
     email: '',
     password: ''
@@ -16,15 +17,12 @@ const SignUp1 = () => {
 
   const handleChange = (e) => setData({ ...allData, [e.target.name]: e.target.value });
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     await login(allData);
     setData({
       email: '',
       password: ''
     });
-
-    // after submit allData
   };
 
   return (
@@ -56,7 +54,6 @@ const SignUp1 = () => {
                         name="email"
                         value={allData.email}
                         onChange={handleChange}
-                        
                         required
                       />
                     </div>
