@@ -5,49 +5,31 @@ import { NavLink } from 'react-router-dom';
 import { authApiContext } from '../../../contexts/Api/AuthApi';
 import Breadcrumb from '../../../layouts/AdminLayout/Breadcrumb';
 import logo from '../../../../src/assets/images/logo.png';
-import { toast, ToastContainer } from 'react-toastify';
-import { useLoginMutation } from '../../../services/authApi';
-import Loading from './../../../components/Loading/Loading';
-import { useDispatch } from '../../../store';
-import { loginUser, selectUser } from '../../../features/authSlice';
-import { useSelector } from './../../../store/index';
-
+import { ToastContainer } from 'react-toastify';
 const SignUp1 = () => {
-  const [login, res] = useLoginMutation();
-  const dispatch = useDispatch();
-  // const { login } = useContext(authApiContext);
+
+  const { login } = useContext(authApiContext);
   const [allData, setData] = useState({
     email: '',
     password: ''
   });
 
   const handleChange = (e) => setData({ ...allData, [e.target.name]: e.target.value });
-
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     await login(allData);
     setData({
       email: '',
       password: ''
     });
+
+    // after submit allData
   };
-  if (res.isSuccess) {
-    toast.success(res.data[0].message);
-    dispatch(loginUser(res.data[0]));
-    window.location.replace('http://localhost:3000/dashboard');
-  }
-  if (res.isError) {
-   toast.error(res.error.data.message);
-  }
 
   return (
     <React.Fragment>
       <Breadcrumb />
-      {res.isLoading && (
-        <div>
-          <Loading />
-        </div>
-      )}
       <ToastContainer />
       <div className="auth-wrapper">
         <div className="auth-content">
@@ -74,6 +56,7 @@ const SignUp1 = () => {
                         name="email"
                         value={allData.email}
                         onChange={handleChange}
+                        
                         required
                       />
                     </div>

@@ -15,7 +15,7 @@ export const authSlice = createSlice({
             localStorage.setItem('user', JSON.stringify(action.payload.user));
             state.user = action.payload.user;
             state.token = action.payload.token;
-            
+        
         },
 
         logout: (state) => {
@@ -28,9 +28,4 @@ export const authSlice = createSlice({
 })
 
 export const { loginUser, logout } = authSlice.actions;
-
-export const selectUser = (state) => state.auth.user;
-
-
-
 export default authSlice.reducer;

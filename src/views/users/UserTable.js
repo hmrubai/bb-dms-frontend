@@ -11,12 +11,7 @@ import { useGetAllUserQuery } from '../../services/userApi';
 
 function UserTable() {
   const [page, setPage] = useState(1);
-
-  const  { data, isFetching, isLoading, isError, isSuccess } = useGetAllUserQuery(page)
-  
-  console.log(data)
-  
-
+  const { data, isFetching, isLoading, isError, isSuccess } = useGetAllUserQuery(page);
   if (isLoading) {
     return (
       <>
@@ -28,7 +23,7 @@ function UserTable() {
   } else {
     return (
       <>
-         <ToastContainer />
+        <ToastContainer />
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
@@ -38,7 +33,6 @@ function UserTable() {
             <Table responsive striped>
               <thead style={{ background: 'grey' }}>
                 <tr className=" text-white">
-   
                   <th>ID</th>
                   <th>Name</th>
                   <th>username</th>
