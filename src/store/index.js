@@ -8,10 +8,14 @@ import { catagoryApi } from './../services/catagoryApi';
 import { subCategoryApi } from '../services/subCategoryApi';
 import { subSubCategoryApi } from './../services/subSubCategoryApi';
 import { documentApi } from '../services/documentApi';
+import { authApi } from '../services/authApi';
+import apiReducer from './../features/authSlice'
 
 const store = configureStore({
   reducer: {
     reducers,
+    auth:apiReducer,
+    [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [catagoryApi.reducerPath]: catagoryApi.reducer,
     [subCategoryApi.reducerPath]: subCategoryApi.reducer,
@@ -22,6 +26,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
+      authApi.middleware,
       userApi.middleware,
       catagoryApi.middleware,
       subCategoryApi.middleware,

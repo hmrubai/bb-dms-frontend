@@ -6,9 +6,11 @@ import { authApiContext } from '../../../contexts/Api/AuthApi';
 import Breadcrumb from '../../../layouts/AdminLayout/Breadcrumb';
 import logo from '../../../../src/assets/images/logo.png';
 import { toast, ToastContainer } from 'react-toastify';
+import { useRegisterMutation } from '../../../services/authApi';
 const SignIn1 = () => {
   const history = useHistory();
-  const { registration } = useContext(authApiContext);
+  const [register,res] = useRegisterMutation();
+  // const { registration } = useContext(authApiContext);
   const [allData, setData] = useState({
     name: '',
     email: '',
@@ -19,26 +21,33 @@ const SignIn1 = () => {
   });
 
   const handleChange = (e) => setData({ ...allData, [e.target.name]: e.target.value });
-  
+
   const handleSubmit = async (e) => {
-  
     e.preventDefault();
     if (allData.password !== allData.confirm_password) {
       toast.warning('Password and confirm password does not match');
     } else {
-
-     await registration({
-        name: allData.name,
-        email: allData.email,
-        number: allData.number,
-        password: allData.password,
-        gender: allData.gender
-      });
- 
+      await register(allData);
     }
 
     // after submit allData
   };
+
+  if (res.isSuccess) {
+    toast.success(res.data.message);
+    window.location.replace("http://localhost:3000/auth/signin");
+  }
+
+  // if (res.isError) {
+  //   if (res.data.errors.password) {
+  //     toast.warning(res.data.errors.password[0]);
+  //   }
+  //   if (res.data.errors.email) {
+  //     toast.warning(res.data.errors.email[0]);
+  //   }
+  // }
+
+  console.log(res);
 
   // useEffect(() => {
   //   if (isLoading) {
