@@ -4,12 +4,14 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useAddCatagoryMutation } from '../../../services/catagoryApi';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useSelector } from './../../../store/index';
 function CatagoryAdd() {
+  const auth = useSelector((state) => state.auth.user);
   const history = useHistory();
   const [addCatagory, { data, isSuccess }] = useAddCatagoryMutation();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
-  const [user_id, setUserId] = useState(1);
+  // const [user_id, setUserId] = useState();
   const [image, setImage] = useState();
 
   const submitHandel = async (e) => {
@@ -17,7 +19,7 @@ function CatagoryAdd() {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('description', description);
-    formData.append('user_id', user_id);
+    formData.append('user_id', auth.id);
     formData.append('image', image);
     await addCatagory(formData);
   };

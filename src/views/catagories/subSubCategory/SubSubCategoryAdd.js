@@ -6,18 +6,17 @@ import { toast } from 'react-toastify';
 import { useGetAllCatagoryQuery } from '../../../services/catagoryApi';
 import { useGetAllSubCategoryQuery } from '../../../services/subCategoryApi';
 import { useAddSubSubCategoryMutation } from '../../../services/subSubCategoryApi';
+import { useSelector } from './../../../store/index';
 
 function SubCategoryAdd() {
   const history = useHistory();
-
+  const auth = useSelector((state) => state.auth.user);
   const [addSubSubCategory, { data, isSuccess }] = useAddSubSubCategoryMutation();
-
   const { data: category } = useGetAllCatagoryQuery();
   const { data: subCatagory } = useGetAllSubCategoryQuery();
-
   const [name, setName] = useState();
   const [description, setDescription] = useState();
-  const [user_id, setUserId] = useState(1);
+  // const [user_id, setUserId] = useState(1);
   const [catagory_id, setCatagoryId] = useState();
   const [sub_catagory_id, setSubCatagoryId] = useState();
   const [image, setImage] = useState();
@@ -26,7 +25,7 @@ function SubCategoryAdd() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
-    formData.append('user_id', user_id);
+    formData.append('user_id', auth.id);
     formData.append('catagory_id', catagory_id);
     formData.append('sub_catagory_id', sub_catagory_id);
     formData.append('description', description);

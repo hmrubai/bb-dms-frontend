@@ -6,18 +6,19 @@ import { toast } from 'react-toastify';
 import { useGetCategoryAllShowQuery, useGetSubCatagoryShowQuery } from '../../services/catagoryApi';
 import { useAddDocumentMutation } from '../../services/documentApi';
 import { useGetSubSubCatagoryShowQuery } from '../../services/subCategoryApi';
+import { useSelector } from './../../store/index';
 
 function DocumentAdd() {
 
   const history = useHistory();
-
+  const auth = useSelector((state) => state.auth.user);
   const [addUser, res] = useAddDocumentMutation();
   const { data, isLoading, isError, isSuccess } = useGetCategoryAllShowQuery();
 
   console.log(res);
 
   const [name, setName] = useState();
-  const [user_id, setUser_id] = useState(1);
+  // const [user_id, setUser_id] = useState(1);
   const [catagory_id, setCatagry_id] = useState();
   const [sub_catagory_id, setsub_catagory_id] = useState();
   const [sub_sub_catagory_id, setSub_sub_catagory_id] = useState();
@@ -30,7 +31,7 @@ function DocumentAdd() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
-    formData.append('user_id', user_id);
+    formData.append('user_id', auth.id);
     formData.append('catagory_id', catagory_id);
     formData.append('sub_catagory_id', sub_catagory_id);
     formData.append('sub_sub_catagory_id', sub_sub_catagory_id);

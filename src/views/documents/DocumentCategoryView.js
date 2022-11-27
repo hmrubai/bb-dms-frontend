@@ -7,10 +7,8 @@ import { useShowCategoryDocumentQuery } from '../../services/documentApi';
 
 function DocumentCategoryView() {
   const { id } = useParams();
-
   const { data, isFetching, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
 
-  console.log(data);
 
   return (
     <>
