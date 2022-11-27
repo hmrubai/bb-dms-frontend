@@ -64,9 +64,24 @@ export const documentApi = createApi({
         method: 'DELETE'
       }),
       invalidatesTags: ['Document']
+    }),
+
+    showCategoryDocument: builder.query({
+      query: (id) => ({
+        url: `category_document/${id}`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }),
+      invalidatesTags: ['Document']
     })
+
+
+
   })
 });
 
-export const { useGetAllUserQuery, useGetUserByIdQuery, useAddDocumentMutation, useUpdateUserMutation, useDeleteUserMutation } =
+export const { useGetAllUserQuery, useGetUserByIdQuery, useAddDocumentMutation, useUpdateUserMutation, useDeleteUserMutation ,useShowCategoryDocumentQuery} =
 documentApi;

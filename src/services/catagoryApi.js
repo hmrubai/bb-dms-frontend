@@ -5,11 +5,11 @@ export const catagoryApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL
   }),
-  tagTypes: ['Catagory'],
+  tagTypes: ['Category'],
   endpoints: (builder) => ({
     getAllCatagory: builder.query({
       query: (page = 1) => ({
-        url: `catagory?page=${page}`,
+        url: `category?page=${page}`,
         // transformResponse: res => res.sort((a, b) => b.id - a.id),
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
@@ -19,25 +19,25 @@ export const catagoryApi = createApi({
         }
       }),
       // transformResponse: (res) => res.reverse(),
-      providesTags: ['Catagory']
+      providesTags: ['Category']
     }),
 
     getCatagoryById: builder.query({
       query: (id) => ({
-        url: `catagory/${id}`,
+        url: `category/${id}`,
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
-      invalidatesTags: ['Catagory']
+      invalidatesTags: ['Category']
     }),
 
     addCatagory: builder.mutation({
       query: (catagory) => {
         return {
-          url: `catagory`,
+          url: `category`,
           method: 'POST',
           body: catagory,
           headers: {
@@ -45,27 +45,27 @@ export const catagoryApi = createApi({
           }
         };
       },
-      invalidatesTags: ['Catagory']
+      invalidatesTags: ['Category']
     }),
     updateCatagory: builder.mutation({
       query: ({id ,data}) => {
         return {
-          url: `catagory/${id}`,
+          url: `category/${id}`,
           method: 'POST',
           body: data,
        
         };
       },
-      invalidatesTags: ['Catagory']
+      invalidatesTags: ['Category']
       
     }),
 
     deleteCatagory: builder.mutation({
       query: (id) => ({
-        url: `catagory/${id}`,
+        url: `category/${id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['Catagory']
+      invalidatesTags: ['Category']
     }),
    
     getCategoryAllShow: builder.query({
@@ -78,7 +78,7 @@ export const catagoryApi = createApi({
         }
       }),
       // transformResponse: (res) => res.reverse(),
-      providesTags: ['Catagory']
+      providesTags: ['Category']
     }),
 
 
@@ -91,7 +91,7 @@ export const catagoryApi = createApi({
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
-      invalidatesTags: ['Catagory']
+      invalidatesTags: ['Category']
     })
 
 

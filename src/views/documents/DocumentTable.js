@@ -1,16 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { Card, Table, Row, Col } from 'react-bootstrap';
-
-import Pagination from 'react-bootstrap/Pagination';
-
-import { ToastContainer } from 'react-toastify';
-import { useGetAllUserQuery } from '../../services/userApi';
-import Loading from './../../components/Loading/Loading';
-import UserTableBody from './../users/UserTableBody';
+import { Link } from 'react-router-dom';
+import Loading from '../../components/Loading/Loading';
+import { useGetCategoryAllShowQuery } from '../../services/catagoryApi';
 
 function DocumentTable() {
-  const [page, setPage] = useState(1);
+  const { data, isLoading, isSuccess, isError } = useGetCategoryAllShowQuery();
 
   return (
     <>
@@ -19,40 +15,30 @@ function DocumentTable() {
         <Card.Header>
           <Card.Title as="h5">Documents</Card.Title>
         </Card.Header>
-        <Card.Body>
+        <Card.Body>{isLoading && <Loading />}</Card.Body>
+        <Card.Body className="my-0 py-0">{isError && <div>No catagory :</div>}</Card.Body>
+        {isSuccess && (
           <Row>
-            <Col className=" d-flex">
-              <div className=' m-2 '>
-                <Card style={{ width: '10rem' }}>
-                  <Card.Img className="m-1 pointer" variant="top" src="https://img.icons8.com/emoji/500/null/open-file-folder-emoji.png" />
-                  <Card.Body className="p-1 m-0">
-                    <Card.Title className="h6">Accounts</Card.Title>
-                    <Card.Text>Some quick example </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-              <div className=' m-2'>
-                <Card style={{ width: '10rem' }}>
-                  <Card.Img className="m-1 pointer " variant="top" src="https://img.icons8.com/emoji/500/null/open-file-folder-emoji.png" />
-                  <Card.Body className="p-1 m-0">
-                    <Card.Title className="h6">Accounts</Card.Title>
-                    <Card.Text>Some quick example </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-              <div className=' m-2'>
-                <Card style={{ width: '10rem' }}>
-                  <Card.Img className="m-1 pointer" variant="top" src="https://img.icons8.com/emoji/500/null/open-file-folder-emoji.png" />
-                  <Card.Body className="p-1 m-0">
-                    <Card.Title className="h6">Accounts</Card.Title>
-                    <Card.Text>Some quick example </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-              
-            </Col>
+            {data.map((category) => (
+              <Col className="d-flex align-items-center">
+                <Link to={`/documents/document_category_view/${category.id}`} className=" m-2 ">
+                  <Card style={{ width: '10rem' }}>
+                    <Card.Img
+                      className="m-1 pointer "
+                      variant="top"
+                      src="https://img.icons8.com/emoji/500/null/open-file-folder-emoji.png"
+                      alt={category.name}
+                    />
+                    <Card.Body className="p-1 m-0">
+                      <Card.Title className="h6 text-center">{category.name}</Card.Title>
+                      <Card.Text> </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
+            ))}
           </Row>
-        </Card.Body>
+        )}
       </Card>
     </>
   );
