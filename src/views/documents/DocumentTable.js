@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import { useGetCategoryAllShowQuery } from '../../services/catagoryApi';
 
-
 function DocumentTable() {
   const { data, isLoading, isSuccess, isError } = useGetCategoryAllShowQuery();
-
 
   return (
     <>

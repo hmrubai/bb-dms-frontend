@@ -43,7 +43,6 @@ function CatagoryAdd() {
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Catagory Name" name="name" onChange={(e) => setName(e.target.value)} required />
               </Form.Group>
-
               <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description</Form.Label>
                 <Form.Control

@@ -9,7 +9,6 @@ import { useGetSubSubCatagoryShowQuery } from '../../services/subCategoryApi';
 import { useSelector } from './../../store/index';
 
 function DocumentAdd() {
-
   const history = useHistory();
   const auth = useSelector((state) => state.auth.user);
   const [addUser, res] = useAddDocumentMutation();
@@ -33,8 +32,13 @@ function DocumentAdd() {
     formData.append('name', name);
     formData.append('user_id', auth.id);
     formData.append('catagory_id', catagory_id);
-    formData.append('sub_catagory_id', sub_catagory_id);
-    formData.append('sub_sub_catagory_id', sub_sub_catagory_id);
+    if (sub_catagory_id !== undefined) {
+      formData.append('sub_catagory_id', sub_catagory_id);
+    }
+    if (sub_sub_catagory_id !== undefined) {
+      formData.append('sub_sub_catagory_id', sub_sub_catagory_id);
+    }
+
     formData.append('description', description);
     formData.append('status', status);
     formData.append('admin_status', admin_status);
@@ -58,8 +62,6 @@ function DocumentAdd() {
   //   toast.success(data.message);
   //   history.push('/users/user');
   // }
-
-
 
   return (
     <Card>
@@ -114,7 +116,7 @@ function DocumentAdd() {
                 <Col>
                   <Form.Label>Sub Category</Form.Label>
                   <Form.Control as="select" className="mb-3" name="sub_catagory_id" onChange={(e) => setsub_catagory_id(e.target.value)}>
-                    <option>Selact Sub Category</option>
+                    <option value={null}>Selact Sub Category</option>
 
                     {subCategoryShow?.sub_catagory?.map((item) => (
                       <option value={item.id}>{item.name}</option>
@@ -129,7 +131,7 @@ function DocumentAdd() {
                     name="sub_sub_catagory_id"
                     onChange={(e) => setSub_sub_catagory_id(e.target.value)}
                   >
-                    <option>Selact Sub Sub Category</option>
+                    <option value={null}>Selact Sub Sub Category</option>
 
                     {subSubCategoryShow?.sub_sub_catagory?.map((item) => (
                       <option value={item.id}>{item.name}</option>

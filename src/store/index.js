@@ -10,11 +10,12 @@ import { subSubCategoryApi } from './../services/subSubCategoryApi';
 import { documentApi } from '../services/documentApi';
 import { authApi } from '../services/authApi';
 import authReducer from './../features/authSlice'
-
+import documentReducer from '../features/documentSlice';
 const store = configureStore({
   reducer: {
     reducers,
-    auth:authReducer,
+    auth: authReducer,
+    document: documentReducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [catagoryApi.reducerPath]: catagoryApi.reducer,

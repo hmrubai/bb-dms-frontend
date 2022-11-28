@@ -147,6 +147,11 @@ const routes = [
         path: '/documents/document_category_view/:id',
         component: lazy(() => import('./views/documents/DocumentCategoryView'))
       },
+      {
+        exact: true,
+        path: '/documents/document_view/:id',
+        component: lazy(() => import('./views/documents/DocumentView'))
+      },
 
 
 

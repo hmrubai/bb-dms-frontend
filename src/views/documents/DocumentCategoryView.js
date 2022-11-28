@@ -4,11 +4,13 @@ import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import { useShowCategoryDocumentQuery } from '../../services/documentApi';
+import { useDispatch } from 'react-redux';
+import { documentView } from '../../features/documentSlice';
 
 function DocumentCategoryView() {
   const { id } = useParams();
+  const dispatch=useDispatch();
   const { data, isFetching, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
-
 
   return (
     <>
@@ -28,8 +30,9 @@ function DocumentCategoryView() {
         <Card.Body>
           <Row>
             {data?.map((item) => (
-              <Col key={item.id} className="d-flex align-items-center  ">
-                <Card className="pointer" style={{ width: '18rem' }}>
+              <Col key={item.id} className="d-flex align-items-center justify content center">
+                <Link to={`/documents/document_view/${item.id}`} >
+                <Card className="pointer" style={{ width: '12rem' }} onClick={()=>dispatch(documentView(item))}>
                   {item.file.split('.').pop() !== 'jpg' ? (
                     <div className="box">{item.file.split('.').pop()}</div>
                   ) : (
@@ -41,7 +44,9 @@ function DocumentCategoryView() {
 
                     <Card.Text>Author by: {item.user.name}</Card.Text>
                   </Card.Body>
-                </Card>
+                  </Card>
+                  
+                  </Link>
               </Col>
             ))}
           </Row>
