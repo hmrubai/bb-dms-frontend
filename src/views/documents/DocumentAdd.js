@@ -26,6 +26,8 @@ function DocumentAdd() {
   const [admin_status, setAdmin_status] = useState();
 
   const [file, setFile] = useState();
+
+  
   const submitHandel = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -44,6 +46,7 @@ function DocumentAdd() {
     formData.append('admin_status', admin_status);
     formData.append('file', file);
     await addUser(formData);
+    history.push('/documents/document');
   };
 
   const { data: subCategoryShow } = useGetSubCatagoryShowQuery(catagory_id);
@@ -60,7 +63,7 @@ function DocumentAdd() {
 
   // if (isSuccess) {
   //   toast.success(data.message);
-  //   history.push('/users/user');
+  
   // }
 
   return (
@@ -113,7 +116,7 @@ function DocumentAdd() {
                     ))}
                   </Form.Control>
                 </Col>
-                <Col>
+                <Col className={catagory_id === undefined? 'd-none':'d-block'}>
                   <Form.Label>Sub Category</Form.Label>
                   <Form.Control as="select" className="mb-3" name="sub_catagory_id" onChange={(e) => setsub_catagory_id(e.target.value)}>
                     <option value={null}>Selact Sub Category</option>
@@ -123,7 +126,7 @@ function DocumentAdd() {
                     ))}
                   </Form.Control>
                 </Col>
-                <Col>
+                <Col className={sub_catagory_id === undefined? 'd-none':'d-block'}>
                   <Form.Label>Sub Sub Category</Form.Label>
                   <Form.Control
                     as="select"
@@ -144,7 +147,7 @@ function DocumentAdd() {
                 <input
                   type="file"
                   name="file"
-                  accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                  accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.openxmlformats-officedocument.presentationml.presentation/application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document/application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet/application/vnd.oasis.opendocument.text/application/vnd.oasis.opendocument.spreadsheet/application/vnd.oasis.opendocument.presentation"
                   onChange={(e) => setFile(e.target.files[0])}
                 />
               </Form.Group>

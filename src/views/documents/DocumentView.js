@@ -34,9 +34,9 @@ function DocumentView() {
           <Row>
             <Col>
               <Row>
-                <Col md={2}>
-                  <Card >
-                    <div className=" mx-1 "  >
+                <Col md={3}>
+                  <Card>
+                    <div className=" mx-1 ">
                       <div className=" py-2">
                         <b>Document Name:</b> {doc.name}
                       </div>
@@ -61,10 +61,10 @@ function DocumentView() {
                     </div>
                   </Card>
                 </Col>
-                <Col md={10}>
+                <Col md={9}>
                   <Card width="1000px" height="600px">
-                  <div >
-                      <embed  width="1000px" height="600px" alt={doc.name} src={`${process.env.REACT_APP_IMAGE_URL}${doc?.file}`}  />
+                    <div>
+                      <embed width="100%" height="600px" alt={doc.name} src={`${process.env.REACT_APP_IMAGE_URL}${doc?.file}`} />
                     </div>
                   </Card>
                 </Col>

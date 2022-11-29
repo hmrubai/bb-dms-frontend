@@ -5,33 +5,37 @@ export const documentApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL
   }),
-  tagTypes: ['Document'],
+  tagTypes: ['DocumentData'],
   endpoints: (builder) => ({
-    getAllUser: builder.query({
-      query: (page = 1) => ({
-        url: `document?page=${page}`,
-        // transformResponse: res => res.sort((a, b) => b.id - a.id),
-        // transformResponse: (res) => res.reverse(),
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-      }),
-      // transformResponse: (res) => res.reverse(),
-      providesTags: ['Document']
-    }),
+    // getAllUser: builder.query({
+    //   query: (page = 1) => ({
+    //     url: `document?page=${page}`,
+    //     // transformResponse: res => res.sort((a, b) => b.id - a.id),
+    //     // transformResponse: (res) => res.reverse(),
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-type': 'application/json; charset=UTF-8'
+    //       // "Authorization": `Bearer ${localStorage.getItem("token")}`
+    //     }
+    //   }),
+    //   // transformResponse: (res) => res.reverse(),
+    //   providesTags: ['Document']
+    // }),
 
-    getUserById: builder.query({
+    showCategoryDocument: builder.query({
       query: (id) => ({
-        url: `document/${id}`,
+        url: `category_document/${id}`,
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
-      invalidatesTags: ['Document']
+      // invalidatesTags: ['DocumentData'],
+      providesTags: (result, error, arg) =>
+      result
+        ? [...result.map(({ id }) => ({ type: 'DocumentData', id })), 'DocumentData']
+        : ['DocumentData'],
     }),
 
     addDocument: builder.mutation({
@@ -45,43 +49,42 @@ export const documentApi = createApi({
           }
         };
       },
-      invalidatesTags: ['Document']
+      invalidatesTags: ['DocumentData']
     }),
-    updateUser: builder.mutation({
-      query: ({ id, data }) => {
-        return {
-          url: `users/${id}`,
-          method: 'POST',
-          body: data
-        };
-      },
-      invalidatesTags: ['Document']
-    }),
+ 
 
-    deleteUser: builder.mutation({
+
+    deleteDocument: builder.mutation({
       query: (id) => ({
-        url: `users/${id}`,
+        url: `document/${id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['Document']
-    }),
-
-    showCategoryDocument: builder.query({
-      query: (id) => ({
-        url: `category_document/${id}`,
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-      }),
-      invalidatesTags: ['Document']
+      invalidatesTags: ['DocumentData']
     })
 
+    // getUserById: builder.query({
+    //   query: (id) => ({
+    //     url: `document/${id}`,
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-type': 'application/json; charset=UTF-8'
+    //       // "Authorization": `Bearer ${localStorage.getItem("token")}`
+    //     }
+    //   }),
+    //   invalidatesTags: ['Document']
+    // }),
 
-
+    // updateUser: builder.mutation({
+    //   query: ({ id, data }) => {
+    //     return {
+    //       url: `users/${id}`,
+    //       method: 'POST',
+    //       body: data
+    //     };
+    //   },
+    //   invalidatesTags: ['Document']
+    // }),
   })
 });
 
-export const { useGetAllUserQuery, useGetUserByIdQuery, useAddDocumentMutation, useUpdateUserMutation, useDeleteUserMutation ,useShowCategoryDocumentQuery} =
-documentApi;
+export const { useAddDocumentMutation, useDeleteDocumentMutation, useShowCategoryDocumentQuery } = documentApi;

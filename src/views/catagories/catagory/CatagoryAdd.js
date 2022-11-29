@@ -20,14 +20,16 @@ function CatagoryAdd() {
     formData.append('name', name);
     formData.append('description', description);
     formData.append('user_id', auth.id);
-    formData.append('image', image);
+    if (image !== undefined) {
+      formData.append('image', image);
+    }
+
     await addCatagory(formData);
   };
 
   if (isSuccess) {
     toast.success(data.message);
     history.push('/catagories/catagory');
-   
   }
 
   return (

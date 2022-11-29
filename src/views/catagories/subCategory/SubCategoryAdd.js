@@ -23,9 +23,11 @@ function SubCategoryAdd() {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('user_id', auth.id);
-    formData.append('catagory_id', catagory_id)
+    formData.append('catagory_id', catagory_id);
     formData.append('description', description);
-    formData.append('image', image);
+    if (image !== undefined) {
+      formData.append('image', image);
+    }
     await addSubCategory(formData);
   };
 
@@ -34,7 +36,7 @@ function SubCategoryAdd() {
     history.push('/catagories/sub_category');
   }
 
-  // {category.data.map(val=>console.log(val.id))}
+
 
   return (
     <Card>

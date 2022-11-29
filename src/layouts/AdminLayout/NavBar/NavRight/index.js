@@ -142,7 +142,7 @@ const NavRight = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu alignRight className="profile-notification">
               <div className="pro-head">
-                <img src={avatar1} className="img-radius" alt="User Profile" />
+                <img src={users.image !== null ?`${process.env.REACT_APP_IMAGE_URL}${users.image}`:avatar1} className="img-radius" alt="User Profile" />
                 <span>{users.name}</span>
                 <Link to="#" className="dud-logout" title="Logout">
                   <i className="feather icon-log-out" />

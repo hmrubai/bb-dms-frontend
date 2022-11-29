@@ -1,28 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-import { BsArrowLeftCircleFill } from 'react-icons/bs';
+import { BsArrowLeftCircleFill, BsFillEyeFill, BsPencilSquare, BsFillTrashFill, BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
-import { useShowCategoryDocumentQuery } from '../../services/documentApi';
+import { useDeleteDocumentMutation, useShowCategoryDocumentQuery } from '../../services/documentApi';
 import { useDispatch } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
+import { toast } from 'react-toastify';
 
 function DocumentCategoryView() {
   const { id } = useParams();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const { data, isFetching, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
+  const [deleteDocument] = useDeleteDocumentMutation();
+
+  const deleteHandel = async (id) => {
+    await deleteDocument(id);
+  };
+
+  if (isSuccess) {
+    toast.success(data.message);
+  }
+
+  console.log(data);
 
   return (
     <>
       <Card>
-        <Card.Header>
-          <div>
-            <Card.Title as="h5">Document</Card.Title>
-            <span className="me-auto">
-              <Link to={`/documents/document`}>
-                <BsArrowLeftCircleFill color="black" size={'20px'} />
-              </Link>
-            </span>
+        <Card.Header className="">
+          <div className=" d-flex justify-content-between ">
+            <div>
+              <Card.Title as="h5">Document</Card.Title>
+
+              <span>
+                <Link to={`/documents/document`}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </Link>
+              </span>
+            </div>
+            <div>
+            <span>
+                <Link to={`/documents/document`}>
+                  <BsFillArrowUpCircleFill color="black" size={'20px'} />
+                </Link>
+              </span>
+              <Card.Title as="h5">Uploade</Card.Title>
+
+              
+            </div>
+
+        
+           
           </div>
         </Card.Header>
         <div>{isLoading && <Loading />}</div>
@@ -31,22 +59,42 @@ function DocumentCategoryView() {
           <Row>
             {data?.map((item) => (
               <Col key={item.id} className="d-flex align-items-center justify content center">
-                <Link to={`/documents/document_view/${item.id}`} >
-                <Card className="pointer" style={{ width: '12rem' }} onClick={()=>dispatch(documentView(item))}>
-                  {item.file.split('.').pop() !== 'jpg' ? (
-                    <div className="box">{item.file.split('.').pop()}</div>
+                <Card style={{ width: '12rem', height: '17rem' }} onClick={() => dispatch(documentView(item))}>
+                  {item.file.split('.').pop().includes('png') || item.file.split('.').pop().includes('jpg') ? (
+                    <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} />
                   ) : (
-                    <Card.Img variant="top" src={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} />
+                    <div className="box ">
+                      <h2 className="bg-light text-center rounded text-uppercase">{item.file.split('.').pop()}</h2>
+                    </div>
                   )}
 
                   <Card.Body className="py-2 px-2">
                     <Card.Title>{item.name}</Card.Title>
-
                     <Card.Text>Author by: {item.user.name}</Card.Text>
                   </Card.Body>
-                  </Card>
-                  
-                  </Link>
+
+                  <div className=" text-center p-2 shadow m-3 ">
+                    {item.file.split('.').pop().includes('pdf') ||
+                    item.file.split('.').pop().includes('png') ||
+                    item.file.split('.').pop().includes('jpg') ? (
+                      <Link to={`/documents/document_view/${item.id}`}>
+                        <BsFillEyeFill color="black" size={20} />
+                      </Link>
+                    ) : (
+                      <a href={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} download>
+                        <BsFillArrowDownCircleFill color="black" size={18} />
+                      </a>
+                    )}
+
+                    <Link to={`/catagories/sub_category_edit/${item.id}`} className="px-3">
+                      <BsPencilSquare size={18} />
+                    </Link>
+
+                    <button className=" border-0 " onClick={() => deleteHandel(item.id)}>
+                      <BsFillTrashFill color="red" size={17} />
+                    </button>
+                  </div>
+                </Card>
               </Col>
             ))}
           </Row>

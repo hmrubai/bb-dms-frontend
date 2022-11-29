@@ -11,9 +11,11 @@ import { useSelector } from './../../../store/index';
 function SubCategoryAdd() {
   const history = useHistory();
   const auth = useSelector((state) => state.auth.user);
-  const [addSubSubCategory, { data, isSuccess }] = useAddSubSubCategoryMutation();
+  const [addSubSubCategory, {data,isSuccess}] = useAddSubSubCategoryMutation();
+
   const { data: category } = useGetAllCatagoryQuery();
   const { data: subCatagory } = useGetAllSubCategoryQuery();
+
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   // const [user_id, setUserId] = useState(1);
@@ -27,20 +29,22 @@ function SubCategoryAdd() {
     formData.append('name', name);
     formData.append('user_id', auth.id);
     formData.append('catagory_id', catagory_id);
-    formData.append('sub_catagory_id', sub_catagory_id);
+    if (sub_catagory_id !== undefined) {
+      formData.append('sub_catagory_id', sub_catagory_id);
+    }
     formData.append('description', description);
-    formData.append('image', image);
+    if (image !== undefined) {
+      formData.append('image', image);
+    }
     await addSubSubCategory(formData);
   };
-
-  
 
   if (isSuccess) {
     toast.success(data.message);
     history.push('/catagories/sub_sub_category');
   }
 
-  // {category.data.map(val=>console.log(val.id))}
+
 
   return (
     <Card>

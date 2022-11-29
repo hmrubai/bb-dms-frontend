@@ -7,11 +7,12 @@
 .box {
   height: 150px;
   background-color: #0073bd;
-color: black  ;
+ color: black  ;
  font-size: 50px;
- border-radius: 3px;
+ border-radius: 3px 3px 0 0;
 
 }
+
 
 .nav-outside.mob-backdrop {
   &.mob-fixed .pcoded-navbar {
