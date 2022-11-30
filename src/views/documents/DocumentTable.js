@@ -20,7 +20,8 @@ function DocumentTable() {
         {isSuccess && (
           <Row>
             {data.map((category) => (
-              <Col className="d-flex align-items-center">
+              <Col className="d-flex align-items-center ">
+                <div>
                 <Link to={`/documents/document_category_view/${category.id}`} className=" m-2 ">
                   <Card style={{ width: '10rem' }}>
                     <Card.Img
@@ -34,7 +35,8 @@ function DocumentTable() {
                       <Card.Text> </Card.Text>
                     </Card.Body>
                   </Card>
-                </Link>
+                  </Link>
+                </div>
               </Col>
             ))}
           </Row>

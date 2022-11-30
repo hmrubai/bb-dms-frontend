@@ -11,18 +11,19 @@ import {
 } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
-import { useDeleteDocumentMutation, useShowCategoryDocumentQuery, useShowSubCategoryQuery } from '../../services/documentApi';
+import { useDeleteDocumentMutation, useShowCategoryDocumentQuery, useShowSubCategoryDocumentQuery, useShowSubCategoryQuery, useShowSubSubCategoryQuery } from '../../services/documentApi';
 import { useDispatch } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
 import DocumentSubCategory from './DocumentSubCategory';
+import DocumentSubSubCategory from './DocumentSubSubCategory';
 
-function DocumentCategoryView() {
+function DocumentSubCategoryView() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { data, isFetching, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
+  const { data, isFetching, isLoading, isError, isSuccess } = useShowSubCategoryDocumentQuery(id);
 
-  const { data: subCategory, isSuccess: cateIssucess } = useShowSubCategoryQuery(id);
+  const { data: subCategory, isSuccess: cateIssucess } = useShowSubSubCategoryQuery(id);
 
   const [deleteDocument] = useDeleteDocumentMutation();
 
@@ -34,10 +35,11 @@ function DocumentCategoryView() {
     toast.success(data.message);
   }
 
-  console.log(data);
+  // console.log(subCategory);
 
   return (
     <>
+      
       <div className="d-flex justify-content-between">
         <div className="mb-2">
           <Link to={`/documents/document_add`}>
@@ -49,12 +51,12 @@ function DocumentCategoryView() {
         </div>
 
         <div>
-          <Link to={`/catagories/catagory_add`}>
-            <Button>
-              <BsFillPlusCircleFill color="white" className="mr-2 " />
-              Add Catagory
-            </Button>
-          </Link>
+        <Link to={`/catagories/sub_category_add`}>
+          <Button>
+            <BsFillPlusCircleFill color="white" className="mr-2 " />
+            Add Sub Category
+          </Button>
+        </Link>
         </div>
       </div>
       <Card>
@@ -78,7 +80,7 @@ function DocumentCategoryView() {
             <div>
               <Row>
                 {subCategory.map((item) => (
-                  <DocumentSubCategory item={item} />
+                  <DocumentSubSubCategory item={item} />
                 ))}
               </Row>
             </div>
@@ -130,4 +132,4 @@ function DocumentCategoryView() {
   );
 }
 
-export default DocumentCategoryView;
+export default DocumentSubCategoryView;

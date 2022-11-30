@@ -11,18 +11,24 @@ import {
 } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
-import { useDeleteDocumentMutation, useShowCategoryDocumentQuery, useShowSubCategoryQuery } from '../../services/documentApi';
+import {
+  useDeleteDocumentMutation,
+  useShowCategoryDocumentQuery,
+  useShowSubCategoryDocumentQuery,
+  useShowSubCategoryQuery,
+  useShowSubSubCategoryDocumentQuery,
+  useShowSubSubCategoryQuery
+} from '../../services/documentApi';
 import { useDispatch } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
-import DocumentSubCategory from './DocumentSubCategory';
 
-function DocumentCategoryView() {
+function DocumentSubSubCategoryView() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { data, isFetching, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
+  const { data, isFetching, isLoading, isError, isSuccess } = useShowSubSubCategoryDocumentQuery(id);
 
-  const { data: subCategory, isSuccess: cateIssucess } = useShowSubCategoryQuery(id);
+  // console.log(data);
 
   const [deleteDocument] = useDeleteDocumentMutation();
 
@@ -34,7 +40,7 @@ function DocumentCategoryView() {
     toast.success(data.message);
   }
 
-  console.log(data);
+  // console.log(subCategory);
 
   return (
     <>
@@ -49,12 +55,12 @@ function DocumentCategoryView() {
         </div>
 
         <div>
-          <Link to={`/catagories/catagory_add`}>
-            <Button>
-              <BsFillPlusCircleFill color="white" className="mr-2 " />
-              Add Catagory
-            </Button>
-          </Link>
+        <Link to={`/catagories/sub_sub_category_add`}>
+          <Button>
+            <BsFillPlusCircleFill color="white" className="mr-2 " />
+            Add Sub Sub Category
+          </Button>
+        </Link>
         </div>
       </div>
       <Card>
@@ -74,15 +80,6 @@ function DocumentCategoryView() {
         <div>{isLoading && <Loading />}</div>
         <div>{isError && <div>No Document:</div>}</div>
         <Card.Body>
-          {cateIssucess && (
-            <div>
-              <Row>
-                {subCategory.map((item) => (
-                  <DocumentSubCategory item={item} />
-                ))}
-              </Row>
-            </div>
-          )}
           <Row>
             {data?.map((item) => (
               <Col key={item.id} className="d-flex align-items-center justify content center">
@@ -130,4 +127,4 @@ function DocumentCategoryView() {
   );
 }
 
-export default DocumentCategoryView;
+export default DocumentSubSubCategoryView;
