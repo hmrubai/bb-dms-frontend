@@ -78,16 +78,16 @@ function DocumentSubCategoryView() {
         <Card.Body>
           {cateIssucess && (
             <div>
-              <Row>
+              <div className="d-flex flex-wrap ">
                 {subCategory.map((item) => (
                   <DocumentSubSubCategory item={item} />
                 ))}
-              </Row>
+              </div>
             </div>
           )}
-          <Row>
+          <div className="d-flex flex-wrap ">
             {data?.map((item) => (
-              <Col key={item.id} className="d-flex align-items-center justify content center">
+              <div className='mx-1' key={item.id} >
                 <Card style={{ width: '12rem', height: '17rem' }} onClick={() => dispatch(documentView(item))}>
                   {item.file.split('.').pop().includes('png') || item.file.split('.').pop().includes('jpg') ? (
                     <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} />
@@ -123,9 +123,9 @@ function DocumentSubCategoryView() {
                     </button>
                   </div>
                 </Card>
-              </Col>
+              </div>
             ))}
-          </Row>
+          </div>
         </Card.Body>
       </Card>
     </>

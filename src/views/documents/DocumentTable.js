@@ -18,12 +18,11 @@ function DocumentTable() {
         <Card.Body>{isLoading && <Loading />}</Card.Body>
         <Card.Body className="my-0 py-0">{isError && <div>No catagory :</div>}</Card.Body>
         {isSuccess && (
-          <Row>
+          <div className="d-flex flex-wrap ">
             {data.map((category) => (
-              <Col className="d-flex align-items-center ">
-                <div>
+              <div className='mx-1' >
                 <Link to={`/documents/document_category_view/${category.id}`} className=" m-2 ">
-                  <Card style={{ width: '10rem' }}>
+                  <Card  style={{ width: '7rem' }}>
                     <Card.Img
                       className="m-1 pointer "
                       variant="top"
@@ -31,15 +30,15 @@ function DocumentTable() {
                       alt={category.name}
                     />
                     <Card.Body className="p-1 m-0">
-                      <Card.Title className="h6 text-center">{category.name}</Card.Title>
+                      <Card.Title style={{'fontSize':'100%'}} className="text-center">{category.name}</Card.Title>
                       <Card.Text> </Card.Text>
                     </Card.Body>
                   </Card>
                   </Link>
-                </div>
-              </Col>
+                
+              </div>
             ))}
-          </Row>
+        </div>
         )}
       </Card>
     </>

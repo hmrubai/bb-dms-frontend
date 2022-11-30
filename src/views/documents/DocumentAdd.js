@@ -40,11 +40,12 @@ function DocumentAdd() {
     if (sub_sub_catagory_id !== undefined) {
       formData.append('sub_sub_catagory_id', sub_sub_catagory_id);
     }
-
     formData.append('description', description);
     formData.append('status', status);
     formData.append('admin_status', admin_status);
-    formData.append('file', file);
+    if (file !== undefined) {
+      formData.append('file', file);
+    }
     await addUser(formData);
     history.push('/documents/document');
   };
@@ -92,13 +93,14 @@ function DocumentAdd() {
                   placeholder="Catagory Description"
                   name="description"
                   onChange={(e) => setDescription(e.target.value)}
+                
                 />
               </Form.Group>
 
               <Row>
                 <Col>
                   <Form.Label>Status</Form.Label>
-                  <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
+                  <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)} required>
                     <option>Selact Status</option>
                     <option value="Active">Active</option>
                     <option value="Pending">Pending</option>
@@ -109,7 +111,7 @@ function DocumentAdd() {
               <Row>
                 <Col>
                   <Form.Label>Category</Form.Label>
-                  <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagry_id(e.target.value)}>
+                  <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagry_id(e.target.value)} required >
                     <option>Selact Catagory</option>
                     {data?.map((item) => (
                       <option value={item.id}>{item.name}</option>
@@ -148,7 +150,9 @@ function DocumentAdd() {
                   type="file"
                   name="file"
                   accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.openxmlformats-officedocument.presentationml.presentation/application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document/application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet/application/vnd.oasis.opendocument.text/application/vnd.oasis.opendocument.spreadsheet/application/vnd.oasis.opendocument.presentation"
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={(e) => setFile(e.target.files[0])
+                    
+                  }required
                 />
               </Form.Group>
               <Button variant="primary" type="submit">

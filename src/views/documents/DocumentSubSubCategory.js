@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 function DocumentSubSubCategory({ item }) {
     // console.log(item);
   return (
-    <Col className="d-flex align-items-center">
+    <div className='mx-1'>
     <Link to={`/documents/document_sub_sub_category_view/${item.id}`} className=" m-2 ">
-      <Card style={{ width: '10rem' }}>
+      <Card style={{ width: '7rem' }}>
         <Card.Img
           className="m-1 pointer "
           variant="top"
@@ -20,7 +20,7 @@ function DocumentSubSubCategory({ item }) {
         </Card.Body>
       </Card>
     </Link>
-  </Col>
+  </div>
   )
 }
 
