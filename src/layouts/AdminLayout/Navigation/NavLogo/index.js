@@ -13,26 +13,16 @@ const NavLogo = () => {
   if (collapseMenu) {
     toggleClass = [...toggleClass, 'on'];
   }
-  const mystyle = {
-    ' backgroundImage': `url(${sm_logo})`,
-    'border-radius': '10px',
-    width: '35px',
-    height: '35px',
-    display: 'inline-flex',
-    ' align-items': 'center',
-    'justify-content': 'center',
-    background: 'none' 
-  };
-
+ 
   return (
     <React.Fragment>
       <div className="navbar-brand header-logo">
-        <Link to="/" className="b-brand">
-          <div className="b-bg" style={mystyle}>
-            {/* <i className="feather icon-trending-up" /> */}
-            <img className="img-fluid" src={sm_logo} alt="" />
+        <Link to="/" className="">
+          <div className="b-bg" >
+          
+            <img className="img-fluid " width={25} src={sm_logo} alt="" />
           </div>
-          <span className="b-title">BB DMS</span>
+          <span className="b-title h6" >DMS</span>
         </Link>
         <Link to="#" className={toggleClass.join(' ')} id="mobile-collapse" onClick={() => dispatch({ type: actionType.COLLAPSE_MENU })}>
           <span />

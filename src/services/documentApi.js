@@ -7,20 +7,21 @@ export const documentApi = createApi({
   }),
   tagTypes: ['DocumentData'],
   endpoints: (builder) => ({
-    // getAllUser: builder.query({
-    //   query: (page = 1) => ({
-    //     url: `document?page=${page}`,
-    //     // transformResponse: res => res.sort((a, b) => b.id - a.id),
-    //     // transformResponse: (res) => res.reverse(),
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-type': 'application/json; charset=UTF-8'
-    //       // "Authorization": `Bearer ${localStorage.getItem("token")}`
-    //     }
-    //   }),
-    //   // transformResponse: (res) => res.reverse(),
-    //   providesTags: ['Document']
-    // }),
+    getAllDocument: builder.query({
+      query: (page = 1) => ({
+        url: `document`,
+        // transformResponse: res => res.sort((a, b) => b.id - a.id),
+        // transformResponse: (res) => res.reverse(),
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }),
+      // transformResponse: (res) => res.reverse(),
+      providesTags: ['Document']
+    }),
+
 
     showCategoryDocument: builder.query({
       query: (id) => ({
@@ -70,6 +71,7 @@ export const documentApi = createApi({
         ? [...result.map(({ id }) => ({ type: 'DocumentData', id })), 'DocumentData']
         : ['DocumentData'],
     }),
+
    
   showSubSubCategory: builder.query({
       query: (id) => ({
@@ -85,7 +87,9 @@ export const documentApi = createApi({
       result
         ? [...result.map(({ id }) => ({ type: 'DocumentData', id })), 'DocumentData']
         : ['DocumentData'],
-    }),
+  }),
+  
+  
     
  showSubSubCategoryDocument: builder.query({
       query: (id) => ({
@@ -152,4 +156,4 @@ export const documentApi = createApi({
   })
 });
 
-export const { useAddDocumentMutation, useDeleteDocumentMutation, useShowCategoryDocumentQuery,useShowSubCategoryQuery,useShowSubCategoryDocumentQuery,useShowSubSubCategoryQuery,useShowSubSubCategoryDocumentQuery} = documentApi;
+export const { useAddDocumentMutation, useDeleteDocumentMutation, useShowCategoryDocumentQuery,useShowSubCategoryQuery,useShowSubCategoryDocumentQuery,useShowSubSubCategoryQuery,useShowSubSubCategoryDocumentQuery,useGetAllDocumentQuery} = documentApi;

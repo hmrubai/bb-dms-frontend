@@ -21,6 +21,20 @@ export const userApi = createApi({
       // transformResponse: (res) => res.reverse(),
       providesTags: ['User']
     }),
+    totalUser: builder.query({
+      query: () => ({
+        url: `all_user/`,
+        // transformResponse: res => res.sort((a, b) => b.id - a.id),
+        // transformResponse: (res) => res.reverse(),
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }),
+      // transformResponse: (res) => res.reverse(),
+      providesTags: ['User']
+    }),
 
     getUserById: builder.query({
       query: (id) => ({
@@ -68,5 +82,5 @@ export const userApi = createApi({
   })
 });
 
-export const { useGetAllUserQuery, useGetUserByIdQuery, useAddUserMutation, useUpdateUserMutation, useDeleteUserMutation } =
+export const { useGetAllUserQuery, useGetUserByIdQuery, useAddUserMutation, useUpdateUserMutation, useDeleteUserMutation,useTotalUserQuery } =
   userApi;

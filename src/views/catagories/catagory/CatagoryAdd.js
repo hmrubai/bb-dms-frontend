@@ -9,6 +9,7 @@ function CatagoryAdd() {
   const auth = useSelector((state) => state.auth.user);
   const history = useHistory();
   const [addCatagory, { data, isSuccess }] = useAddCatagoryMutation();
+
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   // const [user_id, setUserId] = useState();

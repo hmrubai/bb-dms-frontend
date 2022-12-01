@@ -75,7 +75,7 @@ export const subCategoryApi = createApi({
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
-      invalidatesTags: ['SubCategory']
+       providesTags: ['SubCategory']
     })
   })
   

@@ -92,7 +92,26 @@ export const catagoryApi = createApi({
         }
       }),
       invalidatesTags: ['Category']
-    })
+    }),
+
+
+    
+    allCategory: builder.query({
+      query: () => ({
+        url: `category_all`,
+        // transformResponse: res => res.sort((a, b) => b.id - a.id),
+        // transformResponse: (res) => res.reverse(),
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }),
+      // transformResponse: (res) => res.reverse(),
+      providesTags: ['Category']
+    }),
+
+    
 
 
   })
@@ -105,5 +124,7 @@ export const {
   useUpdateCatagoryMutation,
   useDeleteCatagoryMutation,
   useGetCategoryAllShowQuery,
-  useGetSubCatagoryShowQuery
+  useGetSubCatagoryShowQuery,
+  useAllCategoryQuery,
+  
 } = catagoryApi;

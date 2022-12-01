@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetAllCatagoryQuery } from '../../../services/catagoryApi';
+import { useAllCategoryQuery, useGetAllCatagoryQuery } from '../../../services/catagoryApi';
 import { useAddSubCategoryMutation } from '../../../services/subCategoryApi';
 import { useSelector } from './../../../store/index';
 function SubCategoryAdd() {
@@ -11,10 +11,10 @@ function SubCategoryAdd() {
   const auth = useSelector((state) => state.auth.user);
 
   const [addSubCategory, { data, isSuccess }] = useAddSubCategoryMutation();
-  const { data: category } = useGetAllCatagoryQuery();
+  const { data: category, isSuccess:cateSucess } = useAllCategoryQuery()
+  
   const [name, setName] = useState();
   const [description, setDescription] = useState();
-  // const [user_id, setUserId] = useState();
   const [catagory_id, setCatagoryId] = useState();
   const [image, setImage] = useState();
 
@@ -36,6 +36,7 @@ function SubCategoryAdd() {
     history.push('/catagories/sub_category');
   }
 
+  
 
 
   return (
@@ -65,8 +66,8 @@ function SubCategoryAdd() {
               <Form.Label>Category</Form.Label>
               <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagoryId(e.target.value)}>
                 <option>Selact Category</option>
-                {category?.data.map((cate) => (
-                  <option value={cate.id}>{cate.name}</option>
+                {cateSucess && category.map((item) => (
+                  <option value={item.id}>{item.name}</option>
                 ))}
               </Form.Control>
               <Form.Group controlId="exampleForm.ControlInput1">

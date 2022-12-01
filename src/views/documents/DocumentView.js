@@ -1,21 +1,13 @@
 import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
-import { BsArrowLeftCircleFill } from 'react-icons/bs';
+import { Card, Row, Col, Button } from 'react-bootstrap';
+import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillInfoCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from './../../store/index';
-import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 
 function DocumentView() {
   const { id } = useParams();
 
   const doc = useSelector((state) => state.document.documentView);
-
-  //   const docs = [
-
-  //       {
-  //          uri: process.env.REACT_APP_BASE_URL + doc.file,
-  //      }
-  //   ];
 
   return (
     <>
@@ -36,7 +28,24 @@ function DocumentView() {
               <Row>
                 <Col md={3}>
                   <Card>
+                    <div>
+                      <a download href={`${process.env.REACT_APP_IMAGE_URL}${doc.file}`}>
+                        <Button>
+                          {' '}
+                          <BsFillArrowDownCircleFill color="black" size={18} className="m-1" />
+                          Download
+                        </Button>
+                      </a>
+                    </div>
                     <div className=" mx-1 ">
+                      <div>
+                        <hr />
+                        <h5>
+                          {' '}
+                          <BsFillInfoCircleFill /> DOCUMENT INFORMATION
+                        </h5>
+                        <hr />
+                      </div>
                       <div className=" py-2">
                         <b>Document Name:</b> {doc.name}
                       </div>
@@ -54,6 +63,8 @@ function DocumentView() {
                       </div>
                       <div className=" py-2">
                         <b>Created at :</b> <br /> {doc.created_at}
+                        
+                      
                       </div>
                       <div className=" py-2">
                         <b>Last Updated :</b> <br /> {doc.updated_at}

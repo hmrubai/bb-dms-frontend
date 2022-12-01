@@ -10594,6 +10594,13 @@ react-datetime@^3.1.1:
   dependencies:
     prop-types "^15.5.7"
 
+react-dayjs@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/react-dayjs/-/react-dayjs-0.3.2.tgz#136c0362031767a6a96d990646bc3219682e50cc"
+  integrity sha512-N9ozA6KNunzvnhwRbDi0JTa1Ine8AWQxNQ1u6sPugBenpl2mXMf0c5nOxBcs8id0z9kaKVlF2NOYzWGMoEzelg==
+  dependencies:
+    prop-types "^15.6.1"
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-11.0.4.tgz"

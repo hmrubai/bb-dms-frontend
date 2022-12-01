@@ -215,71 +215,71 @@ const routes = [
 
 
 
-      {
-        exact: true,
-        path: '/basic/button',
-        component: lazy(() => import('./views/ui-elements/basic/BasicButton'))
-      },
-      {
-        exact: true,
-        path: '/basic/badges',
-        component: lazy(() => import('./views/ui-elements/basic/BasicBadges'))
-      },
-      {
-        exact: true,
-        path: '/basic/breadcrumb',
-        component: lazy(() => import('./views/ui-elements/basic/BasicBreadcrumb'))
-      },
-      {
-        exact: true,
-        path: '/basic/pagination',
-        component: lazy(() => import('./views/ui-elements/basic/BasicPagination'))
-      },
-      {
-        exact: true,
-        path: '/basic/collapse',
-        component: lazy(() => import('./views/ui-elements/basic/BasicCollapse'))
-      },
-      {
-        exact: true,
-        path: '/basic/tabs-pills',
-        component: lazy(() => import('./views/ui-elements/basic/BasicTabsPills'))
-      },
-      {
-        exact: true,
-        path: '/basic/typography',
-        component: lazy(() => import('./views/ui-elements/basic/BasicTypography'))
-      },
-      {
-        exact: true,
-        path: '/forms/form-basic',
-        component: lazy(() => import('./views/forms/FormsElements'))
-      },
-      {
-        exact: true,
-        path: '/tables/bootstrap',
-        component: lazy(() => import('./views/tables/BootstrapTable'))
-      },
-      {
-        exact: true,
-        path: '/charts/nvd3',
-        component: lazy(() => import('./views/charts/nvd3-chart'))
-      },
-      {
-        exact: true,
-        path: '/maps/google-map',
-        component: lazy(() => import('./views/maps/GoogleMaps'))
-      },
-      {
-        exact: true,
-        path: '/sample-page',
-        component: lazy(() => import('./views/extra/SamplePage'))
-      },
-      {
-        path: '*',
-        exact: true,
-        component: () => <Redirect to={BASE_URL} />
-      }
+      // {
+      //   exact: true,
+      //   path: '/basic/button',
+      //   component: lazy(() => import('./views/ui-elements/basic/BasicButton'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/basic/badges',
+      //   component: lazy(() => import('./views/ui-elements/basic/BasicBadges'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/basic/breadcrumb',
+      //   component: lazy(() => import('./views/ui-elements/basic/BasicBreadcrumb'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/basic/pagination',
+      //   component: lazy(() => import('./views/ui-elements/basic/BasicPagination'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/basic/collapse',
+      //   component: lazy(() => import('./views/ui-elements/basic/BasicCollapse'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/basic/tabs-pills',
+      //   component: lazy(() => import('./views/ui-elements/basic/BasicTabsPills'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/basic/typography',
+      //   component: lazy(() => import('./views/ui-elements/basic/BasicTypography'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/forms/form-basic',
+      //   component: lazy(() => import('./views/forms/FormsElements'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/tables/bootstrap',
+      //   component: lazy(() => import('./views/tables/BootstrapTable'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/charts/nvd3',
+      //   component: lazy(() => import('./views/charts/nvd3-chart'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/maps/google-map',
+      //   component: lazy(() => import('./views/maps/GoogleMaps'))
+      // },
+      // {
+      //   exact: true,
+      //   path: '/sample-page',
+      //   component: lazy(() => import('./views/extra/SamplePage'))
+      // },
+      // {
+      //   path: '*',
+      //   exact: true,
+      //   component: () => <Redirect to={BASE_URL} />
+      // }
     ]
   }
 ];

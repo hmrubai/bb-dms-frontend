@@ -51,10 +51,10 @@ function DocumentSubCategoryView() {
         </div>
 
         <div>
-        <Link to={`/catagories/sub_category_add`}>
+        <Link to={`/catagories/sub_sub_category_add`}>
           <Button>
             <BsFillPlusCircleFill color="white" className="mr-2 " />
-            Add Sub Category
+            Add Sub Sub Category
           </Button>
         </Link>
         </div>
@@ -88,7 +88,7 @@ function DocumentSubCategoryView() {
           <div className="d-flex flex-wrap ">
             {data?.map((item) => (
               <div className='mx-1' key={item.id} >
-                <Card style={{ width: '12rem', height: '17rem' }} onClick={() => dispatch(documentView(item))}>
+                <Card style={{ width: '10rem', height: '13rem'  }} onClick={() => dispatch(documentView(item))}>
                   {item.file.split('.').pop().includes('png') || item.file.split('.').pop().includes('jpg') ? (
                     <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} />
                   ) : (
@@ -97,7 +97,7 @@ function DocumentSubCategoryView() {
                     </div>
                   )}
                   <Card.Body className="py-2 px-2">
-                    <Card.Title>{item.name}</Card.Title>
+                    <Card.Title className='m-0 p-0 h6' ><b>{item.name}</b></Card.Title>
                     <Card.Text>Author by: {item.user.name}</Card.Text>
                   </Card.Body>
 
@@ -114,13 +114,13 @@ function DocumentSubCategoryView() {
                       </a>
                     )}
 
-                    <Link to={`/catagories/sub_category_edit/${item.id}`} className="px-3">
+                    {/* <Link to={`/catagories/sub_category_edit/${item.id}`} className="px-3">
                       <BsPencilSquare size={18} />
-                    </Link>
+                    </Link> */}
 
-                    <button className=" border-0 " onClick={() => deleteHandel(item.id)}>
-                      <BsFillTrashFill color="red" size={17} />
-                    </button>
+                    {/* <button className=" border-0 " onClick={() => deleteHandel(item.id)}> */}
+                      <BsFillTrashFill className='pointer mx-1'  color="red" size={17} onClick={() => deleteHandel(item.id)}/>
+                    {/* </button> */}
                   </div>
                 </Card>
               </div>

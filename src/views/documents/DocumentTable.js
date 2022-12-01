@@ -15,8 +15,8 @@ function DocumentTable() {
         <Card.Header>
           <Card.Title as="h5">Documents</Card.Title>
         </Card.Header>
-        <Card.Body>{isLoading && <Loading />}</Card.Body>
-        <Card.Body className="my-0 py-0">{isError && <div>No catagory :</div>}</Card.Body>
+        <Card.Body className="m-0 p-0">{isLoading && <Loading />}</Card.Body>
+        <Card.Body className="m-0 p-0">{isError && <div>No catagory :</div>}</Card.Body>
         {isSuccess && (
           <div className="d-flex flex-wrap ">
             {data.map((category) => (
@@ -29,7 +29,7 @@ function DocumentTable() {
                       src="https://img.icons8.com/emoji/500/null/open-file-folder-emoji.png"
                       alt={category.name}
                     />
-                    <Card.Body className="p-1 m-0">
+                    <Card.Body className="p-0 m-0">
                       <Card.Title style={{'fontSize':'100%'}} className="text-center">{category.name}</Card.Title>
                       <Card.Text> </Card.Text>
                     </Card.Body>
