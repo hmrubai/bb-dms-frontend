@@ -27,21 +27,25 @@ export const renderRoutes = (routes = []) => (
 );
 
 const routes = [
-  {
-    exact: true,
-    path: '/auth/signin-1',
-    component: lazy(() => import('./views/auth/signin/SignIn1'))
-  },
-  {
-    exact: true,
-    path: '/auth/signup-1',
-    component: lazy(() => import('./views/auth/signup/SignUp1'))
-  },
+  // {
+    
+  //   exact: true,
+  //   path: '/auth/signin-1',
+  //   component: lazy(() => import('./views/auth/signin/SignIn1'))
+  // },
+  // {
+  //   exact: true,
+  //   path: '/auth/signup-1',
+  //   component: lazy(() => import('./views/auth/signup/SignUp1'))
+  // },
   {
     path: '*',
     layout: AdminLayout,
+  
+    
     routes: [
       {
+   
         exact: true,
         path: '/dashboard',
         component: lazy(() => import('./views/dashboard/DashDefault'))
@@ -161,59 +165,7 @@ const routes = [
         exact: true,
         path: '/documents/document_sub_sub_category_view/:id',
         component: lazy(() => import('./views/documents/DocumentSubSubCategoryView'))
-      },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      }
 
       // {
       //   exact: true,

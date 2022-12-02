@@ -9,6 +9,7 @@ import { authUser } from '../../features/authSlice';
 export const authApiContext = React.createContext();
 
 const AuthApi = ({ children }) => {
+  let history = useHistory();
   const dispatch = useDispatch();
   const registration = async (data) => {
     try {
@@ -41,7 +42,8 @@ const AuthApi = ({ children }) => {
 
       toast.success(response.data[0].message);
       dispatch(authUser(response.data[0]));
-      window.location.reload(false);
+      window.location.replace('http://localhost:3000/dashboard');
+     
 
     } catch (error) {
       console.log(error.response.data.message);
