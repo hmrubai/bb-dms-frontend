@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
 import { useDeleteSubCategoryMutation } from '../../../services/subCategoryApi';
 import { toast } from 'react-toastify';
+import  Swal  from 'sweetalert2';
 
 function CategoryTableBody({ subCatagory }) {
 
@@ -10,11 +11,17 @@ function CategoryTableBody({ subCatagory }) {
 
   const deleteHandel = async(id) => {
     await deleteSubCategory(id)
+    Swal.fire({
+      icon: 'success',
+      title: 'Sub Catagory Deleted Successfully',
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
   
-  if (isSuccess) {
-    toast.success(data.message)
-  }
+  // if (isSuccess) {
+  //   toast.success(data.message)
+  // }
 
   return (
     <tbody>

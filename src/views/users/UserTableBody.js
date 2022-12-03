@@ -5,17 +5,37 @@ import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
 import { useDeleteUserMutation } from '../../services/userApi';
+import  Swal  from 'sweetalert2';
 
 function UserTableBody({ user }) {
   const [deleteUser, { data, isSuccess }] = useDeleteUserMutation();
 
   const deleteHandel = async (id) => {
-    await deleteUser(id);
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      
+      if (result.isConfirmed) {
+         deleteUser(id);
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   };
 
-  if (isSuccess) {
-    toast.success(data.message);
-  }
+  // if (isSuccess) {
+  //   toast.success(data.message);
+  // }
 
   return (
     <tbody>

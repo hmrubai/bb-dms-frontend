@@ -1,23 +1,18 @@
-import React, { useEffect } from 'react';
-import { Card, Row, Col, Button } from 'react-bootstrap';
+import React from 'react';
+import { Card,Button } from 'react-bootstrap';
 import {
   BsArrowLeftCircleFill,
   BsFillEyeFill,
-  BsPencilSquare,
   BsFillTrashFill,
   BsFillArrowDownCircleFill,
   BsFillArrowUpCircleFill,
-  BsFillPlusCircleFill
 } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import {
   useDeleteDocumentMutation,
-  useShowCategoryDocumentQuery,
-  useShowSubCategoryDocumentQuery,
-  useShowSubCategoryQuery,
   useShowSubSubCategoryDocumentQuery,
-  useShowSubSubCategoryQuery
+
 } from '../../services/documentApi';
 import { useDispatch } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
@@ -27,7 +22,7 @@ import { toast } from 'react-toastify';
 function DocumentSubSubCategoryView() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { data, isFetching, isLoading, isError, isSuccess } = useShowSubSubCategoryDocumentQuery(id);
+  const { data, isFetching, isLoading, isError, isSuccess, } = useShowSubSubCategoryDocumentQuery(id);
 
   // console.log(data);
 
@@ -63,7 +58,7 @@ function DocumentSubSubCategoryView() {
           <div className=" d-flex justify-content-between ">
             <div>
               <Card.Title as="h5">Document</Card.Title>
-
+ 
               <span>
                 <Link to={`/documents/document`}>
                   <BsArrowLeftCircleFill color="black" size={'20px'} />
@@ -74,6 +69,7 @@ function DocumentSubSubCategoryView() {
         </Card.Header>
         <div>{isLoading && <Loading />}</div>
         <div>{isError && <div>No Document:</div>}</div>
+
         <Card.Body>
           <div className="d-flex flex-wrap ">
             {data?.map((item) => (

@@ -9,16 +9,11 @@ import { useGetAllDocumentQuery } from '../../../services/documentApi';
 import { useTotalUserQuery } from '../../../services/userApi';
 import { BsFillArrowUpCircleFill, BsFillFileEarmarkMedicalFill } from 'react-icons/bs';
 
-
-
 const DashDefault = () => {
-  const { data, isSuccess } = useAllCategoryQuery()
-  const { data: doc, isSuccess: docIsSuccess } = useGetAllDocumentQuery()
- const {data:user ,isSuccess:userSucess}= useTotalUserQuery()
+  const { data, isSuccess } = useAllCategoryQuery();
+  const { data: doc, isSuccess: docIsSuccess } = useGetAllDocumentQuery();
+  const { data: user, isSuccess: userSucess } = useTotalUserQuery();
 
- 
-
-  
   return (
     <React.Fragment>
       <Row>
@@ -33,9 +28,7 @@ const DashDefault = () => {
                   </h3>
                 </div>
 
-                <div className="col-3 text-right">
-                  {/* <p className="m-b-0">50%</p> */}
-                </div>
+                <div className="col-3 text-right">{/* <p className="m-b-0">50%</p> */}</div>
               </div>
               <div className="progress m-t-30" style={{ height: '7px' }}>
                 <div
@@ -57,13 +50,11 @@ const DashDefault = () => {
               <div className="row d-flex align-items-center">
                 <div className="col-9">
                   <h3 className="f-w-300 d-flex align-items-center m-b-0">
-                    <i className="feather icon-align-justify text-c-green f-30 m-r-5" /> {isSuccess?data.length:0}
+                    <i className="feather icon-align-justify text-c-green f-30 m-r-5" /> {isSuccess ? data.length : 0}
                   </h3>
                 </div>
 
-                <div className="col-3 text-right">
-                  {/* <p className="m-b-0">100%</p> */}
-                </div>
+                <div className="col-3 text-right">{/* <p className="m-b-0">100%</p> */}</div>
               </div>
               <div className="progress m-t-30" style={{ height: '7px' }}>
                 <div
@@ -78,7 +69,7 @@ const DashDefault = () => {
             </Card.Body>
           </Card>
         </Col>
-      
+
         <Col xl={4}>
           <Card>
             <Card.Body>
@@ -86,13 +77,12 @@ const DashDefault = () => {
               <div className="row d-flex align-items-center">
                 <div className="col-9">
                   <h3 className="f-w-300 d-flex align-items-center m-b-0">
-                    <i className="feather icon-user text-c-green f-30 m-r-5" />{userSucess?user.length:0}
+                    <i className="feather icon-user text-c-green f-30 m-r-5" />
+                    {userSucess ? user.length : 0}
                   </h3>
                 </div>
 
-                <div className="col-3 text-right">
-                  {/* <p className="m-b-0">100%</p> */}
-                </div>
+                <div className="col-3 text-right">{/* <p className="m-b-0">100%</p> */}</div>
               </div>
               <div className="progress m-t-30" style={{ height: '7px' }}>
                 <div
@@ -108,7 +98,7 @@ const DashDefault = () => {
           </Card>
         </Col>
         <Col md={6} xl={8}>
-        <Card className="Recent-Users">
+          <Card className="Recent-Users">
             <Card.Header>
               <Card.Title as="h5">Recent Users</Card.Title>
             </Card.Header>
@@ -235,26 +225,20 @@ const DashDefault = () => {
           </Card>
         </Col>
         <Col md={6} xl={4}>
-        <Card className="card-event">
+          <Card className="card-event">
             <Card.Body>
               <div className="row align-items-center justify-content-center">
                 <div className="col">
-               
                   <h5 className="m-0">UPLOADE DOCUMENT</h5>
                 </div>
-          
-                <div className="col-auto">
-            
-                </div>
+
+                <div className="col-auto"></div>
               </div>
               <h2 className="mt-2 f-w-300">
-         
                 <div>
                   <Link to={`/documents/document_add`} className="btn btn-primary btn-sm btn-round has-ripple">
-             
                     <span>UPLOADE</span>
-                    <BsFillArrowUpCircleFill className='mx-2 mb-1' size={15}/>
-
+                    <BsFillArrowUpCircleFill className="mx-2 mb-1" size={15} />
                   </Link>
                 </div>
               </h2>
@@ -443,7 +427,6 @@ const DashDefault = () => {
             </Card.Body>
           </Card>
         </Col>
-
       </Row>
     </React.Fragment>
   );

@@ -3,7 +3,7 @@ import { Card, Row, Col, Button } from 'react-bootstrap';
 import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillInfoCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from './../../store/index';
-
+import DayJS from 'react-dayjs';
 function DocumentView() {
   const { id } = useParams();
 
@@ -62,12 +62,17 @@ function DocumentView() {
                         <b>Created By:</b> <br /> {doc.user?.name}
                       </div>
                       <div className=" py-2">
-                        <b>Created at :</b> <br /> {doc.created_at}
-                        
-                      
+                        <b>Created at :</b> <br /> 
+                       Time: <DayJS format="h:mm A">{doc.created_at}</DayJS>
+                         <br />
+                        Date: <DayJS format="YYYY-MM-DD">{doc.created_at}</DayJS>
+
                       </div>
                       <div className=" py-2">
-                        <b>Last Updated :</b> <br /> {doc.updated_at}
+                        <b>Last Updated :</b> <br /> 
+                        Time: <DayJS format="h:mm A ">{doc.updated_at}</DayJS>
+                        <br />
+                        Date: <DayJS format="YYYY-MM-DD">{doc.updated_at}</DayJS>
                       </div>
                     </div>
                   </Card>

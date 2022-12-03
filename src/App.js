@@ -11,6 +11,8 @@ import SignIn1 from './views/auth/signin/SignIn1';
 const App = () => {
 
   const token = Cookies.get('token')
+
+  
  
   if (!token) {
     return (
@@ -28,8 +30,10 @@ const App = () => {
     <React.Fragment>
       <Router basename={BASENAME}>
         {/* <FirebaseProvider> */}
-          { renderRoutes(routes)}
         {/* </FirebaseProvider> */}
+        
+          { renderRoutes(routes)}
+
       </Router>
     </React.Fragment>
   );

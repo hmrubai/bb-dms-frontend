@@ -6,6 +6,7 @@ import Loading from '../../../components/Loading/Loading';
 
 
 import { useGetSubSubCategoryByIdQuery } from '../../../services/subSubCategoryApi';
+import DayJS  from 'react-dayjs';
 function SubSubCategoryView() {
   const { id } = useParams();
 
@@ -25,6 +26,8 @@ function SubSubCategoryView() {
     return <div>No Sub Category :(</div>;
   }
 
+  console.log(data);
+
   return (
     <>
       <Card>
@@ -40,7 +43,11 @@ function SubSubCategoryView() {
       </Card.Header>
       <Card.Body>
         <Row>
-          <Col>
+            <Col>
+            <div>
+                <h4>SUB SUB CATEGORY INFORMATION</h4>
+                <hr />
+              </div>
             <div className=" pb-2">
               <img className="img-circle border" src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`} width="200px" alt="" />
             </div>
@@ -59,12 +66,12 @@ function SubSubCategoryView() {
               </div>
               <div>
                 <h5>
-                  <span>Category Name:</span> <span>{data.catagory.name}</span>
+                  <span>Category Name:</span> <span>{data.catagory?.name}</span>
                 </h5>
               </div>
               <div>
                 <h5>
-                  <span>Sub Category Name:</span> <span>{data.sub_catagory.name}</span>
+                  <span>Sub Category Name:</span> <span>{data.sub_catagory?.name}</span>
                 </h5>
               </div>
               <div>
@@ -82,16 +89,18 @@ function SubSubCategoryView() {
             </div>
             <div>
               <div>
-                <h5>
-                  <span>Created At:</span> <span>{data.created_at}</span>
-                </h5>
+              <h5>
+                    <span>Created At:</span>
+                    Time: <DayJS format="h:mm A">{data.created_at}</DayJS> || Date: <DayJS format="YYYY-MM-DD">{data.created_at}</DayJS>
+                  </h5>
               </div>
             </div>
             <div>
               <div>
-                <h5>
-                  <span>updated At:</span> <span>{data.updated_at}</span>
-                </h5>
+              <h5>
+                    <span>updated At:</span>
+                    Time: <DayJS format="h:mm A">{data.updated_at}</DayJS> || Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS>
+                  </h5>
               </div>
             </div>
           </Col>

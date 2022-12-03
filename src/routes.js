@@ -10,6 +10,7 @@ export const renderRoutes = (routes = []) => (
   <Suspense fallback={<Loader />}>
     <Switch>
       {routes.map((route, i) => {
+   
         const Layout = route.layout || Fragment;
         const Component = route.component;
 
@@ -28,7 +29,7 @@ export const renderRoutes = (routes = []) => (
 
 const routes = [
   // {
-    
+
   //   exact: true,
   //   path: '/auth/signin-1',
   //   component: lazy(() => import('./views/auth/signin/SignIn1'))
@@ -41,11 +42,14 @@ const routes = [
   {
     path: '*',
     layout: AdminLayout,
-  
-    
+
     routes: [
       {
-   
+        exact: true,
+        path: '/',
+        component: lazy(() => import('./views/dashboard/DashDefault'))
+      },
+      {
         exact: true,
         path: '/dashboard',
         component: lazy(() => import('./views/dashboard/DashDefault'))
@@ -165,7 +169,15 @@ const routes = [
         exact: true,
         path: '/documents/document_sub_sub_category_view/:id',
         component: lazy(() => import('./views/documents/DocumentSubSubCategoryView'))
+      },
+      // profile
+      {
+        exact: true,
+        path: '/profile',
+        component: lazy(() => import('./views/profile/Profile'))
       }
+
+
 
       // {
       //   exact: true,

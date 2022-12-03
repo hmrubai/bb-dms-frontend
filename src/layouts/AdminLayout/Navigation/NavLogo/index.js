@@ -17,7 +17,7 @@ const NavLogo = () => {
   return (
     <React.Fragment>
       <div className="navbar-brand header-logo">
-        <Link to="/" className="">
+        <Link to="/dashboard" className="">
           <div className="b-bg" >
           
             <img className="img-fluid " width={25} src={sm_logo} alt="" />

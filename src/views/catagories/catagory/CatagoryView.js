@@ -1,9 +1,12 @@
+import { Dayjs } from 'dayjs';
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../../components/Loading/Loading';
 import { useGetCatagoryByIdQuery } from '../../../services/catagoryApi';
+import DayJS from 'react-dayjs';
+
 function CatagoryView() {
   const { id } = useParams();
 
@@ -38,6 +41,9 @@ function CatagoryView() {
       <Card.Body>
         <Row>
           <Col>
+            <div><h4>CATEGORY INFORMATION</h4>
+              <hr />
+            </div>
             <div className=" pb-2">
               <img className="img-circle border" src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`} width="200px" alt="" />
             </div>
@@ -65,14 +71,22 @@ function CatagoryView() {
             <div>
               <div>
                 <h5>
-                  <span>Created At:</span> <span>{data.created_at}</span>
+                  
+           
+                  <span>Created At:</span> 
+                  Time: <DayJS format="h:mm A">{data.created_at}</DayJS> ||
+              
+                  Date: <DayJS format="YYYY-MM-DD">{data.created_at}</DayJS>
                 </h5>
               </div>
             </div>
             <div>
               <div>
                 <h5>
-                  <span>updated At:</span> <span>{data.updated_at}</span>
+                  <span>updated At:</span> 
+                  Time: <DayJS format="h:mm A">{data.updated_at}</DayJS> ||
+              
+                  Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS>
                 </h5>
               </div>
             </div>
