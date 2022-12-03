@@ -17,6 +17,7 @@ import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
 import DocumentSubCategory from './DocumentSubCategory';
 import DocumentSubSubCategory from './DocumentSubSubCategory';
+import Swal from 'sweetalert2';
 
 function DocumentSubCategoryView() {
   const { id } = useParams();
@@ -28,7 +29,27 @@ function DocumentSubCategoryView() {
   const [deleteDocument] = useDeleteDocumentMutation();
 
   const deleteHandel = async (id) => {
-    await deleteDocument(id);
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      width: 400,
+    }).then((result) => {
+      
+      if (result.isConfirmed) {
+        deleteDocument(id);
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   };
 
   if (isSuccess) {

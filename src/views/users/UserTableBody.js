@@ -19,7 +19,8 @@ function UserTableBody({ user }) {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Yes, delete it!',
+      width: 400,
     }).then((result) => {
       
       if (result.isConfirmed) {

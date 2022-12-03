@@ -7,15 +7,22 @@ function CatagoryTableBody({ catagory }) {
   const [deleteCatagory] = useDeleteCatagoryMutation();
 
   const deleteHandel = async (id) => {
-    await deleteCatagory(id);
     Swal.fire({
-      icon: 'success',
-      title: 'Catagory Deleted Successfully',
-      showConfirmButton: false,
-      timer: 1500
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      width: 400
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteCatagory(id);
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
     });
   };
-
 
   return (
     <tbody>

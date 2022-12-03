@@ -10,13 +10,27 @@ function CategoryTableBody({ subCatagory }) {
   const [deleteSubCategory,{data,isSuccess}] = useDeleteSubCategoryMutation()
 
   const deleteHandel = async(id) => {
-    await deleteSubCategory(id)
+
     Swal.fire({
-      icon: 'success',
-      title: 'Sub Catagory Deleted Successfully',
-      showConfirmButton: false,
-      timer: 1500
-    });
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      width: 400,
+    }).then((result) => {
+      
+      if (result.isConfirmed) {
+          deleteSubCategory(id)
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    }) 
   }
   
   // if (isSuccess) {

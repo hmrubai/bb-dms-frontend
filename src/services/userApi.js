@@ -6,6 +6,7 @@ export const userApi = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL
   }),
   tagTypes: ['User'],
+ 
   endpoints: (builder) => ({
     getAllUser: builder.query({
       query: (page = 1) => ({

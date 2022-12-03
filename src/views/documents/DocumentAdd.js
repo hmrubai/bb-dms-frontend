@@ -14,10 +14,7 @@ function DocumentAdd() {
   const [addUser, res] = useAddDocumentMutation();
   const { data, isLoading, isError, isSuccess } = useGetCategoryAllShowQuery();
 
-  console.log(res);
-
   const [name, setName] = useState();
-  // const [user_id, setUser_id] = useState(1);
   const [catagory_id, setCatagry_id] = useState();
   const [sub_catagory_id, setsub_catagory_id] = useState();
   const [sub_sub_catagory_id, setSub_sub_catagory_id] = useState();
@@ -27,12 +24,14 @@ function DocumentAdd() {
 
   const [file, setFile] = useState();
 
-  
   const submitHandel = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
     formData.append('user_id', auth.id);
+    if (catagory_id===undefined) {
+      toast.error('Please Select Catagory');
+    }
     formData.append('catagory_id', catagory_id);
     if (sub_catagory_id !== undefined) {
       formData.append('sub_catagory_id', sub_catagory_id);
@@ -47,24 +46,18 @@ function DocumentAdd() {
       formData.append('file', file);
     }
     await addUser(formData);
-    history.push('/documents/document');
   };
 
   const { data: subCategoryShow } = useGetSubCatagoryShowQuery(catagory_id);
   const { data: subSubCategoryShow } = useGetSubSubCatagoryShowQuery(sub_catagory_id);
 
-  // if (res.isSuccess) {
-  //   toast.success(res.data.message);
-  //   history.push('/users/user');
-  // }
+  if (res.isSuccess) {
+    toast.success(res.data.message);
+    history.push('/documents/document');
+  }
 
   // if (res.isError) {
   //   toast.error(res.error?.data.message);
-  // }
-
-  // if (isSuccess) {
-  //   toast.success(data.message);
-  
   // }
 
   return (
@@ -93,7 +86,6 @@ function DocumentAdd() {
                   placeholder="Catagory Description"
                   name="description"
                   onChange={(e) => setDescription(e.target.value)}
-                
                 />
               </Form.Group>
 
@@ -118,7 +110,7 @@ function DocumentAdd() {
                     ))}
                   </Form.Control>
                 </Col>
-                <Col className={catagory_id === undefined? 'd-none':'d-block'}>
+                <Col className={catagory_id === undefined ? 'd-none' : 'd-block'}>
                   <Form.Label>Sub Category</Form.Label>
                   <Form.Control as="select" className="mb-3" name="sub_catagory_id" onChange={(e) => setsub_catagory_id(e.target.value)}>
                     <option value={null}>Selact Sub Category</option>
@@ -128,7 +120,7 @@ function DocumentAdd() {
                     ))}
                   </Form.Control>
                 </Col>
-                <Col className={sub_catagory_id === undefined? 'd-none':'d-block'}>
+                <Col className={sub_catagory_id === undefined ? 'd-none' : 'd-block'}>
                   <Form.Label>Sub Sub Category</Form.Label>
                   <Form.Control
                     as="select"
@@ -150,9 +142,8 @@ function DocumentAdd() {
                   type="file"
                   name="file"
                   accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.openxmlformats-officedocument.presentationml.presentation/application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document/application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet/application/vnd.oasis.opendocument.text/application/vnd.oasis.opendocument.spreadsheet/application/vnd.oasis.opendocument.presentation"
-                  onChange={(e) => setFile(e.target.files[0])
-                    
-                  }required
+                  onChange={(e) => setFile(e.target.files[0])}
+                  required
                 />
               </Form.Group>
               <Button variant="primary" type="submit">

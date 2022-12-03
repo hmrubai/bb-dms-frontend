@@ -7,14 +7,14 @@ import { useAddUserMutation } from '../../services/userApi';
 
 function UserAdd() {
   const history = useHistory();
-  const [addUser, res] = useAddUserMutation();
+  const [addUser, res] = useAddUserMutation.useLazyQuery();
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
   const [number, setNumber] = useState();
   const [gender, setGender] = useState();
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState("Pending");
   const [password, setPassword] = useState();
   const [image, setImage] = useState();
 
@@ -33,6 +33,7 @@ function UserAdd() {
   };
 
   if (res.isSuccess) {
+    
     toast.success(res.data.message);
     history.push('/users/user');
   }
@@ -41,10 +42,9 @@ function UserAdd() {
     toast.error(res.error?.data.message);
   }
 
-  // if (isSuccess) {
-  //   toast.success(data.message);
-  //   history.push('/users/user');
-  // }
+
+
+
 
   console.log(res);
 
@@ -102,7 +102,7 @@ function UserAdd() {
                 </Col>
                 <Col>
                   <Form.Label>Status</Form.Label>
-                  <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
+                  <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)} required>
                     <option>Status</option>
                     <option value="Active">Active</option>
                     <option value="Pending">Pending</option>
@@ -113,7 +113,7 @@ function UserAdd() {
               <Form.Label>Gender</Form.Label>
 
               <div className="d-flex pb-3 pl-2">
-                <div className=" pr-5">
+                <div >
                   <Form.Check
                     custom
                     type="radio"
@@ -124,7 +124,7 @@ function UserAdd() {
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </div>
-                <div>
+                <div className=" px-2">
                   <Form.Check
                     custom
                     type="radio"
@@ -132,6 +132,17 @@ function UserAdd() {
                     name="gender"
                     id="supportedRadio4"
                     value="Female"
+                    onChange={(e) => setGender(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Form.Check
+                    custom
+                    type="radio"
+                    label="Other"
+                    name="gender"
+                    id="supportedRadio4"
+                    value="Other"
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </div>
