@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function DocumentCategoryCard() {
+const DocumentCategoryCard = () => {
   return (
     <div>DocumentCategoryCard</div>
   )
 }
+
+export default DocumentCategoryCard
