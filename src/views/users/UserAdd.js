@@ -3,11 +3,14 @@ import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useGetAllPermissionQuery } from '../../services/permissionApi';
 import { useAddUserMutation } from '../../services/userApi';
+
 
 function UserAdd() {
   const history = useHistory();
-  const [addUser, res] = useAddUserMutation.useLazyQuery();
+  const [addUser, res] = useAddUserMutation();
+ const response= useGetAllPermissionQuery()
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -46,9 +49,10 @@ function UserAdd() {
 
 
 
-  console.log(res);
+  console.log(response);
 
   return (
+    <>
     <Card>
       <Card.Header>
         <Card.Title as="h5">Add User</Card.Title>
@@ -163,7 +167,53 @@ function UserAdd() {
           </Col>
         </Row>
       </Card.Body>
+      </Card>
+      <Col sm={12}>
+    <Card>
+      <Card.Header>
+        <Card.Title as="h5">Assign Role To Permission</Card.Title>
+      </Card.Header>
+      <Card.Body>
+        <Row>
+          <Col >
+            <Form >
+              <Form.Group >
+                <Form.Label>Select Role</Form.Label>
+                <Form.Control as="select" name="role_id"
+                //   value={allData.role_id}
+                //   onChange={handelRoleId}
+                >
+                  <option>Default select</option>
+                  {/* {roleListAllData.map((item) => (
+                    <option value={item.id} key={item.id}>
+                      {item.role_name}
+                    </option>
+                  ))} */}
+                </Form.Control>
+              </Form.Group>
+              <hr />
+              <h6>Assign Permission</h6>
+              <hr />
+              <Form.Group>
+                {/* {permissionListAllData.map((item) => ( */}
+                  <Form.Check type="checkbox" 
+              
+                  />
+                {/* ))} */}
+              </Form.Group>
+              <div className="pt-2">
+                <Button type="submit" variant="primary">
+                  Submit
+                </Button>
+              </div>
+            </Form>
+          </Col>
+        </Row>
+      </Card.Body>
     </Card>
+  </Col>
+</>
+
   );
 }
 

@@ -9,10 +9,13 @@ import { subCategoryApi } from '../services/subCategoryApi';
 import { subSubCategoryApi } from './../services/subSubCategoryApi';
 import { documentApi } from '../services/documentApi';
 import { authApi } from '../services/authApi';
+import { permissionApi } from '../services/permissionApi';
+
 import authReducer from './../features/authSlice'
 import documentReducer from '../features/documentSlice';
+
 const store = configureStore({
-  reducer: {
+    reducer: {
     reducers,
     auth: authReducer,
     document: documentReducer,
@@ -22,6 +25,7 @@ const store = configureStore({
     [subCategoryApi.reducerPath]: subCategoryApi.reducer,
     [subSubCategoryApi.reducerPath]: subSubCategoryApi.reducer,
     [documentApi.reducerPath]: documentApi.reducer,
+    [permissionApi.reducerPath]: permissionApi.reducer,
 
     devTools: true
   },
@@ -32,7 +36,8 @@ const store = configureStore({
       catagoryApi.middleware,
       subCategoryApi.middleware,
       subSubCategoryApi.middleware,
-      documentApi.middleware
+      documentApi.middleware,
+      permissionApi.middleware
     ])
 });
 setupListeners(store.dispatch);

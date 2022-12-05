@@ -3,7 +3,6 @@ import { Card, Row, Col, Button } from 'react-bootstrap';
 import {
   BsArrowLeftCircleFill,
   BsFillEyeFill,
-  BsPencilSquare,
   BsFillTrashFill,
   BsFillArrowDownCircleFill,
   BsFillArrowUpCircleFill,
