@@ -20,6 +20,7 @@ function UserAdd() {
   const [status, setStatus] = useState("Pending");
   const [password, setPassword] = useState();
   const [image, setImage] = useState();
+  const [permission, setPermission] = useState([]);
 
   const submitHandel = async (e) => {
     e.preventDefault();
@@ -32,27 +33,37 @@ function UserAdd() {
     formData.append('status', status);
     formData.append('password', password);
     formData.append('image', image);
+    if (permission.length > 0) {
+      formData.append('permission', permission);
+    }
     await addUser(formData);
   };
 
   if (res.isSuccess) {
     
     toast.success(res.data.message);
-    history.push('/users/user');
+    // history.push('/users/user');
   }
 
   if (res.isError) {
     toast.error(res.error?.data.message);
   }
 
+  const handleChange = (event) => {
+    const{checked,value}=event.target;
+    if (checked) {
+      setPermission([...permission,value]);
+        }else{
+          setPermission(permission.filter((item)=>item!==value));
+        }
+  };
 
+  console.log(res)
 
-
-
-  console.log(response);
 
   return (
     <>
+      <Form onSubmit={submitHandel} encType="multipart/form-data">
     <Card>
       <Card.Header>
         <Card.Title as="h5">Add User</Card.Title>
@@ -60,7 +71,7 @@ function UserAdd() {
       <Card.Body>
         <Row>
           <Col>
-            <Form onSubmit={submitHandel} encType="multipart/form-data">
+        
               <Row>
                 <Col>
                   <Form.Group controlId="exampleForm.ControlInput1">
@@ -160,15 +171,15 @@ function UserAdd() {
                   onChange={(e) => setImage(e.target.files[0])}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              {/* <Button variant="primary" type="submit">
                 Submit
-              </Button>
-            </Form>
+              </Button> */}
+            
           </Col>
         </Row>
       </Card.Body>
       </Card>
-      <Col sm={12}>
+    
     <Card>
       <Card.Header>
         <Card.Title as="h5">Assign Role To Permission</Card.Title>
@@ -176,42 +187,51 @@ function UserAdd() {
       <Card.Body>
         <Row>
           <Col >
-            <Form >
-              <Form.Group >
-                <Form.Label>Select Role</Form.Label>
+           
+              {/* <Form.Group > */}
+                {/* <Form.Label>Select Role</Form.Label>
                 <Form.Control as="select" name="role_id"
-                //   value={allData.role_id}
-                //   onChange={handelRoleId}
-                >
-                  <option>Default select</option>
+                  value={allData.role_id}
+                  onChange={handelRoleId}
+                > */}
+                  {/* <option>Default select</option> */}
                   {/* {roleListAllData.map((item) => (
                     <option value={item.id} key={item.id}>
                       {item.role_name}
                     </option>
                   ))} */}
-                </Form.Control>
-              </Form.Group>
+                {/* </Form.Control>
+              </Form.Group> */}
               <hr />
               <h6>Assign Permission</h6>
               <hr />
-              <Form.Group>
-                {/* {permissionListAllData.map((item) => ( */}
-                  <Form.Check type="checkbox" 
-              
-                  />
-                {/* ))} */}
+              <Form.Group className="d-flex wrap"  >
+                    {response.isSuccess && response.data.map((item) => (
+                        <div key={item.id} >
+                        <Form.Check
+                          className="mr-2"
+                                custom
+                                type="checkbox" 
+                                label={item.name}
+                                name="permission_id"
+                                id={item.id}
+                                value={item.id} 
+                                onChange={(e)=>handleChange(e)}
+                            />
+                      </div>
+                    ))}
               </Form.Group>
               <div className="pt-2">
                 <Button type="submit" variant="primary">
                   Submit
                 </Button>
               </div>
-            </Form>
+           
           </Col>
         </Row>
       </Card.Body>
     </Card>
-  </Col>
+    </Form>
 </>
 
   );
