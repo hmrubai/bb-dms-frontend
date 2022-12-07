@@ -241,7 +241,8 @@ function UserEdit() {
                             label={item.name}
                             name="permission_id"
                             id={item.id}
-                            checked={permissionName.includes(item.id)}
+                            // checked={permissionName.includes(item.id)}
+                            defaultChecked={permissionName.includes(item.id) == true ? true : false}
                             value={item.id}
                             onChange={(e) => handleChange(e)}
                           />
