@@ -15,7 +15,7 @@ function UserEdit() {
   const [updateUser, res] = useUpdateUserMutation() || {};
   const response = useGetAllPermissionQuery();
   const { data, isSuccess, isFetching } = useGetUserByIdQuery(id);
-  
+
   const dataResponse = useGetUserByIdQuery(id);
 
   const [name, setName] = useState();
@@ -28,6 +28,7 @@ function UserEdit() {
   const [image, setImage] = useState();
   const [permission, setPermission] = useState([]);
   const permissionArr = JSON.stringify(permission);
+  const [permissionName, setPermissionName] = useState([]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -64,26 +65,26 @@ function UserEdit() {
     if (res.isError) {
       toast.error(res.error?.data.message);
     }
-
   };
 
   const handleChange = (event) => {
     const { checked, value } = event.target;
     if (checked) {
       setPermission([...permission, value]);
+    
     } else {
       setPermission(permission.filter((item) => item !== value));
+
     }
   };
 
-  // {
-  //   dataResponse?.data?.user_has_permission?.map((item) => {
-  //     console.log(item.permission?.name);
-  //   });
-  // }
+  {
+    dataResponse?.data?.user_has_permission?.map((item) => {
+      permissionName.push(item.permission?.id);
+    });
+  }
 
-  console.log(dataResponse)
-
+  console.log(permissionName);
 
   return (
     <>
@@ -240,9 +241,9 @@ function UserEdit() {
                             label={item.name}
                             name="permission_id"
                             id={item.id}
+                            checked={permissionName.includes(item.id)}
                             value={item.id}
                             onChange={(e) => handleChange(e)}
-                       
                           />
                         </div>
                       );
