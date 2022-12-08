@@ -1,16 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { useGetUserByIdQuery, useUpdateUserMutation } from '../../services/userApi';
 import { useGetAllPermissionQuery } from '../../services/permissionApi';
-import { create } from 'yup/lib/array';
+import { authApiContext } from '../../contexts/Api/AuthApi';
+
 
 function UserEdit() {
   const { id } = useParams();
   const history = useHistory();
+  const {resData, ErrData ,userGetById }=useContext(authApiContext);
 
   const [updateUser, res] = useUpdateUserMutation() || {};
   const response = useGetAllPermissionQuery();
@@ -77,6 +79,7 @@ function UserEdit() {
 
     }
   };
+  
 
   {
     dataResponse?.data?.user_has_permission?.map((item) => {
@@ -230,8 +233,7 @@ function UserEdit() {
                 <h6>Assign Permission</h6>
                 <hr />
                 <Form.Group className="d-flex wrap">
-                  {response.isSuccess &&
-                    response.data.map((item) => {
+                  {response?.data?.map((item) => {
                       return (
                         <div key={item.id}>
                           <Form.Check

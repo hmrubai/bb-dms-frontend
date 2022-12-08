@@ -9,6 +9,10 @@ import { authUser } from '../../features/authSlice';
 export const authApiContext = React.createContext();
 
 const AuthApi = ({ children }) => {
+  const [resData, setRes] = useState();
+
+  const [ErrData, setError] = useState();
+
   let history = useHistory();
   const dispatch = useDispatch();
   const registration = async (data) => {
@@ -72,7 +76,21 @@ const AuthApi = ({ children }) => {
     window.location.reload(false);
   };
 
-  return <authApiContext.Provider value={{ registration, login, logOut }}>{children}</authApiContext.Provider>;
+  const userGetById = async (id) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}users/${id}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      // setResData(response.data.token);
+      setRes(response.data);
+    } catch (error) {
+      setError(error.response.data);
+    }
+  };
+
+  return <authApiContext.Provider value={{ registration, login, logOut, resData, ErrData ,userGetById}}>{children}</authApiContext.Provider>;
 };
 
 export default AuthApi;
