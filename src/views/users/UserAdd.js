@@ -34,7 +34,10 @@ function UserAdd() {
       formData.append('status', status);
     }
     formData.append('password', password);
-    formData.append('image', image);
+    if (image !== undefined) {
+      formData.append('image', image);
+    }
+ 
     if (permission.length > 0) {
       formData.append('permission', permissionArr);
     }

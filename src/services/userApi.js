@@ -22,6 +22,7 @@ export const userApi = createApi({
       // transformResponse: (res) => res.reverse(),
       providesTags: ['User']
     }),
+    
     totalUser: builder.query({
       query: () => ({
         url: `all_user/`,

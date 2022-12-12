@@ -18,8 +18,6 @@ function UserEdit() {
   const response = useGetAllPermissionQuery();
   const { data, isSuccess, isFetching } = useGetUserByIdQuery(id);
 
-  const dataResponse = useGetUserByIdQuery(id);
-
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
@@ -41,8 +39,12 @@ function UserEdit() {
       setGender(data.gender);
       setStatus(data.status);
       setImage(data.image);
+
+      data.user_has_permission.map((item) => {
+        permissionName.push(item.permission.id);
+      });
     }
-  }, [id, isSuccess, data]);
+  }, [id, isSuccess, data, permissionName]);
 
   const submitHandel = async (e) => {
     e.preventDefault();
@@ -60,18 +62,21 @@ function UserEdit() {
     }
     updateUser({ id: id, data: formData });
 
-    if (res.isSuccess) {
+    
+  };
+  
+if (res.isSuccess) {
       toast.success(res.data.message);
-      history.push('/users/user');
+      // history.push('/users/user');
     }
     if (res.isError) {
       toast.error(res.error?.data.message);
     }
-  };
 
   const handleChange = (event) => {
     const { checked, value } = event.target;
     if (checked) {
+      
       setPermission([...permission, value]);
     
     } else {
@@ -80,17 +85,10 @@ function UserEdit() {
     }
   };
   
-
-  {
-    dataResponse?.data?.user_has_permission?.map((item) => {
-      permissionName.push(item.permission?.id);
-    });
-  }
-
-  console.log(permissionName);
+  // console.log(permission);
 
   return (
-    <>
+    <div>
       <Form onSubmit={submitHandel} encType="multipart/form-data">
         <Card>
           <ToastContainer />
@@ -233,24 +231,43 @@ function UserEdit() {
                 <h6>Assign Permission</h6>
                 <hr />
                 <Form.Group className="d-flex wrap">
-                  {response?.data?.map((item) => {
+                  {permissionName.length > 0 ? (
+                     response?.data?.map((item) => {
                       return (
                         <div key={item.id}>
                           <Form.Check
+                          
                             className="mr-2"
-                            custom
+                          
                             type="checkbox"
                             label={item.name}
                             name="permission_id"
                             id={item.id}
-                            // checked={permissionName.includes(item.id)}
                             defaultChecked={permissionName.includes(item.id) == true ? true : false}
-                            value={item.id}
+                            // value={item.id}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
                       );
-                    })}
+                    })
+                  ): (
+                    response?.data?.map((item) => {
+                     return (
+                       <div key={item.id}>
+                         <Form.Check
+                           className="mr-2"
+                         
+                           type="checkbox"
+                           label={item.name}
+                           name="permission_id"
+                           id={item.id}
+                           value={item.id}
+                           onChange={(e) => handleChange(e)}
+                         />
+                       </div>
+                     );
+                   })
+                 )}
                 </Form.Group>
                 <div className="pt-2">
                   <Button type="submit" variant="primary">
@@ -262,7 +279,7 @@ function UserEdit() {
           </Card.Body>
         </Card>
       </Form>
-    </>
+    </div>
   );
 }
 
