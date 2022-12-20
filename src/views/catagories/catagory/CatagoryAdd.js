@@ -8,11 +8,9 @@ import { useSelector } from './../../../store/index';
 function CatagoryAdd() {
   const auth = useSelector((state) => state.auth.user);
   const history = useHistory();
-  const [addCatagory, { data, isSuccess }] = useAddCatagoryMutation();
-
+  const [addCatagory, { data, isSuccess, isError }] = useAddCatagoryMutation();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
-  // const [user_id, setUserId] = useState();
   const [image, setImage] = useState();
 
   const submitHandel = async (e) => {
@@ -25,7 +23,11 @@ function CatagoryAdd() {
       formData.append('image', image);
     }
 
-    await addCatagory(formData);
+    try {
+      await addCatagory(formData).unwrap();
+    } catch (error) {
+      toast.error(error.data.message);
+    }
   };
 
   if (isSuccess) {

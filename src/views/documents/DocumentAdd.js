@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -11,7 +11,7 @@ import { useSelector } from './../../store/index';
 function DocumentAdd() {
   const history = useHistory();
   const auth = useSelector((state) => state.auth.user);
-  const [addUser, res] = useAddDocumentMutation();
+  const [addDocument, res] = useAddDocumentMutation();
   const { data, isLoading, isError, isSuccess } = useGetCategoryAllShowQuery();
 
   const [name, setName] = useState();
@@ -29,7 +29,7 @@ function DocumentAdd() {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('user_id', auth.id);
-    if (catagory_id===undefined) {
+    if (catagory_id === undefined) {
       toast.error('Please Select Catagory');
     }
     formData.append('catagory_id', catagory_id);
@@ -45,7 +45,12 @@ function DocumentAdd() {
     if (file !== undefined) {
       formData.append('file', file);
     }
-    await addUser(formData);
+
+    try {
+      await addDocument(formData).unwrap();
+    } catch (error) {
+      toast.error(error.data.message);
+    }
   };
 
   const { data: subCategoryShow } = useGetSubCatagoryShowQuery(catagory_id);
@@ -55,10 +60,6 @@ function DocumentAdd() {
     toast.success(res.data.message);
     history.push('/documents/document');
   }
-
-  // if (res.isError) {
-  //   toast.error(res.error?.data.message);
-  // }
 
   return (
     <Card>
@@ -103,7 +104,7 @@ function DocumentAdd() {
               <Row>
                 <Col>
                   <Form.Label>Category</Form.Label>
-                  <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagry_id(e.target.value)} required >
+                  <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagry_id(e.target.value)} required>
                     <option>Selact Catagory</option>
                     {data?.map((item) => (
                       <option value={item.id}>{item.name}</option>

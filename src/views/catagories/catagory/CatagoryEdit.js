@@ -3,21 +3,19 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
-import { useGetCatagoryByIdQuery, useUpdateCatagoryMutation, } from '../../../services/catagoryApi';
+import { useGetCatagoryByIdQuery, useUpdateCatagoryMutation } from '../../../services/catagoryApi';
 import { toast } from 'react-toastify';
 
 function CatagoryEdit() {
-    const {  id } = useParams();
+  const { id } = useParams();
   const history = useHistory();
 
-  const [updateCatagory, {data:cataResData ,isSuccess:cataResSucess}] = useUpdateCatagoryMutation() || {};
+  const [updateCatagory, { data: cataResData, isSuccess: cataResSucess }] = useUpdateCatagoryMutation() || {};
   const { data, isSuccess, isFetching } = useGetCatagoryByIdQuery(id);
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [status, setStatus] = useState();
   const [image, setImage] = useState();
-
-
 
   useEffect(() => {
     if (isSuccess) {
@@ -28,37 +26,31 @@ function CatagoryEdit() {
     }
   }, [id, isSuccess, data]);
 
-//   const cataUpdate = async ( data,id) => {
-        
-//     try {
-//         const response = await axios.post(`${process.env.REACT_APP_BASE_URL}catagory/${id}`,data, {
-//         });
-//         console.log(response)
-       
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
-
-
-
-  
   const submitHandel = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('name', name)
-    formData.append('description', description)
-    formData.append('status', status)
-    formData.append('image', image)
-    updateCatagory({ id: id, data: formData });
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('status', status);
+    formData.append('image', image);
+    
 
-    // if (cataResSucess) {
-    //   toast.success(cataResData.message);
-    // }
-    history.push('/catagories/catagory');
+    try {
+     await updateCatagory({ id: id, data: formData }).unwrap()
+    } catch (error) {
+      toast.success(error.data.message)
+    }
+
+
+
+
   };
-  // console.log(data)
- 
+
+  if (cataResSucess) {
+    toast.success(cataResData.message);
+    history.push('/catagories/catagory');
+  }
+
   return (
     <Card>
       <Card.Header>

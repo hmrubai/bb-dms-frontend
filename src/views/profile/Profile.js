@@ -13,15 +13,70 @@ function Profile() {
         </Card.Header>
         <Card.Body>
           <Row>
-            <Col className=" d-flex justify-content-center">
-              <Card>
-                              <Card.Img className='rounded-circle ' width="50%" height="150" src={users.image !== null ? `${process.env.REACT_APP_IMAGE_URL}${users.image}` : avatar1} />
-                              <Card.Body>
-                                  <h5>Name:{users.name }</h5>
-                              </Card.Body>
+          <div class="col-md-4 col-12 py-3">
+            <class class="img-fluid rounded " style={{width: '200px', height: '200px',}}  img src="" alt="" />
+                    
+                       </div>
+              <div class="col-md-4 col-12 py-3">
+                        <p>
+                          Name: 
+                          <span class="font-weight-bold text-primary "> </span>
+                          
+                        </p>
+                        <p>Email:
+                          <span class="font-weight-bold text-primary "> </span>
+                          </p>
+                  
+                        <p>Permanent Address:
+                          <span class="font-weight-bold text-primary"></span>
+                          </p>
+                          <p>Residence Address:
+                              <span class="font-weight-bold text-primary"> </span>
+                              </p>
+                    
+                           Section
+                          <span class="font-weight-bold text-primary" ></span>
+                      
+                          <p>Class:
+                              <span class="font-weight-bold text-primary"> </span>
+                              </p>
+                            <p>Roll:
+                              <span class="font-weight-bold text-primary"></span>
+                              </p>
+                            
+                      
+                        <p>
+                         </p>
+                     </div>
+                         <div class="col-md-4 col-12 py-3">
+                          <p>Father Name: 
+                          <span class="font-weight-bold text-primary" ></span>
+                        </p>
+                        <p>Mother Name:
+                          <span class="font-weight-bold text-primary"> </span>
+                          </p>
+                           
+                            <p>Father Profession:
+                              <span class="font-weight-bold text-primary"></span>
                               
-              </Card>
-            </Col>
+                            </p>
+                            <p>Mother Profession:
+                              <span class="font-weight-bold text-primary"></span>
+
+                              </p>
+                         
+                            <p>Father Phone No:
+                              <span class="font-weight-bold text-primary"></span>
+                              </p>
+                         
+                            <p>Father Phone No:
+                              <span class="font-weight-bold text-primary"></span>
+                              </p>
+                              <p> Emergency No:</p>
+                              <span class="font-weight-bold text-primary"></span>
+                        
+                      </div>
+              
           </Row>
         </Card.Body>
       </Card>
