@@ -1,19 +1,18 @@
 import React from 'react';
-
-import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useState, useEffect, useContext } from 'react';
 import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { useGetUserByIdQuery, useUpdateUserMutation } from '../../services/userApi';
 import { useGetAllPermissionQuery } from '../../services/permissionApi';
+import { authApiContext } from '../../contexts/Api/AuthApi';
 
 function UserEdit() {
   const { id } = useParams();
   const history = useHistory();
   const [updateUser, res] = useUpdateUserMutation() || {};
-
-  const { data: defaultPermission } = useGetAllPermissionQuery();
-
+  const response = useGetAllPermissionQuery();
   const { data, isSuccess, isFetching } = useGetUserByIdQuery(id);
 
   const [name, setName] = useState();
@@ -22,14 +21,11 @@ function UserEdit() {
   const [number, setNumber] = useState();
   const [gender, setGender] = useState();
   const [status, setStatus] = useState();
+  // const [password, setPassword] = useState();
   const [image, setImage] = useState();
   const [permission, setPermission] = useState([]);
-
   const permissionArr = JSON.stringify(permission);
-
-  const [userCheckedPermissionId, setUserCheckedPermissionId] = useState([]);
-
-  
+  const [permissionId, setPermissionId] = useState([]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -42,10 +38,23 @@ function UserEdit() {
       setImage(data.image);
 
       data.user_has_permission.map((item) => {
-        userCheckedPermissionId.push(item.permission.id);
+        permissionId.push(item.permission.id);
+        //permission.push(item.permission.id);
+        //console.log(permissionId)
       });
     }
-  }, [id, isSuccess, data, userCheckedPermissionId]);
+  }, [id, isSuccess, data, permissionId]);
+
+  
+
+  // if (data?.user_has_permission) {
+  //   console.log(data?.user_has_permission)
+  //   let existing_permission = data?.user_has_permission;
+  //   existing_permission.forEach(element => {
+      
+  //   });
+    
+  // }
 
   const submitHandel = async (e) => {
     e.preventDefault();
@@ -73,21 +82,27 @@ function UserEdit() {
     history.push('/users/user');
   }
 
-  const handleChange = (e) => {
-    const { checked, value } = e.target;
+  function checkData() {
+    //console.log(permissionId)
+    console.log(permission)
+    //console.log(permissionArr);
+  }
 
+
+  const handleChange = (event) => {
+    //console.log(event)
+    console.log(permissionId)
+    const { checked, value } = event.target;
+    //console.log(value)
     if (checked) {
-      console.log('checked', value);
-      
-      setPermission([...permission,...userCheckedPermissionId, value]);
+      setPermission([...permission, value]);
     } else {
       setPermission(permission.filter((item) => item !== value));
-      setUserCheckedPermissionId(userCheckedPermissionId.filter((item) => item !== value));
     }
-
+    console.log(permission)
   };
 
-console.log(permission)
+
 
   return (
     <div>
@@ -153,6 +168,12 @@ console.log(permission)
                 </Form.Group>
 
                 <Row>
+                  {/* <Col>
+                    <Form.Group controlId="exampleForm.ControlInput1">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control type="password" placeholder="Password" name="password" onChange={(e) => setPassword(e.target.value)} />
+                    </Form.Group>
+                  </Col> */}
                   <Col>
                     <Form.Label>Status</Form.Label>
                     <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
@@ -209,35 +230,49 @@ console.log(permission)
           <Card.Body>
             <Row>
               <Col>
+                {/* <Form.Group > */}
+                {/* <Form.Label>Select Role</Form.Label>
+                <Form.Control as="select" name="role_id"
+                  value={allData.role_id}
+                  onChange={handelRoleId}
+                > */}
+                {/* <option>Default select</option> */}
+                {/* {roleListAllData.map((item) => (
+                    <option value={item.id} key={item.id}>
+                      {item.role_name}
+                    </option>
+                  ))} */}
+                {/* </Form.Control>
+              </Form.Group> */}
                 <hr />
                 <h6>Assign Permission</h6>
                 <hr />
                 <Form.Group className="d-flex wrap">
-                  {userCheckedPermissionId.length > 0
-                    ? defaultPermission?.map((item) => {
+                  {permissionId.length > 0
+                    ? response?.data?.map((item) => {
                         return (
                           <div key={item.id}>
                             <Form.Check
                               className="mr-2"
                               type="checkbox"
                               label={item.name}
-                              name="permission_id[]"
+                              name="permission_id"
                               id={item.id}
-                              defaultChecked={userCheckedPermissionId.includes(item.id) == true ? true : false}
+                              defaultChecked={permissionId.includes(item.id) == true ? true : false}
+                              // value={item.id}
                               onChange={(e) => handleChange(e)}
-                              value={item.id}
                             />
                           </div>
                         );
                       })
-                    : defaultPermission?.map((item) => {
+                    : response?.data?.map((item) => {
                         return (
                           <div key={item.id}>
                             <Form.Check
                               className="mr-2"
                               type="checkbox"
                               label={item.name}
-                              name="permission_id[]"
+                              name="permission_id"
                               id={item.id}
                               value={item.id}
                               onChange={(e) => handleChange(e)}
@@ -247,6 +282,7 @@ console.log(permission)
                       })}
                 </Form.Group>
                 <div className="pt-2">
+                  <Button onClick={checkData} >Check</Button>
                   <Button type="submit" variant="primary">
                     Submit
                   </Button>

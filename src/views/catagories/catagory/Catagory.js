@@ -20,5 +20,4 @@ function Catagory() {
     </>
   );
 }
-
 export default Catagory;
