@@ -1,263 +1,163 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import { checkObjectInArray } from "../../utils/Helper";
+import { useGetAllPermissionQuery } from "../../services/permissionApi";
+import getPermissionsMasterData from "./permissionMasterData";
+import  axios  from 'axios';
+import { useParams } from 'react-router-dom';
 
-import { useState, useEffect } from 'react';
-import { Button, Form, Row, Col, Card } from 'react-bootstrap';
-import { useHistory, useParams } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import { useGetUserByIdQuery, useUpdateUserMutation } from '../../services/userApi';
-import { useGetAllPermissionQuery } from '../../services/permissionApi';
 
-function UserEdit() {
+
+const UserEdit = props => {
   const { id } = useParams();
-  const history = useHistory();
-  const [updateUser, res] = useUpdateUserMutation() || {};
+  const { data, isSuccess } = useGetAllPermissionQuery();
+  const [mainPermissions, setMainPermissions] = useState([]);
+  const [userDefaultPermissions, setUserDefaultPermissions] = useState([])
 
-  const { data: defaultPermission } = useGetAllPermissionQuery();
+  // const [role, setRole] = useState({
+  //   permissions: [
+  //     { permission_id: 1, name: "create_product" },
+  //     { permission_id: 2, name: "edit_product" },
+  //     { permission_id: 20, name: "view_product" },
+  //     { permission_id: 4, name: "delete_product" },
+  //     { permission_id: 5, name: "create_category" },
+   
+  //   ]
+  // });
 
-  const { data, isSuccess, isFetching } = useGetUserByIdQuery(id);
 
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [username, setUsername] = useState();
-  const [number, setNumber] = useState();
-  const [gender, setGender] = useState();
-  const [status, setStatus] = useState();
-  const [image, setImage] = useState();
-  const [permission, setPermission] = useState([]);
-
-  const permissionArr = JSON.stringify(permission);
-
-  const [userCheckedPermissionId, setUserCheckedPermissionId] = useState([]);
-
+console.log("userDefaultPermissions", userDefaultPermissions);
   
 
   useEffect(() => {
-    if (isSuccess) {
-      setName(data.name);
-      setEmail(data.email);
-      setUsername(data.username);
-      setNumber(data.number);
-      setGender(data.gender);
-      setStatus(data.status);
-      setImage(data.image);
+    axios.get(`${process.env.REACT_APP_BASE_URL}permission`)
+    .then(res => {
+    
+      setMainPermissions(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
-      data.user_has_permission.map((item) => {
-        userCheckedPermissionId.push(item.permission.id);
-      });
-    }
-  }, [id, isSuccess, data, userCheckedPermissionId]);
+    axios.get(`${process.env.REACT_APP_BASE_URL}users/${id}`)
+    .then(res => {
+         
+      setUserDefaultPermissions(res.data.user_has_permission
+);
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
-  const submitHandel = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('username', username);
-    formData.append('number', number);
-    formData.append('gender', gender);
-    formData.append('status', status);
-    formData.append('image', image);
-    if (permission.length > 0) {
-      formData.append('permission', permissionArr);
-    }
 
-    try {
-      await updateUser({ id: id, data: formData }).unwrap();
-    } catch (error) {
-      toast.error(error.data.message);
-    }
+  }, []);
+
+
+
+
+
+  const [permissions, setPermissions] = useState({
+    allPermissions: []
+  });
+
+
+  const submitRole = (e) => {
+    e.preventDefault(); 
+    let selectedPermissions = [];
+    permissions.allPermissions.forEach((item, index) => {
+      if (item.isChecked) {
+        selectedPermissions.push(item);
+      }
+    });
+    
+    const data = {
+      permissions: selectedPermissions
+    };
+
+    console.log("data", data);
+    // onSubmitEdit(data);
   };
 
-  if (res.isSuccess) {
-    toast.success(res.data.message);
-    history.push('/users/user');
-  }
 
-  const handleChange = (e) => {
-    const { checked, value } = e.target;
 
-    if (checked) {
-      console.log('checked', value);
-      
-      setPermission([...permission,...userCheckedPermissionId, value]);
-    } else {
-      setPermission(permission.filter((item) => item !== value));
-      setUserCheckedPermissionId(userCheckedPermissionId.filter((item) => item !== value));
-    }
 
+  useEffect(() => {
+    let permissionsData = { ...permissions };
+
+    // let allPermissionsData = getPermissionsMasterData();
+
+    mainPermissions.forEach((item, index) => {
+      item.isChecked = checkObjectInArray(item, userDefaultPermissions, "id","permission_id");
+      permissionsData.allPermissions.push(item);
+    });
+    setPermissions(permissionsData);
+
+  }, [userDefaultPermissions]);
+
+
+  const checkPermission = (e, index) => {
+    let permissionsData = { ...permissions };
+    const checkedStatus = e.target.checked;
+    permissionsData.allPermissions[index].isChecked = checkedStatus;
+    setPermissions(permissionsData);
   };
 
-console.log(permission)
 
   return (
-    <div>
-      <Form onSubmit={submitHandel} encType="multipart/form-data">
-        <Card>
-          <ToastContainer />
-          <Card.Header>
-            <Card.Title as="h5">Edit User</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <Row>
-              <Col>
-                <Row>
-                  <Col>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Label>Name</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Name"
-                        name="name"
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        value={name}
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Label>Username</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Username"
-                        name="username"
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                        value={username}
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
+    <>
+     
+   
+        <Form >
+          <Form.Group as={Row} controlId="role">
+            <Form.Label column sm="4">
+              Enter Role
+            </Form.Label>
+            <Col sm="6">
+              <input
+                className="form-control"
+                // value={roleData.name}
+  
+                placeholder="Enter Role Name"
+              />
+            </Col>
+          </Form.Group>
 
-                <Form.Group controlId="exampleForm.ControlInput1">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    value={email}
-                  />
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlInput1">
-                  <Form.Label>Number</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Number"
-                    name="number"
-                    onChange={(e) => setNumber(e.target.value)}
-                    required
-                    value={number}
-                  />
-                </Form.Group>
+          <Form.Group as={Row} controlId="permissions">
+            <Form.Label column sm="4">
+              Permissions
+            </Form.Label>
+          <Col sm="6">
 
-                <Row>
-                  <Col>
-                    <Form.Label>Status</Form.Label>
-                    <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
-                      <option value={status}>{status}</option>
-                      <option value="Active">Active</option>
-                      <option value="Pending">Pending</option>
-                    </Form.Control>
-                  </Col>
-                </Row>
+        
+          
 
-                <Form.Label>Gender</Form.Label>
+            
+              {permissions?.allPermissions?.map((item, index) => (
+                <>
+                  <label>
+                    <input
+                      type="checkbox"
+                      value={JSON.stringify(item)}
+                      checked={item.isChecked ? true : false}
+                      onChange={e => checkPermission(e, index)}
+                    />{" "}
+                    {item.name}
+                  </label>{" "}
+                  <br />
+                </>
+              ))}
+            </Col>
+        </Form.Group>
+        <button onClick={submitRole} className="btn btn-success">
+          Update
+        </button>
+        </Form>
+ 
 
-                <div className="d-flex pb-3 pl-2">
-                  <div className=" pr-5">
-                    <Form.Check
-                      custom
-                      type="radio"
-                      label="Male"
-                      name="gender"
-                      id="supportedRadio3"
-                      value="Male"
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Form.Check
-                      custom
-                      type="radio"
-                      label="Female"
-                      name="gender"
-                      id="supportedRadio4"
-                      value="Female"
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
-                <Form.Group controlId="exampleForm.ControlInput1">
-                  <input
-                    type="file"
-                    name="image"
-                    accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                    onChange={(e) => setImage(e.target.files[0])}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Header>
-            <Card.Title as="h5">Edit Role To Permission</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <Row>
-              <Col>
-                <hr />
-                <h6>Assign Permission</h6>
-                <hr />
-                <Form.Group className="d-flex wrap">
-                  {userCheckedPermissionId.length > 0
-                    ? defaultPermission?.map((item) => {
-                        return (
-                          <div key={item.id}>
-                            <Form.Check
-                              className="mr-2"
-                              type="checkbox"
-                              label={item.name}
-                              name="permission_id[]"
-                              id={item.id}
-                              defaultChecked={userCheckedPermissionId.includes(item.id) == true ? true : false}
-                              onChange={(e) => handleChange(e)}
-                              value={item.id}
-                            />
-                          </div>
-                        );
-                      })
-                    : defaultPermission?.map((item) => {
-                        return (
-                          <div key={item.id}>
-                            <Form.Check
-                              className="mr-2"
-                              type="checkbox"
-                              label={item.name}
-                              name="permission_id[]"
-                              id={item.id}
-                              value={item.id}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        );
-                      })}
-                </Form.Group>
-                <div className="pt-2">
-                  <Button type="submit" variant="primary">
-                    Submit
-                  </Button>
-                </div>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-      </Form>
-    </div>
+    </>
   );
-}
+};
 
 export default UserEdit;
