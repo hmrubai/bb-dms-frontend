@@ -212,10 +212,11 @@ function UserAdd() {
                 <hr />
                 <h6>Assign Permission</h6>
                 <hr />
-                <Form.Group className="d-flex wrap">
+                <Form.Group >
+                <div className="d-flex flex-wrap">
                   {response.isSuccess &&
                     response.data.map((item) => (
-                      <div key={item.id}>
+                      <div key={item.id} className="p-2 col-6">
                         <Form.Check
                           className="mr-2"
                           custom
@@ -228,6 +229,7 @@ function UserAdd() {
                         />
                       </div>
                     ))}
+                    </div>
                 </Form.Group>
                 <div className="pt-2">
                   <Button type="submit" variant="primary">

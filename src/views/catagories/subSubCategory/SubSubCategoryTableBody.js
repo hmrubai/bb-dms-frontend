@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useDeleteSubSubCategoryMutation } from '../../../services/subSubCategoryApi';
 import Swal from 'sweetalert2';
 
-function CategoryTableBody({ subSubCatagory }) {
+function CategoryTableBody({ subSubCatagory ,index }) {
   const [deleteSubSubCategory, { data, isSuccess }] = useDeleteSubSubCategoryMutation();
 
   const deleteHandel = async (id) => {
@@ -33,7 +33,7 @@ function CategoryTableBody({ subSubCatagory }) {
   return (
     <tbody>
       <tr>
-        <th scope="row">{subSubCatagory.id}</th>
+        <th scope="row">{index+1}</th>
         <td>{subSubCatagory?.name}</td>
         <td>{subSubCatagory?.user?.name}</td>
         <td>{subSubCatagory?.catagory?.name}</td>

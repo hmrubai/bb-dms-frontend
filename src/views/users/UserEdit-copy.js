@@ -78,8 +78,9 @@ function UserEdit() {
   };
 
   if (res.isSuccess) {
-    toast.success(res.data.message);
-    history.push('/users/user');
+    // toast.success(res.data.message);
+    // history.push('/users/user');
+    console.log(res.data)
   }
 
   function checkData() {

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authUser } from '../../features/authSlice';
 
@@ -10,10 +9,8 @@ export const authApiContext = React.createContext();
 
 const AuthApi = ({ children }) => {
   const [resData, setRes] = useState();
-
   const [ErrData, setError] = useState();
 
-  let history = useHistory();
   const dispatch = useDispatch();
   const registration = async (data) => {
     try {
@@ -24,7 +21,7 @@ const AuthApi = ({ children }) => {
         withCredentials: true
       });
       toast.success(response.data.message);
-      window.location.replace('http://localhost:3000/auth/signin');
+      window.location.replace(`${process.env.REACT_APP_APP_URL}auth/signin`);
     } catch (error) {
       if (error.response.data.errors.password) {
         toast.warning(error.response.data.errors.password[0]);
@@ -46,7 +43,7 @@ const AuthApi = ({ children }) => {
 
       toast.success(response.data[0].message);
       dispatch(authUser(response.data[0]));
-      window.location.replace('http://localhost:3000/dashboard');
+      window.location.replace(`${process.env.REACT_APP_APP_URL}dashboard`);
     } catch (error) {
       console.log(error.response.data.message);
       toast.error(error.response.data.message);

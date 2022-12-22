@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
 import { useDeleteCatagoryMutation } from '../../../services/catagoryApi';
 import Swal from 'sweetalert2';
-function CatagoryTableBody({ catagory }) {
+function CatagoryTableBody({ catagory ,index}) {
   const [deleteCatagory] = useDeleteCatagoryMutation();
 
   const deleteHandel = async (id) => {
@@ -27,7 +27,7 @@ function CatagoryTableBody({ catagory }) {
   return (
     <tbody>
       <tr>
-        <th scope="row">{catagory.id}</th>
+        <th scope="row">{index+1}</th>
         <td>{catagory.name}</td>
         <td>{catagory.user.name}</td>
         <img className="img-circle mt-3" src={`${process.env.REACT_APP_IMAGE_URL}${catagory.image}`} width="60px" alt="" />

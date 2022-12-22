@@ -39,8 +39,8 @@ function CatagoryTable() {
                   <th>Action</th>
                 </tr>
               </thead>
-              {data.data.map((catagory) => (
-                <CatagoryTableBody catagory={catagory} />
+              {data.data.map((catagory ,index) => (
+                <CatagoryTableBody key={index} catagory={catagory} index={index} />
               ))}
             </Table>
 

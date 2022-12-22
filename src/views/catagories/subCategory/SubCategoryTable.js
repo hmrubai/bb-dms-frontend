@@ -41,8 +41,8 @@ function SubCategoryTable() {
                   <th>Action</th>
                 </tr>
               </thead>
-              {data.data.map((subCatagory) => (
-                <SubCategoryTableBody subCatagory={subCatagory} />
+              {data.data.map((subCatagory,index) => (
+                <SubCategoryTableBody key={index} subCatagory={subCatagory} index={index} />
               ))}
             </Table>
 

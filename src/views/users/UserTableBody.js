@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useDeleteUserMutation } from '../../services/userApi';
 import  Swal  from 'sweetalert2';
 
-function UserTableBody({ user }) {
+function UserTableBody({ user ,index}) {
   const [deleteUser, { data, isSuccess }] = useDeleteUserMutation();
 
   const deleteHandel = async (id) => {
@@ -41,7 +41,7 @@ function UserTableBody({ user }) {
   return (
     <tbody>
       <tr>
-        <th scope="row">{user.id}</th>
+        <th scope="row">{index+1}</th>
         <td>{user.name}</td>
         <td>{user.username}</td>
         <td>{user.email}</td>
