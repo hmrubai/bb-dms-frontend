@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
-import { authUser } from '../../features/authSlice';
+import { authUser,userPermission } from '../../features/authSlice';
 
 export const authApiContext = React.createContext();
 
@@ -41,7 +41,13 @@ const AuthApi = ({ children }) => {
         }
       });
 
+      const permissions = [];
       toast.success(response.data[0].message);
+       response.data[0].user.user_has_permission.map((item) => {
+         permissions.push(item.permission.name);
+        //  localStorage.setItem('permissions', JSON.stringify(permissions));
+       });
+      dispatch(userPermission(permissions));
       dispatch(authUser(response.data[0]));
       window.location.replace(`${process.env.REACT_APP_APP_URL}dashboard`);
     } catch (error) {

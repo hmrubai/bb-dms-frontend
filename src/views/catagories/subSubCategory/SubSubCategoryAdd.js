@@ -73,15 +73,16 @@ function SubCategoryAdd() {
               <Form.Label>Category</Form.Label>
               <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagoryId(e.target.value)}>
                 <option>Selact Category</option>
-                {category?.data.map((cate) => (
-                  <option value={cate.id}>{cate.name}</option>
+                {category?.data.map((cate,i) => (
+                  <option key={i} value={cate.id}>{cate.name}</option>
                 ))}
               </Form.Control>
 
               <Form.Label>Sub Category</Form.Label>
               <Form.Control as="select" className="mb-3" name="sub_catagory_id" onChange={(e) => setSubCatagoryId(e.target.value)}>
                 <option>Selact Category</option>
-                {cataSucess && subCategoryShow?.sub_catagory?.map((subCate) => <option value={subCate?.id}>{subCate?.name}</option>)}
+                {cataSucess && subCategoryShow?.sub_catagory?.map((subCate, i) =>
+                  <option key={i} value={subCate?.id}>{subCate?.name}</option>)}
               </Form.Control>
 
               <Form.Group controlId="exampleForm.ControlInput1">

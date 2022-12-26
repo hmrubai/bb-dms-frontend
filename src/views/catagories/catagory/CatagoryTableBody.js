@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
 import { useDeleteCatagoryMutation } from '../../../services/catagoryApi';
 import Swal from 'sweetalert2';
+import { useSelector } from './../../../store/index';
 function CatagoryTableBody({ catagory ,index}) {
   const [deleteCatagory] = useDeleteCatagoryMutation();
+  const authPermission = useSelector((state) => state.auth.permissions);
+
 
   const deleteHandel = async (id) => {
     Swal.fire({
@@ -35,12 +38,19 @@ function CatagoryTableBody({ catagory ,index}) {
           <Link to={`/catagories/catagory_view/${catagory.id}`}>
             <BsFillEyeFill color="black" size={20} />
           </Link>
-          <Link to={`/catagories/catagory_edit/${catagory.id}`} className="px-2">
+          {authPermission.includes('category_edit') && (
+                <Link to={`/catagories/catagory_edit/${catagory.id}`} className="px-2">
             <BsPencilSquare size={18} />
           </Link>
-          <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(catagory.id)}>
+          )}
+      
+          
+          {authPermission.includes('category_delete') && (
+            <Link to="#" style={{ 'border-style': 'none' }} onClick={() => deleteHandel(catagory.id)}>
             <BsFillTrashFill color="red" size={17} />
-          </button>
+          </Link>
+          )}
+          
         </td>
       </tr>
     </tbody>

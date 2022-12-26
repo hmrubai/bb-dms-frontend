@@ -33,17 +33,12 @@ function CatagoryEdit() {
     formData.append('description', description);
     formData.append('status', status);
     formData.append('image', image);
-    
 
     try {
-     await updateCatagory({ id: id, data: formData }).unwrap()
+      await updateCatagory({ id: id, data: formData }).unwrap();
     } catch (error) {
-      toast.success(error.data.message)
+      toast.success(error.data.message);
     }
-
-
-
-
   };
 
   if (cataResSucess) {

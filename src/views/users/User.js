@@ -2,23 +2,25 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
-import { ToastContainer } from 'react-toastify';
 import UserTable from './UserTable';
-
+import { useSelector } from './../../store/index';
 
 function User() {
+  const authPermission = useSelector((state) => state.auth.permissions);
+ 
   return (
     <>
-     
       <div className="mb-2">
-        <Link to={`/users/user_add`}>
-          <Button>
-            <BsFillPlusCircleFill color="white" className="mr-2 " />
-            Add User
-          </Button>
-        </Link>
+        {authPermission.includes('user_create') && (
+             <Link to={`/users/user_add`}>
+             <Button>
+               <BsFillPlusCircleFill color="white" className="mr-2 " />
+               Add User
+             </Button>
+           </Link>
+     )}
+        <UserTable />
       </div>
-      <UserTable/>
     </>
   );
 }

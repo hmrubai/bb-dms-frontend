@@ -11,7 +11,7 @@ import { useGetAllUserQuery } from '../../services/userApi';
 
 function UserTable() {
   const [page, setPage] = useState(1);
-  const { data, isFetching, isLoading, isError, isSuccess } = useGetAllUserQuery(page);
+  const { data, isFetching, isLoading } = useGetAllUserQuery(page);
   if (isLoading) {
     return (
       <>

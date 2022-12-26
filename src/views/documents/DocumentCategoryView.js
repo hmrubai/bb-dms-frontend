@@ -92,8 +92,8 @@ function DocumentCategoryView() {
           {cateIssucess && (
             <div>
             <div className="d-flex flex-wrap ">
-                {subCategory.map((item) => (
-                  <DocumentSubCategory item={item} />
+                {subCategory.map((item,i) => (
+                  <DocumentSubCategory key={i} item={item} />
                 ))}
               </div>
             </div>
@@ -110,8 +110,9 @@ function DocumentCategoryView() {
                     </div>
                   )}
                   <Card.Body className="py-2 px-2">
-                    <Card.Title className='m-0 p-0 h6' ><b>{item.name}</b></Card.Title>
-                    <Card.Text className='m-0 p-0'>Author by: {item.user.name}</Card.Text>
+                    <Card.Title className='m-0 p-0 h6' ><b>{item.name.split(' ')[0]}</b></Card.Title>
+                    <Card.Text className='m-0 p-0' style={{fontSize:"11px"}} >Author by: {item.user.name}</Card.Text>
+                
                   </Card.Body>
 
                   <div className=" text-center p-2 shadow m-3 ">

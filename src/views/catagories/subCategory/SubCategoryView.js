@@ -25,10 +25,12 @@ function CategoryView() {
 
   return (
     <>
+
+
       <Card>
         <Card.Header>
           <div>
-            <Card.Title as="h5">Sub Category</Card.Title>
+            <Card.Title as="h5">Sub Catagory</Card.Title>
             <span className="me-auto">
               <Link to={`/catagories/sub_category`}>
                 <BsArrowLeftCircleFill color="black" size={'20px'} />
@@ -36,64 +38,62 @@ function CategoryView() {
             </span>
           </div>
         </Card.Header>
+        <Card.Header>
+          <div className="text-center">
+            <Card.Title as="h5">Sub Category Information</Card.Title>
+          </div>
+        </Card.Header>
+
         <Card.Body>
           <Row>
-            <Col>
-              <div>
-                <h4>SUB CATEGORY INFORMATION</h4>
-                <hr />
-              </div>
-              <div className=" pb-2">
-                <img className="img-circle border" src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`} width="200px" alt="" />
-              </div>
-              <div>
-                <div>
-                  <h5>
-                    <span>Sub Category Name :</span> <span>{data.name}</span>
-                  </h5>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <h5>
-                    <span>User Name:</span> <span>{data.user.name}</span>
-                  </h5>
-                </div>
-                <div>
-                  <h5>
-                    <span>Category Name:</span> <span>{data.catagory.name}</span>
-                  </h5>
-                </div>
-                <div>
-                  <h5>
-                    <span>Description:</span> <span>{data.description}</span>
-                  </h5>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <h5>
-                    <span>Status:</span> <span>{data.status}</span>
-                  </h5>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <h5>
-                    <span>Created At:</span>
-                    Time: <DayJS format="h:mm A">{data.created_at}</DayJS> || Date: <DayJS format="YYYY-MM-DD">{data.created_at}</DayJS>
-                  </h5>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <h5>
-                    <span>updated At:</span>
-                    Time: <DayJS format="h:mm A">{data.updated_at}</DayJS> || Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS>
-                  </h5>
-                </div>
-              </div>
-            </Col>
+            <div class="col-md-4 col-12 py-3 text-center">
+              <img
+                class="img-fluid rounded-circle "
+                style={{ width: '200px', height: '200px' }}
+                src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`}
+                alt=""
+              />
+                <p className='pt-3'>
+                Sub Category Name:
+                <span class="font-weight-bold text-primary ">{data.name}</span>
+              </p>
+            </div>
+            <div class="col-md-4 col-12 py-3">
+            
+              <p>
+                Category Name:
+                <span class="font-weight-bold text-primary ">{data.catagory.name}</span>
+              </p>
+              <p>
+                Created By:
+                <span class="font-weight-bold text-primary ">{data.user.name} </span>
+              </p>
+
+              <p>
+                Description:
+                <span class="font-weight-bold text-primary ">{data.description} </span>
+              </p>
+
+              <p>
+                Status:
+                <span class="font-weight-bold text-primary">{data.status}</span>
+              </p>
+              <p>
+                Created At:
+                <span class="font-weight-bold text-primary">
+                  {' '}
+                  Time: <DayJS format="h:mm A">{data.created_at}</DayJS> || Date: <DayJS format="YYYY-MM-DD">{data.created_at}</DayJS>
+                </span>
+              </p>
+
+              <p>
+                updated At:
+                <span class="font-weight-bold text-primary">
+                  {' '}
+                  Time: <DayJS format="h:mm A">{data.updated_at}</DayJS> || Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS>{' '}
+                </span>
+              </p>
+            </div>
           </Row>
         </Card.Body>
       </Card>

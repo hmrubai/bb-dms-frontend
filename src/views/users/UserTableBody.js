@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
-
-import { toast } from 'react-toastify';
-
+import { useSelector } from './../../store/index';
 import { useDeleteUserMutation } from '../../services/userApi';
-import  Swal  from 'sweetalert2';
+import Swal from 'sweetalert2';
 
-function UserTableBody({ user ,index}) {
-  const [deleteUser, { data, isSuccess }] = useDeleteUserMutation();
+
+function UserTableBody({ user, index }) {
+  const [deleteUser] = useDeleteUserMutation();
+
+  const authPermission = useSelector((state) => state.auth.permissions);
 
   const deleteHandel = async (id) => {
-
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -20,28 +20,19 @@ function UserTableBody({ user ,index}) {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-      width: 400,
+      width: 400
     }).then((result) => {
-      
       if (result.isConfirmed) {
-         deleteUser(id);
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        deleteUser(id);
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
       }
-    })
+    });
   };
-
-  // if (isSuccess) {
-  //   toast.success(data.message);
-  // }
 
   return (
     <tbody>
       <tr>
-        <th scope="row">{index+1}</th>
+        <th scope="row">{index + 1}</th>
         <td>{user.name}</td>
         <td>{user.username}</td>
         <td>{user.email}</td>
@@ -54,12 +45,17 @@ function UserTableBody({ user ,index}) {
           <Link to={`/users/user_view/${user.id}`}>
             <BsFillEyeFill color="black" size={20} />
           </Link>
-          <Link to={`/users/user_edit/${user.id}`} className="px-2">
-            <BsPencilSquare size={18} />
-          </Link>
-          <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(user.id)}>
-            <BsFillTrashFill color="red" size={17} />
-          </button>
+          {authPermission.includes('user_edit') && (
+            <Link to={`/users/user_edit/${user.id}`} className="px-2">
+              <BsPencilSquare size={18} />
+            </Link>
+          )}
+
+          {authPermission.includes('user_delete') && (
+            <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(user.id)}>
+              <BsFillTrashFill color="red" size={17} />
+            </button>
+          )}
         </td>
       </tr>
     </tbody>

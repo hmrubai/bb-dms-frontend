@@ -15,25 +15,10 @@ const menuItems = {
         }
       ]
     },
-    {
-      id: 'users',
-      title: 'Users',
-      type: 'group',
-      icon: 'icon-group',
-      children: [
-        {
-          id: 'users',
-          title: 'Users',
-          type: 'item',
-          url: '/users/user',
-          icon: 'feather icon-user',
-        },
-        // addnew
-      ]
-    },
+
     {
       id: 'categories',
-      title: 'CATEGORIES',
+      title: 'Categories',
       type: 'group',
       icon: 'icon-ui',
       children: [
@@ -91,11 +76,11 @@ const menuItems = {
  
       children: [
         {
-          id: 'settings',
-          title: 'settings',
+          id: 'users',
+          title: 'User Settings',
           type: 'item',
-          url: '/settings/setting',
-          icon: 'feather icon-settings',
+          url: '/users/user',
+          icon: 'feather icon-user',
         },
         // addnew
       ]

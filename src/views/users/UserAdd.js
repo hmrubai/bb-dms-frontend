@@ -5,11 +5,15 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetAllPermissionQuery } from '../../services/permissionApi';
 import { useAddUserMutation } from '../../services/userApi';
+import { useSelector } from './../../store/index';
 
 function UserAdd() {
   const history = useHistory();
   const [addUser, res] = useAddUserMutation();
   const response = useGetAllPermissionQuery();
+ 
+  const authPermission = useSelector((state) => state.auth.permissions);
+  
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();

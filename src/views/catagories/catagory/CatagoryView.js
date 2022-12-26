@@ -27,7 +27,8 @@ function CatagoryView() {
   }
 
   return (
-    <Card>
+    <>
+      <Card>
       <Card.Header>
         <div>
           <Card.Title as="h5">Catagory</Card.Title>
@@ -37,63 +38,63 @@ function CatagoryView() {
             </Link>
           </span>
         </div>
-      </Card.Header>
-      <Card.Body>
-        <Row>
-          <Col>
-            <div><h4>CATEGORY INFORMATION</h4>
-              <hr />
+        </Card.Header>
+      <Card.Header>
+        <div className='text-center'>
+          <Card.Title as="h5">Category Information</Card.Title>
+       
+        </div>
+        </Card.Header>
+     
+        <Card.Body>
+      
+          <Row>
+            <div class="col-md-4 col-12 py-3 text-center">
+              <img
+                class="img-fluid rounded-circle "
+                style={{ width: '200px', height: '200px' }}
+                src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`}
+                alt=""
+              />
+                 <p className='pt-3'>
+                Category Name:
+                <span class="font-weight-bold text-primary ">{data.name}</span>
+              </p>
             </div>
-            <div className=" pb-2">
-              <img className="img-circle border" src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`} width="200px" alt="" />
-            </div>
-            <div>
-              <div>
-                <h5>
-                  <span>Catagory Name :</span> <span>{data.name}</span>
-                </h5>
-              </div>
-            </div>
-            <div>
-              <div>
-                <h5>
-                  <span>Created By:</span> <span>{data.user.name}</span>
-                </h5>
-              </div>
-            </div>
-            <div>
-              <div>
-                <h5>
-                  <span>Status:</span> <span>{data.status}</span>
-                </h5>
-              </div>
-            </div>
-            <div>
-              <div>
-                <h5>
-                  
+            <div class="col-md-4 col-12 py-3">
            
-                  <span>Created At:</span> 
-                  Time: <DayJS format="h:mm A">{data.created_at}</DayJS> ||
+              <p>
+              Created By:
+                <span class="font-weight-bold text-primary ">{data.user.name} </span>
+              </p>
+
+              <p>
+              Status:
+                <span class="font-weight-bold text-primary">{data.status}</span>
+              </p>
+              <p>
+              Created At:
+                <span class="font-weight-bold text-primary">    Time: <DayJS format="h:mm A">{data.created_at}</DayJS> ||
               
-                  Date: <DayJS format="YYYY-MM-DD">{data.created_at}</DayJS>
-                </h5>
-              </div>
-            </div>
-            <div>
-              <div>
-                <h5>
-                  <span>updated At:</span> 
-                  Time: <DayJS format="h:mm A">{data.updated_at}</DayJS> ||
+              Date: <DayJS format="YYYY-MM-DD">{data.created_at}</DayJS></span>
+              </p>
+
+              <p>
+              updated At:
+                <span class="font-weight-bold text-primary">   Time: <DayJS format="h:mm A">{data.updated_at}</DayJS> ||
               
-                  Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS>
-                </h5>
-              </div>
+              Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS> </span>
+              </p>
+
+
             </div>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+          </Row>
+        </Card.Body>
+      </Card>
+      
+
+    </>
+  
   );
 }
 

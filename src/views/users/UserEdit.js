@@ -9,10 +9,15 @@ import { Card } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import { useUpdateUserMutation } from '../../services/userApi';
 import Loading from '../../components/Loading/Loading';
+import { useSelector } from './../../store/index';
 
 const UserEdit = (props) => {
   const history = useHistory();
   const { id } = useParams();
+  const authPermission = useSelector((state) => state.auth.permissions); 
+
+
+
   const [updateUser, res] = useUpdateUserMutation() || {};
   const [mainPermissions, setMainPermissions] = useState([]);
   const [userDefaultPermissions, setUserDefaultPermissions] = useState([]);
@@ -27,34 +32,34 @@ const UserEdit = (props) => {
   const [status, setStatus] = useState();
   const [image, setImage] = useState();
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}permission`)
-      .then((res) => {
-        setMainPermissions(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log('Permission Null');
-      });
+  //permission list api request
 
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}users/${id}`)
-      .then((res) => {
-        setUserDefaultPermissions(res.data.user_has_permission);
-        setName(res.data.name);
-        setEmail(res.data.email);
-        setUsername(res.data.username);
-        setNumber(res.data.number);
-        setGender(res.data.gender);
-        setStatus(res.data.status);
-        setImage(res.data.image);
-      })
-      .catch((err) => {
-        console.log('User Permission Null');
-      });
+  const permission = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}permission`);
+    setMainPermissions(res.data);
+    setLoading(false);
+  };
+
+  //user permission list api request
+  const userPermission = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}users/${id}`);
+    setUserDefaultPermissions(res.data.user_has_permission);
+    setName(res.data.name);
+    setEmail(res.data.email);
+    setUsername(res.data.username);
+    setNumber(res.data.number);
+    setGender(res.data.gender);
+    setStatus(res.data.status);
+    setImage(res.data.image);
+  };
+
+  // axios api request
+  useEffect(() => {
+    permission();
+    userPermission();
   }, []);
 
+  // data submit
   const submitRole = async (e) => {
     e.preventDefault();
     let selectedPermissions = [];
@@ -63,7 +68,6 @@ const UserEdit = (props) => {
         selectedPermissions.push(item.id);
       }
     });
-
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
@@ -75,7 +79,6 @@ const UserEdit = (props) => {
     if (selectedPermissions.length > 0) {
       formData.append('permission', JSON.stringify(selectedPermissions));
     }
-
     try {
       await updateUser({ id: id, data: formData }).unwrap();
     } catch (error) {
@@ -92,6 +95,7 @@ const UserEdit = (props) => {
     setPermissions(permissionsData);
   }, [userDefaultPermissions]);
 
+
   const checkPermission = (e, index) => {
     let permissionsData = { ...permissions };
     const checkedStatus = e.target.checked;
@@ -103,6 +107,8 @@ const UserEdit = (props) => {
     toast.success(res.data.message);
     history.push('/users/user');
   }
+
+  // {authPermission.includes('user_create') && ()}
 
   return (
     <>
@@ -226,7 +232,11 @@ const UserEdit = (props) => {
               <Row>
                 <Col>
                   <hr />
+                 
+                    
                   <h6>Assign Permission</h6>
+         
+                  
                   <hr />
                   <Form.Group className="d-flex wrap 2">
                     {loading ? (

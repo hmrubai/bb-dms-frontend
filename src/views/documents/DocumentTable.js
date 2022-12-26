@@ -19,8 +19,8 @@ function DocumentTable() {
         <Card.Body className="m-0 p-0">{isError && <div>No catagory :</div>}</Card.Body>
         {isSuccess && (
           <div className="d-flex flex-wrap ">
-            {data.map((category) => (
-              <div className='mx-1' >
+            {data.map((category,i) => (
+              <div className='mx-1' key={i} >
                 <Link to={`/documents/document_category_view/${category.id}`} className=" m-2 ">
                   <Card  style={{ width: '7rem' }}>
                     <Card.Img
