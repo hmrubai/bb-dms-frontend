@@ -5,14 +5,16 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetAllPermissionQuery } from '../../services/permissionApi';
 import { useAddUserMutation } from '../../services/userApi';
-import { useSelector } from './../../store/index';
+import { useSelector } from 'react-redux';
+
 
 function UserAdd() {
+  const authPermission = useSelector((state) => state.auth.permissions);
   const history = useHistory();
   const [addUser, res] = useAddUserMutation();
   const response = useGetAllPermissionQuery();
  
-  const authPermission = useSelector((state) => state.auth.permissions);
+
   
 
   const [name, setName] = useState();
@@ -68,185 +70,194 @@ function UserAdd() {
   };
 
 
+  if (authPermission.includes('user_create')) {
+    return (
 
-  return (
-    <>
-      <Form onSubmit={submitHandel} encType="multipart/form-data">
-        <Card>
-          <Card.Header>
-            <Card.Title as="h5">Add User</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <Row>
-              <Col>
-                <Row>
-                  <Col>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Label>Name</Form.Label>
-                      <Form.Control type="text" placeholder="Name" name="name" onChange={(e) => setName(e.target.value)} required />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Label>Username</Form.Label>
+      <>
+        <Form onSubmit={submitHandel} encType="multipart/form-data">
+          <Card>
+            <Card.Header>
+              <Card.Title as="h5">Add User</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <Row>
+                <Col>
+                  <Row>
+                    <Col>
+                      <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="text" placeholder="Name" name="name" onChange={(e) => setName(e.target.value)} required />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Username"
+                          name="username"
+                          onChange={(e) => setUsername(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" placeholder="Email" name="email" onChange={(e) => setEmail(e.target.value)} required />
+                  </Form.Group>
+                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Label>Number</Form.Label>
+                    <Form.Control type="number" placeholder="Number" name="number" onChange={(e) => setNumber(e.target.value)} required />
+                  </Form.Group>
+
+                  <Row>
+                    <Col>
+                      <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                          type="password"
+                          placeholder="Password"
+                          name="password"
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Label>Status</Form.Label>
                       <Form.Control
-                        type="text"
-                        placeholder="Username"
-                        name="username"
-                        onChange={(e) => setUsername(e.target.value)}
+                        as="select"
+                        className="mb-3"
+                        name="status"
+                        onChange={(e) => setStatus(e.target.value)}
                         required
+                        placeholder="Status"
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Active">Active</option>
+                      </Form.Control>
+                    </Col>
+                  </Row>
+
+                  <Form.Label>Gender</Form.Label>
+
+                  <div className="d-flex pb-3 pl-2">
+                    <div>
+                      <Form.Check
+                        custom
+                        type="radio"
+                        label="Male"
+                        name="gender"
+                        id="supportedRadio3"
+                        value="Male"
+                        onChange={(e) => setGender(e.target.value)}
                       />
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                <Form.Group controlId="exampleForm.ControlInput1">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Email" name="email" onChange={(e) => setEmail(e.target.value)} required />
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlInput1">
-                  <Form.Label>Number</Form.Label>
-                  <Form.Control type="number" placeholder="Number" name="number" onChange={(e) => setNumber(e.target.value)} required />
-                </Form.Group>
-
-                <Row>
-                  <Col>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Label>Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
+                    </div>
+                    <div className=" px-2">
+                      <Form.Check
+                        custom
+                        type="radio"
+                        label="Female"
+                        name="gender"
+                        id="supportedRadio4"
+                        value="Female"
+                        onChange={(e) => setGender(e.target.value)}
                       />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Label>Status</Form.Label>
-                    <Form.Control
-                      as="select"
-                      className="mb-3"
-                      name="status"
-                      onChange={(e) => setStatus(e.target.value)}
-                      required
-                      placeholder="Status"
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Active">Active</option>
-                    </Form.Control>
-                  </Col>
-                </Row>
-
-                <Form.Label>Gender</Form.Label>
-
-                <div className="d-flex pb-3 pl-2">
-                  <div>
-                    <Form.Check
-                      custom
-                      type="radio"
-                      label="Male"
-                      name="gender"
-                      id="supportedRadio3"
-                      value="Male"
-                      onChange={(e) => setGender(e.target.value)}
-                    />
+                    </div>
+                    <div>
+                      <Form.Check
+                        custom
+                        type="radio"
+                        label="Other"
+                        name="gender"
+                        id="supportedRadio4"
+                        value="Other"
+                        onChange={(e) => setGender(e.target.value)}
+                      />
+                    </div>
                   </div>
-                  <div className=" px-2">
-                    <Form.Check
-                      custom
-                      type="radio"
-                      label="Female"
-                      name="gender"
-                      id="supportedRadio4"
-                      value="Female"
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Form.Check
-                      custom
-                      type="radio"
-                      label="Other"
-                      name="gender"
-                      id="supportedRadio4"
-                      value="Other"
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                  </div>
-                </div>
 
-                <Form.Group controlId="exampleForm.ControlInput1">
-                  <input
-                    type="file"
-                    name="image"
-                    accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                    onChange={(e) => setImage(e.target.files[0])}
-                  />
-                </Form.Group>
-                {/* <Button variant="primary" type="submit">
+                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <input
+                      type="file"
+                      name="image"
+                      accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
+                      onChange={(e) => setImage(e.target.files[0])}
+                    />
+                  </Form.Group>
+                  {/* <Button variant="primary" type="submit">
                 Submit
               </Button> */}
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
 
-        <Card>
-          <Card.Header>
-            <Card.Title as="h5">Assign Role To Permission</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <Row>
-              <Col>
-                {/* <Form.Group > */}
-                {/* <Form.Label>Select Role</Form.Label>
+          <Card>
+            <Card.Header>
+              <Card.Title as="h5">Assign Role To Permission</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <Row>
+                <Col>
+                  {/* <Form.Group > */}
+                  {/* <Form.Label>Select Role</Form.Label>
                 <Form.Control as="select" name="role_id"
                   value={allData.role_id}
                   onChange={handelRoleId}
                 > */}
-                {/* <option>Default select</option> */}
-                {/* {roleListAllData.map((item) => (
+                  {/* <option>Default select</option> */}
+                  {/* {roleListAllData.map((item) => (
                     <option value={item.id} key={item.id}>
                       {item.role_name}
                     </option>
                   ))} */}
-                {/* </Form.Control>
+                  {/* </Form.Control>
               </Form.Group> */}
-                <hr />
-                <h6>Assign Permission</h6>
-                <hr />
-                <Form.Group >
-                <div className="d-flex flex-wrap">
-                  {response.isSuccess &&
-                    response.data.map((item) => (
-                      <div key={item.id} className="p-2 col-6">
-                        <Form.Check
-                          className="mr-2"
-                          custom
-                          type="checkbox"
-                          label={item.name}
-                          name="permission_id"
-                          id={item.id}
-                          value={item.id}
-                          onChange={(e) => handleChange(e)}
-                        />
-                      </div>
-                    ))}
+                  <hr />
+                  <h6>Assign Permission</h6>
+                  <hr />
+                  <Form.Group >
+                    <div className="d-flex flex-wrap">
+                      {response.isSuccess &&
+                        response.data.map((item) => (
+                          <div key={item.id} className="p-2 col-6">
+                            <Form.Check
+                              className="mr-2"
+                              custom
+                              type="checkbox"
+                              label={item.name}
+                              name="permission_id"
+                              id={item.id}
+                              value={item.id}
+                              onChange={(e) => handleChange(e)}
+                            />
+                          </div>
+                        ))}
                     </div>
-                </Form.Group>
-                <div className="pt-2">
-                  <Button type="submit" variant="primary">
-                    Submit
-                  </Button>
-                </div>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-      </Form>
-    </>
-  );
+                  </Form.Group>
+                  <div className="pt-2">
+                    <Button type="submit" variant="primary">
+                      Submit
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+        </Form>
+      </>
+    );
+  } else {
+    return (
+      <div class="alert alert-danger" role="alert">
+        Sorry You are not authorized to access this page
+      </div>
+    );
+  }
+
 }
 
 export default UserAdd;

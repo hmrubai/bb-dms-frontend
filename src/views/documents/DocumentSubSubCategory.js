@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function DocumentSubSubCategory({ item }) {
@@ -15,7 +15,7 @@ function DocumentSubSubCategory({ item }) {
           alt={item.name}
         />
         <Card.Body className="p-1 m-0">
-          <Card.Title className="h6 text-center">{item.name}</Card.Title>
+          <Card.Title className="h6 text-center font-weight-bold">{item.name}</Card.Title>
           <Card.Text> </Card.Text>
         </Card.Body>
       </Card>

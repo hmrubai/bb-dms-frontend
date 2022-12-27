@@ -4,7 +4,7 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetAllCatagoryQuery, useGetSubCatagoryShowQuery } from '../../../services/catagoryApi';
-import { useGetAllSubCategoryQuery } from '../../../services/subCategoryApi';
+// import { useGetAllSubCategoryQuery } from '../../../services/subCategoryApi';
 import { useAddSubSubCategoryMutation } from '../../../services/subSubCategoryApi';
 import { useSelector } from './../../../store/index';
 
@@ -13,7 +13,7 @@ function SubCategoryAdd() {
   const auth = useSelector((state) => state.auth.user);
   const [addSubSubCategory, { data, isSuccess }] = useAddSubSubCategoryMutation();
   const { data: category } = useGetAllCatagoryQuery();
-  const { data: subCatagory } = useGetAllSubCategoryQuery();
+  // const { data: subCatagory } = useGetAllSubCategoryQuery();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [catagory_id, setCatagoryId] = useState();

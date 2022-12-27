@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import avatar1 from '../../../src/assets/images/user/avatar-1.jpg';
 function Profile() {
@@ -17,7 +17,11 @@ function Profile() {
               <img
                 class="img-fluid rounded-circle "
                 style={{ width: '200px', height: '200px' }}
-                src={`${process.env.REACT_APP_IMAGE_URL}${users.image}`}
+
+                src={users.image ? `${process.env.REACT_APP_IMAGE_URL}${users.image}` : avatar1}
+            
+               
+
                 alt=""
               />
             </div>

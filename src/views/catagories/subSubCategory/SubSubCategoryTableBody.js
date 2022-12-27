@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
-import { toast } from 'react-toastify';
 import { useDeleteSubSubCategoryMutation } from '../../../services/subSubCategoryApi';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
 
 function CategoryTableBody({ subSubCatagory ,index }) {
-  const [deleteSubSubCategory, { data, isSuccess }] = useDeleteSubSubCategoryMutation();
-
+  const [deleteSubSubCategory, ] = useDeleteSubSubCategoryMutation();
+  const authPermission = useSelector((state) => state.auth.permissions);
   const deleteHandel = async (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -26,9 +26,6 @@ function CategoryTableBody({ subSubCatagory ,index }) {
     });
   };
 
-  // if (isSuccess) {
-  //   toast.success(data.message)
-  // }
 
   return (
     <tbody>
@@ -44,12 +41,18 @@ function CategoryTableBody({ subSubCatagory ,index }) {
           <Link to={`/catagories/sub_sub_category_view/${subSubCatagory.id}`}>
             <BsFillEyeFill color="black" size={20} />
           </Link>
-          <Link to={`/catagories/sub_sub_category_edit/${subSubCatagory.id}`} className="px-2">
+          {authPermission.includes('category_edit') && (
+               <Link to={`/catagories/sub_sub_category_edit/${subSubCatagory.id}`} className="px-2">
             <BsPencilSquare size={18} />
           </Link>
-          <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(subSubCatagory.id)}>
+          )}
+
+          {authPermission.includes('category_delete') && (
+              <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(subSubCatagory.id)}>
             <BsFillTrashFill color="red" size={17} />
           </button>
+          )}
+        
         </td>
       </tr>
     </tbody>

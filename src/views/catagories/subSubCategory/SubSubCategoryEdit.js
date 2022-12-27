@@ -1,17 +1,17 @@
 import React from 'react';
-import axios from 'axios';
+
 import { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
 import { useGetSubSubCategoryByIdQuery, useUpdateSubSubCatagoryMutation } from '../../../services/subSubCategoryApi';
 
 function CatagoryEdit() {
     const {  id } = useParams();
   const history = useHistory();
 
-  const [updateSubSubCatagory, {data:cataResData ,isSuccess:cataResSucess}] = useUpdateSubSubCatagoryMutation() || {};
-  const { data, isSuccess, isFetching } = useGetSubSubCategoryByIdQuery(id);
+  const [updateSubSubCatagory ] = useUpdateSubSubCatagoryMutation() || {};
+  const { data, isSuccess,  } = useGetSubSubCategoryByIdQuery(id);
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [status, setStatus] = useState();
@@ -37,10 +37,6 @@ function CatagoryEdit() {
     formData.append('status', status)
     formData.append('image', image)
     updateSubSubCatagory({ id: id, data: formData });
-
-    // if (cataResSucess) {
-    //   toast.success(cataResData.message);
-    // }
     history.push('/catagories/sub_sub_category');
   };
   console.log(status)

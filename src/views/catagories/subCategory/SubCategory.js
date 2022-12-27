@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
-import { ToastContainer } from 'react-toastify';
 import SubCategoryTable from './SubCategoryTable';
 
 function SubCategory() {

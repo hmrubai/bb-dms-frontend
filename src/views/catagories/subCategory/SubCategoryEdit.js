@@ -1,17 +1,15 @@
 import React from 'react';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useGetSubCategoryByIdQuery, useUpdateSubCatagoryMutation } from '../../../services/subCategoryApi';
 
 function CatagoryEdit() {
     const {  id } = useParams();
   const history = useHistory();
 
-  const [updateCatagory, {data:cataResData ,isSuccess:cataResSucess}] = useUpdateSubCatagoryMutation() || {};
-  const { data, isSuccess, isFetching } = useGetSubCategoryByIdQuery(id);
+  const [updateCatagory] = useUpdateSubCatagoryMutation() || {};
+  const { data, isSuccess } = useGetSubCategoryByIdQuery(id);
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [status, setStatus] = useState();

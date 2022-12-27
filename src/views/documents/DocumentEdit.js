@@ -8,7 +8,7 @@ import { useAddDocumentMutation } from '../../services/documentApi';
 import { useGetSubSubCatagoryShowQuery } from '../../services/subCategoryApi';
 import { useSelector } from './../../store/index';
 
-function DocumentAdd() {
+function DocumentEdit() {
   const history = useHistory();
   const auth = useSelector((state) => state.auth.user);
   const [addDocument, res] = useAddDocumentMutation();
@@ -64,7 +64,7 @@ function DocumentAdd() {
   return (
     <Card>
       <Card.Header>
-        <Card.Title as="h5">Add Document</Card.Title>
+        <Card.Title as="h5">Edit Document</Card.Title>
       </Card.Header>
       <Card.Body>
         <Row>
@@ -158,4 +158,4 @@ function DocumentAdd() {
   );
 }
 
-export default DocumentAdd;
+export default DocumentEdit;

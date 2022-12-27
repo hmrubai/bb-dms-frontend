@@ -108,8 +108,8 @@ const DashDefault = () => {
               <Table responsive hover>
                 <tbody>
                   {recentUser &&
-                    recentUser?.data.map((item) => (
-                      <tr className="unread">
+                    recentUser?.data.map((item ,i) => (
+                      <tr className="unread" key={i}>
                         <td>
                           <img
                             className="rounded-circle"
@@ -190,17 +190,7 @@ const DashDefault = () => {
                 </div>
               </div>
             </Card.Body>
-            <Card.Body>
-              <div className="row d-flex align-items-center">
-                <div className="col-auto">
-                  <i className="feather icon-map-pin f-30 text-c-blue" />
-                </div>
-                <div className="col">
-                  <h3 className="f-w-300">26</h3>
-                  <span className="d-block text-uppercase">total locations</span>
-                </div>
-              </div>
-            </Card.Body>
+     
           </Card>
         </Col>
       </Row>

@@ -10,7 +10,7 @@ function SubCategoryTable() {
   const [page, setPage] = useState(1);
   // const [show, setShow] = useState(false);
 
-  const { data, isFetching, isLoading, isError, isSuccess } = useGetAllSubCategoryQuery(page);
+  const { data, isFetching, isLoading } = useGetAllSubCategoryQuery(page);
 
   if (isLoading) {
     return (

@@ -1,13 +1,17 @@
 import React from 'react';
+
+// import {saveAs} from 'file-saver';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillInfoCircleFill } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 function DocumentView() {
-  const { id } = useParams();
-
   const doc = useSelector((state) => state.document.documentView);
+  // const file = process.env.REACT_APP_IMAGE_URL + doc.file
+
+  
+
 
   return (
     <>
@@ -16,7 +20,7 @@ function DocumentView() {
           <div>
             <Card.Title as="h5">Documnet </Card.Title>
             <span className="me-auto">
-              <Link to={`documents/document`}>
+              <Link to={`/documents/document`}>
                 <BsArrowLeftCircleFill color="black" size={'20px'} />
               </Link>
             </span>
@@ -29,13 +33,15 @@ function DocumentView() {
                 <Col md={3}>
                   <Card>
                     <div>
-                      <a download href={`${process.env.REACT_APP_IMAGE_URL}${doc.file}`}>
+                      {/* <a href={file} download>
                         <Button>
-                          {' '}
                           <BsFillArrowDownCircleFill color="black" size={18} className="m-1" />
                           Download
                         </Button>
-                      </a>
+                      </a> */}
+                     
+                   
+
                     </div>
                     <div className=" mx-1 ">
                       <div>
@@ -47,29 +53,40 @@ function DocumentView() {
                         <hr />
                       </div>
                       <div className=" py-2">
-                        <b>Document Name:</b> {doc.name}
+                        <b>Document Name:</b> <br />
+                        <p className="text-primary ">
+                          <b>{doc.name}</b>{' '}
+                        </p>
+                      </div>
+                      {/* <div className=" py-2">
+                        <b>Category Name:</b> <br />  <p className='text-primary '><b> {doc.catagory?.name}</b> </p>  
+                      </div> */}
+                      <div className=" py-2">
+                        <b>Description:</b> <br />{' '}
+                        <p className="text-primary ">
+                          <b> {doc.description}</b>{' '}
+                        </p>
                       </div>
                       <div className=" py-2">
-                        <b>Category Name:</b> <br /> {doc.catagory?.name}
+                        <b>Status:</b> <br />{' '}
+                        <b className={doc.status === 'Active' ? 'bg-success text-dark p-1 rounded' : 'bg-danger text-dark p-1 rounded'}>
+                          {doc.status}
+                        </b>
                       </div>
                       <div className=" py-2">
-                        <b>Description:</b> <br /> {doc.description}
+                        <b>Created By:</b> <br />
+                        <p className="text-primary ">
+                          <b> {doc.user?.name} </b>{' '}
+                        </p>
                       </div>
                       <div className=" py-2">
-                        <b>Status:</b> <br /> {doc.status}
-                      </div>
-                      <div className=" py-2">
-                        <b>Created By:</b> <br /> {doc.user?.name}
-                      </div>
-                      <div className=" py-2">
-                        <b>Created at :</b> <br /> 
-                       Time: <DayJS format="h:mm A">{doc.created_at}</DayJS>
-                         <br />
+                        <b>Created at :</b> <br />
+                        Time: <DayJS format="h:mm A">{doc.created_at}</DayJS>
+                        <br />
                         Date: <DayJS format="YYYY-MM-DD">{doc.created_at}</DayJS>
-
                       </div>
                       <div className=" py-2">
-                        <b>Last Updated :</b> <br /> 
+                        <b>Last Updated :</b> <br />
                         Time: <DayJS format="h:mm A ">{doc.updated_at}</DayJS>
                         <br />
                         Date: <DayJS format="YYYY-MM-DD">{doc.updated_at}</DayJS>

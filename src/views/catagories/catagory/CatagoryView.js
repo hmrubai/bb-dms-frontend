@@ -1,6 +1,5 @@
-import { Dayjs } from 'dayjs';
 import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../../components/Loading/Loading';
@@ -10,10 +9,9 @@ import DayJS from 'react-dayjs';
 function CatagoryView() {
   const { id } = useParams();
 
-  // const  response  = useGetCatagoryByIdQuery(id);
-  const { data, isFetching, isLoading, isError, isSuccess } = useGetCatagoryByIdQuery(id);
+  const { data,isLoading } = useGetCatagoryByIdQuery(id);
 
-  console.log(data);
+
 
   if (isLoading) {
     return (

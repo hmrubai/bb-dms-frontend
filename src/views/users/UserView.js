@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row} from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
@@ -10,7 +10,7 @@ function CategoryView() {
   const { id } = useParams();
 
   // const  response  = useGetCatagoryByIdQuery(id);
-  const { data, isFetching, isLoading, isError, isSuccess } = useGetUserByIdQuery(id);
+  const { data,isLoading,  } = useGetUserByIdQuery(id);
 
   
 
@@ -25,7 +25,6 @@ function CategoryView() {
     return <div>No User List:( </div>;
   }
 
-  console.log(data);
 
   return (
     <>

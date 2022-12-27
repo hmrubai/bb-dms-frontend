@@ -6,10 +6,19 @@
 
 .box {
   height: 190px;
-  background-color: #0073bd;
+  // background-color: #0073bd;
   color: black;
   font-size: 50px;
   border-radius: 3px 3px 0 0;
+}
+.file-sty {
+  margin-top: -53px !important;
+  margin-left:62px !important;
+  font-weight: bold !important;
+  background-color: #00733B!important;
+  color: white !important;
+  width: 50px;
+ 
 }
 
 .nav-outside.mob-backdrop {

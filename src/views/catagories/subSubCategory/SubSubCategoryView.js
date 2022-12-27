@@ -1,19 +1,16 @@
 import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../../components/Loading/Loading';
 
-
 import { useGetSubSubCategoryByIdQuery } from '../../../services/subSubCategoryApi';
-import DayJS  from 'react-dayjs';
+import DayJS from 'react-dayjs';
 function SubSubCategoryView() {
   const { id } = useParams();
 
   // const  response  = useGetCatagoryByIdQuery(id);
-  const { data, isFetching, isLoading, isError, isSuccess } = useGetSubSubCategoryByIdQuery(id);
-
-  
+  const { data, isLoading } = useGetSubSubCategoryByIdQuery(id);
 
   if (isLoading) {
     return (
@@ -26,11 +23,8 @@ function SubSubCategoryView() {
     return <div>No Sub Category :(</div>;
   }
 
-  console.log(data);
-
   return (
     <>
-  
       <Card>
         <Card.Header>
           <div>
@@ -57,24 +51,23 @@ function SubSubCategoryView() {
                 src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`}
                 alt=""
               />
-                <p className='pt-3'>
-               Sub Sub Category Name:
+              <p className="pt-3">
+                Sub Sub Category Name:
                 <span class="font-weight-bold text-primary ">{data.name}</span>
               </p>
             </div>
             <div class="col-md-4 col-12 py-3">
-            
               <p>
                 Category Name:
                 <span class="font-weight-bold text-primary ">{data.catagory.name}</span>
               </p>
-              {data.sub_catagory && 
-                 <p>
-                Sub Category Name:
-                <span class="font-weight-bold text-primary ">{ data.sub_catagory?.name}</span>
-              </p>
-              }
-             
+              {data.sub_catagory && (
+                <p>
+                  Sub Category Name:
+                  <span class="font-weight-bold text-primary ">{data.sub_catagory?.name}</span>
+                </p>
+              )}
+
               <p>
                 Created By:
                 <span class="font-weight-bold text-primary ">{data.user.name} </span>

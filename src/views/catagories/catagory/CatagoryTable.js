@@ -9,7 +9,7 @@ function CatagoryTable() {
   const [page, setPage] = useState(1);
   // const [show, setShow] = useState(false);
 
-  const { data, isFetching, isLoading, isError, isSuccess } = useGetAllCatagoryQuery(page);
+  const { data, isFetching, isLoading, } = useGetAllCatagoryQuery(page);
 
   if (isLoading) {
     return (

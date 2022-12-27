@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useAllCategoryQuery, useGetAllCatagoryQuery } from '../../../services/catagoryApi';
+import { useAllCategoryQuery } from '../../../services/catagoryApi';
 import { useAddSubCategoryMutation } from '../../../services/subCategoryApi';
 import { useSelector } from './../../../store/index';
 function SubCategoryAdd() {
