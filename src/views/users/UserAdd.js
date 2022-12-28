@@ -47,7 +47,14 @@ function UserAdd() {
     if (permission.length > 0) {
       formData.append('permission', permissionArr);
     }
-    await addUser(formData);
+
+    try {
+       await addUser(formData).unwrap();
+    } catch (error) {
+      toast.error(res.error?.data.message);
+    }
+
+   
   };
 
   if (res.isSuccess) {
@@ -55,9 +62,6 @@ function UserAdd() {
     history.push('/users/user');
   }
 
-  if (res.isError) {
-    toast.error(res.error?.data.message);
-  }
 
   
   const handleChange = (event) => {

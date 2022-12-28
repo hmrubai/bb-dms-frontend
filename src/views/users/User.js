@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import UserTable from './UserTable';
 import { useSelector } from './../../store/index';
+import Profile from './../profile/Profile';
 
 function User() {
   const authPermission = useSelector((state) => state.auth.permissions);
@@ -18,8 +19,11 @@ function User() {
                Add User
              </Button>
            </Link>
-     )}
-        <UserTable />
+        )}
+          {
+         authPermission.includes('user_read')?<UserTable />:<Profile/>
+      }
+      
       </div>
     </>
   );

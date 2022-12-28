@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import avatar1 from '../../../src/assets/images/user/avatar-1.jpg';
 function Profile() {
   const users = useSelector((state) => state.auth.user);
-  console.log(users);
+
   return (
     <>
       <Card>
