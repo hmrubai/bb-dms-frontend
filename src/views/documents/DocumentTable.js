@@ -3,8 +3,6 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import { useGetCategoryAllShowQuery } from '../../services/catagoryApi';
-import docFolder from '../../assets/images/File/docfolder.png'
-
 function DocumentTable() {
   const { data, isLoading, isSuccess, isError } = useGetCategoryAllShowQuery();
 

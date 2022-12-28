@@ -1,21 +1,39 @@
 import React from 'react';
-
-// import {saveAs} from 'file-saver';
+import axios from 'axios';
+import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillInfoCircleFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
+import { toast, ToastContainer } from 'react-toastify';
+import Cookies from 'js-cookie';
+
 function DocumentView() {
   const doc = useSelector((state) => state.document.documentView);
-  // const file = process.env.REACT_APP_IMAGE_URL + doc.file
-
-  
-
+  const download = (e) => {
+    console.log(e);
+    e.preventDefault();
+    axios({
+      url: `${process.env.REACT_APP_BASE_URL}download/${doc.id}`,
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${Cookies.get("token")}`
+      },
+      responseType: 'blob'
+    })
+      .then((response) => {
+        fileDownload(response.data, `${doc.name}.${response.data.type.split('/').pop()}`);
+      })
+      .catch((error) => {
+       toast.error("Something went wrong");
+      });
+  };
 
   return (
     <>
       <Card>
+        <ToastContainer />
         <Card.Header>
           <div>
             <Card.Title as="h5">Documnet </Card.Title>
@@ -33,15 +51,10 @@ function DocumentView() {
                 <Col md={3}>
                   <Card>
                     <div>
-                      {/* <a href={file} download>
-                        <Button>
-                          <BsFillArrowDownCircleFill color="black" size={18} className="m-1" />
-                          Download
-                        </Button>
-                      </a> */}
-                     
-                   
-
+                      <Button  className="label theme-bg2 text-white f-12" onClick={(e) => download(e)}>
+                        <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
+                        Download
+                      </Button>
                     </div>
                     <div className=" mx-1 ">
                       <div>

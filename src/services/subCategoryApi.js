@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 
 export const subCategoryApi = createApi({
   reducerPath: 'subCategoryApi',
@@ -14,6 +15,7 @@ export const subCategoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -27,6 +29,7 @@ export const subCategoryApi = createApi({
         url: `sub_category/${id}`,
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -41,6 +44,7 @@ export const subCategoryApi = createApi({
           method: 'POST',
           body: SubCategory,
           headers: {
+                "Authorization": `Bearer ${Cookies.get("token")}`,
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -52,7 +56,11 @@ export const subCategoryApi = createApi({
         return {
           url: `sub_category/${id}`,
           method: 'POST',
-          body: data
+          body: data,
+          headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`
+            // 'Content-type': 'application/json; charset=UTF-8'
+          }
         };
       },
       invalidatesTags: ['SubCategory']
@@ -61,7 +69,11 @@ export const subCategoryApi = createApi({
     deleteSubCategory: builder.mutation({
       query: (id) => ({
         url: `sub_category/${id}`,
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+          // 'Content-type': 'application/json; charset=UTF-8'
+        }
       }),
       invalidatesTags: ['SubCategory']
     }),
@@ -71,6 +83,7 @@ export const subCategoryApi = createApi({
         url: `sub_category_show/${id}`,
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }

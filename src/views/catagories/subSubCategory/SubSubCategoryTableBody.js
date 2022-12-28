@@ -41,17 +41,17 @@ function CategoryTableBody({ subSubCatagory ,index }) {
           <Link to={`/catagories/sub_sub_category_view/${subSubCatagory.id}`}>
             <BsFillEyeFill color="black" size={20} />
           </Link>
-          {authPermission.includes('category_edit') && (
+          {/* {authPermission.includes('category_edit') && ( */}
                <Link to={`/catagories/sub_sub_category_edit/${subSubCatagory.id}`} className="px-2">
             <BsPencilSquare size={18} />
           </Link>
-          )}
+          {/* )} */}
 
-          {authPermission.includes('category_delete') && (
+          {/* {authPermission.includes('category_delete') && ( */}
               <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(subSubCatagory.id)}>
             <BsFillTrashFill color="red" size={17} />
           </button>
-          )}
+          {/* )} */}
         
         </td>
       </tr>

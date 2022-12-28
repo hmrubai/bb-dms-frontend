@@ -50,16 +50,16 @@ function CategoryTableBody({ subCatagory ,index}) {
           <Link to={`/catagories/sub_category_view/${subCatagory.id}`}>
             <BsFillEyeFill color="black" size={20} />
           </Link>
-          {authPermission.includes('category_edit') && (
+          {/* {authPermission.includes('category_edit') && ( */}
             <Link to={`/catagories/sub_category_edit/${subCatagory.id}`} className="px-2">
               <BsPencilSquare size={18} />
             </Link>
-          )}
-            {authPermission.includes('category_delete') && (
+          {/* )} */}
+            {/* {authPermission.includes('category_delete') && ( */}
          <button style={{ "border-style": "none"}} onClick={() => deleteHandel(subCatagory.id)} >
          <BsFillTrashFill color="red" size={17} />
        </button>
-          )}
+          {/* )} */}
           
         
         </td>

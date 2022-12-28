@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 
 export const documentApi = createApi({
   reducerPath: 'documentApi',
@@ -14,8 +15,8 @@ export const documentApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
@@ -28,8 +29,8 @@ export const documentApi = createApi({
         url: `category_document/${id}`,
         method: 'GET',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -44,8 +45,8 @@ export const documentApi = createApi({
         url: `show_sub_category/${id}`,
         method: 'GET',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -61,8 +62,8 @@ export const documentApi = createApi({
         url: `show_sub_category_document/${id}`,
         method: 'GET',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -78,8 +79,8 @@ export const documentApi = createApi({
         url: `show_sub_sub_category/${id}`,
         method: 'GET',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -96,8 +97,8 @@ export const documentApi = createApi({
         url: `show_sub_sub_category_document/${id}`,
         method: 'GET',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -115,6 +116,9 @@ export const documentApi = createApi({
           body: document,
           headers: {
             // 'Content-type': 'application/json; charset=UTF-8'
+          
+              "Authorization": `Bearer ${Cookies.get("token")}`
+       
           }
         };
       },
@@ -126,34 +130,42 @@ export const documentApi = createApi({
     deleteDocument: builder.mutation({
       query: (id) => ({
         url: `document/${id}`,
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          "Authorization": `Bearer ${Cookies.get("token")}`
+        }
       }),
       invalidatesTags: ['DocumentData']
-    })
+    }),
 
-    // getUserById: builder.query({
-    //   query: (id) => ({
-    //     url: `document/${id}`,
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-type': 'application/json; charset=UTF-8'
-    //       // "Authorization": `Bearer ${localStorage.getItem("token")}`
-    //     }
-    //   }),
-    //   invalidatesTags: ['Document']
-    // }),
+    getDocumentById: builder.query({
+      query: (id) => ({
+        url: `document/${id}`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
+        }
+      }),
+      invalidatesTags: ['DocumentData']
+    }),
 
-    // updateUser: builder.mutation({
-    //   query: ({ id, data }) => {
-    //     return {
-    //       url: `users/${id}`,
-    //       method: 'POST',
-    //       body: data
-    //     };
-    //   },
-    //   invalidatesTags: ['Document']
-    // }),
+    updateDocument: builder.mutation({
+      query: ({ id, data }) => {
+        return {
+          url: `document/${id}`,
+          method: 'POST',
+          body: data,
+          headers: {
+            "Authorization": `Bearer ${Cookies.get("token")}`
+          }
+
+        };
+      },
+      invalidatesTags: ['DocumentData']
+    }),
   })
 });
 
-export const { useAddDocumentMutation, useDeleteDocumentMutation, useShowCategoryDocumentQuery,useShowSubCategoryQuery,useShowSubCategoryDocumentQuery,useShowSubSubCategoryQuery,useShowSubSubCategoryDocumentQuery,useGetAllDocumentQuery} = documentApi;
+
+export const { useAddDocumentMutation, useDeleteDocumentMutation, useShowCategoryDocumentQuery,useShowSubCategoryQuery,useShowSubCategoryDocumentQuery,useShowSubSubCategoryQuery,useShowSubSubCategoryDocumentQuery,useGetAllDocumentQuery,useGetDocumentByIdQuery,useUpdateDocumentMutation} = documentApi;

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -6,7 +7,7 @@ export const userApi = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL
   }),
   tagTypes: ['User'],
- 
+
   endpoints: (builder) => ({
     getAllUser: builder.query({
       query: (page = 1) => ({
@@ -15,6 +16,7 @@ export const userApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -22,7 +24,7 @@ export const userApi = createApi({
       // transformResponse: (res) => res.reverse(),
       providesTags: ['User']
     }),
-    
+
     totalUser: builder.query({
       query: () => ({
         url: `all_user/`,
@@ -30,6 +32,7 @@ export const userApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -43,6 +46,7 @@ export const userApi = createApi({
         url: `users/${id}`,
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -57,6 +61,7 @@ export const userApi = createApi({
           method: 'POST',
           body: user,
           headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -68,7 +73,11 @@ export const userApi = createApi({
         return {
           url: `users/${id}`,
           method: 'POST',
-          body: data
+          body: data,
+          headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`
+            // 'Content-type': 'application/json; charset=UTF-8'
+          }
         };
       },
       invalidatesTags: ['User']
@@ -77,12 +86,22 @@ export const userApi = createApi({
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `users/${id}`,
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+          // 'Content-type': 'application/json; charset=UTF-8'
+        }
       }),
       invalidatesTags: ['User']
     })
   })
 });
 
-export const { useGetAllUserQuery, useGetUserByIdQuery, useAddUserMutation, useUpdateUserMutation, useDeleteUserMutation,useTotalUserQuery } =
-  userApi;
+export const {
+  useGetAllUserQuery,
+  useGetUserByIdQuery,
+  useAddUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+  useTotalUserQuery
+} = userApi;

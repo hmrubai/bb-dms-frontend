@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 
 export const permissionApi = createApi({
   reducerPath: 'permissionApi',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL
   }),
-    tagTypes: ['Permission'],
-  
+  tagTypes: ['Permission'],
 
   endpoints: (builder) => ({
     getAllPermission: builder.query({
@@ -16,6 +16,7 @@ export const permissionApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -24,15 +25,12 @@ export const permissionApi = createApi({
       providesTags: ['Permission']
     }),
 
-      
-      
-      
-      
     getCatagoryById: builder.query({
       query: (id) => ({
         url: `category/${id}`,
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -47,6 +45,7 @@ export const permissionApi = createApi({
           method: 'POST',
           body: catagory,
           headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -54,31 +53,38 @@ export const permissionApi = createApi({
       invalidatesTags: ['Category']
     }),
     updateCatagory: builder.mutation({
-      query: ({id ,data}) => {
+      query: ({ id, data }) => {
         return {
           url: `category/${id}`,
           method: 'POST',
           body: data,
-       
+          headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`
+            // 'Content-type': 'application/json; charset=UTF-8'
+          }
         };
       },
       invalidatesTags: ['Category']
-      
     }),
 
     deleteCatagory: builder.mutation({
       query: (id) => ({
         url: `category/${id}`,
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+          // 'Content-type': 'application/json; charset=UTF-8'
+        }
       }),
       invalidatesTags: ['Category']
     }),
-   
+
     getCategoryAllShow: builder.query({
       query: () => ({
         url: `category_all`,
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -87,12 +93,12 @@ export const permissionApi = createApi({
       providesTags: ['Category']
     }),
 
-
     getSubCatagoryShow: builder.query({
       query: (id) => ({
         url: `category_show/${id}`,
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -100,8 +106,6 @@ export const permissionApi = createApi({
       invalidatesTags: ['Category']
     }),
 
-
-    
     allCategory: builder.query({
       query: () => ({
         url: `category_all`,
@@ -109,17 +113,14 @@ export const permissionApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
       providesTags: ['Category']
-    }),
-
-    
-
-
+    })
   })
 });
 
@@ -131,6 +132,5 @@ export const {
   useDeleteCatagoryMutation,
   useGetCategoryAllShowQuery,
   useGetSubCatagoryShowQuery,
-  useAllCategoryQuery,
-  
+  useAllCategoryQuery
 } = permissionApi;

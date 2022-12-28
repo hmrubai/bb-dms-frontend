@@ -70,6 +70,7 @@ function SubCategoryAdd() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </Form.Group>
+              
               <Form.Label>Category</Form.Label>
               <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagoryId(e.target.value)}>
                 <option>Selact Category</option>
@@ -78,6 +79,7 @@ function SubCategoryAdd() {
                 ))}
               </Form.Control>
 
+              
               <Form.Label>Sub Category</Form.Label>
               <Form.Control as="select" className="mb-3" name="sub_catagory_id" onChange={(e) => setSubCatagoryId(e.target.value)}>
                 <option>Selact Category</option>

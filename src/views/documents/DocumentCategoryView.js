@@ -7,7 +7,7 @@ import {
   BsFillArrowDownCircleFill,
   BsFillArrowUpCircleFill,
   BsFillPlusCircleFill,
-  BsPencilSquare
+  BsPencilSquare,
 } from 'react-icons/bs';
 import file from '../../assets/images/File/word.png';
 import { Link, useParams } from 'react-router-dom';
@@ -18,7 +18,9 @@ import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
 import DocumentSubCategory from './DocumentSubCategory';
 import Swal from 'sweetalert2';
-import DocumentView from './DocumentView';
+import axios from 'axios';
+import fileDownload from 'js-file-download';
+import Cookies from 'js-cookie';
 
 function DocumentCategoryView() {
   const authPermission = useSelector((state) => state.auth.permissions);
@@ -27,6 +29,9 @@ function DocumentCategoryView() {
   const { data, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
   const { data: subCategory, isSuccess: cateIssucess } = useShowSubCategoryQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
+
+
+  // delete document
 
   const deleteHandel = async (id) => {
     Swal.fire({
@@ -49,6 +54,28 @@ function DocumentCategoryView() {
   if (isSuccess) {
     toast.success(data.message);
   }
+
+  // download file
+
+  const download = (e, item) => {
+    console.log(item);
+    e.preventDefault();
+    axios({
+      url: `${process.env.REACT_APP_BASE_URL}download/${item.id}`,
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${Cookies.get("token")}`
+      },
+      responseType: 'blob'
+    })
+      .then((response) => {
+        fileDownload(response.data, `${item.name}.${response.data.type.split('/').pop()}`);
+      })
+      .catch((error) => {
+        console.log("sumthing went wrong");
+      });
+  };
+
 
   return (
     <>
@@ -102,13 +129,13 @@ function DocumentCategoryView() {
                   {item.file.split('.').pop().includes('png') || item.file.split('.').pop().includes('jpg') ? (
                     <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} />
                   ) : (
-                    <div className="box border   border-bottom-0">
-                      <img className="" width="90px" src={file} alt={file} />
+                    <div className="box border border-bottom-0">
+                      <img className="" width="95px" src={file} alt={file} />
                       <h3 className="bg-light file-sty  text-center rounded text-uppercase">{item.file.split('.').pop()}</h3>
                     </div>
                   )}
 
-                  <Card.Body className="py-2 px-2">
+                  <Card.Body className="py-2 px-2 py-3">
                     <Card.Title className="m-0 p-0 h6">
                       <b>{item.name.split(' ')[0]}</b>
                     </Card.Title>
@@ -125,20 +152,22 @@ function DocumentCategoryView() {
                         <BsFillEyeFill color="black" size={20} />
                       </Link>
                     ) : (
-                      <a href={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} download>
-                        <BsFillArrowDownCircleFill color="black" size={18} />
-                      </a>
+                      <span className='pointer'>
+                        <BsFillArrowDownCircleFill onClick={(e) => download(e,item)} color="black" size={18} />  
+                      </span>
+                      
+  
                     )}
 
-                    {/* <Link to={`/documents/document_edit/${item.id}`} className="px-3">
+                    <Link to={`/documents/document_edit/${item.id}`} className="px-3">
                       <BsPencilSquare size={18} />
-                    </Link> */}
+                    </Link>
 
                     {/* <button className=" border-0 " > */}
 
-                    {authPermission.includes('document_delete') && (
+                    {/* {authPermission.includes('document_delete') && ( */}
                       <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
-                    )}
+                    {/* )} */}
 
                
 

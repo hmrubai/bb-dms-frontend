@@ -9,7 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-
+import axios from 'axios';
+import fileDownload from 'js-file-download';
+import Cookies from 'js-cookie';
 function DocumentSubSubCategoryView() {
   const authPermission = useSelector((state) => state.auth.permissions);
   const { id } = useParams();
@@ -17,6 +19,7 @@ function DocumentSubSubCategoryView() {
   const { data, isLoading, isError, isSuccess } = useShowSubSubCategoryDocumentQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
 
+  // delete document
   const deleteHandel = async (id) => {
     await Swal.fire({
       title: 'Are you sure?',
@@ -38,6 +41,26 @@ function DocumentSubSubCategoryView() {
   if (isSuccess) {
     toast.success(data.message);
   }
+
+  // download file
+  const download = (e, item) => {
+    console.log(item);
+    e.preventDefault();
+    axios({
+      url: `${process.env.REACT_APP_BASE_URL}download/${item.id}`,
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${Cookies.get("token")}`
+      },
+      responseType: 'blob'
+    })
+      .then((response) => {
+        fileDownload(response.data, `${item.name}.${response.data.type.split('/').pop()}`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   // console.log(subCategory);
 
@@ -78,13 +101,13 @@ function DocumentSubSubCategoryView() {
                   {item.file.split('.').pop().includes('png') || item.file.split('.').pop().includes('jpg') ? (
                     <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} />
                   ) : (
-                    <div className="box ">
-                      <img className="" width="100px" src={file} alt={file} />
+                    <div className="box border border-bottom-0">
+                      <img className="" width="95px" src={file} alt={file} />
                       <h3 className="bg-light file-sty  text-center rounded text-uppercase">{item.file.split('.').pop()}</h3>
                     </div>
                   )}
-                  <Card.Body className="py-2 px-2">
-                    <Card.Title className="m-0 p-0 h6">
+                  <Card.Body className="py-3 px-2">
+                    <Card.Title className="m-0 p-0  h6">
                       <b>{item.name}</b>
                     </Card.Title>
                     <Card.Text style={{ fontSize: '11px' }}>Author by: {item.user.name}</Card.Text>
@@ -98,9 +121,10 @@ function DocumentSubSubCategoryView() {
                         <BsFillEyeFill color="black" size={20} />
                       </Link>
                     ) : (
-                      <a href={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} download>
-                        <BsFillArrowDownCircleFill color="black" size={18} />
-                      </a>
+                        
+                      <span className='pointer'>
+                      <BsFillArrowDownCircleFill onClick={(e) => download(e,item)} color="black" size={18} />  
+                    </span>
                     )}
 
                       {/* <Link to={`/catagories/sub_category_edit/${item.id}`} className="px-3">
@@ -108,7 +132,7 @@ function DocumentSubSubCategoryView() {
                       </Link> */}
 
                     
-                    {/* <button className=" border-0 " onClick={() => deleteHandel(item.id)}> */}
+               
                     {authPermission.includes('document_delete') && (
                       <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
                     )}

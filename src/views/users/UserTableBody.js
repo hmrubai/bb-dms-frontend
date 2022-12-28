@@ -45,17 +45,17 @@ function UserTableBody({ user, index }) {
           <Link to={`/users/user_view/${user.id}`}>
             <BsFillEyeFill color="black" size={20} />
           </Link>
-          {authPermission.includes('user_edit') && (
+          {/* {authPermission.includes('user_edit') && ( */}
             <Link to={`/users/user_edit/${user.id}`} className="px-2">
               <BsPencilSquare size={18} />
             </Link>
-          )}
+          {/* )} */}
 
-          {authPermission.includes('user_delete') && (
+          {/* {authPermission.includes('user_delete') && ( */}
             <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(user.id)}>
               <BsFillTrashFill color="red" size={17} />
             </button>
-          )}
+          {/* )} */}
         </td>
       </tr>
     </tbody>

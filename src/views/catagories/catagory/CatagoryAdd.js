@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSelector } from './../../../store/index';
 function CatagoryAdd() {
-  const authPermission = useSelector((state) => state.auth.permissions);
+  // const authPermission = useSelector((state) => state.auth.permissions);
   const auth = useSelector((state) => state.auth.user);
   const history = useHistory();
   const [addCatagory, { data, isSuccess }] = useAddCatagoryMutation();
@@ -35,7 +35,7 @@ function CatagoryAdd() {
     toast.success(data.message);
     history.push('/catagories/catagory');
   }
-  if (authPermission.includes('category_create')) {
+  // if (authPermission.includes('category_create')) {
     return (
       <Card>
         <Card.Header>
@@ -76,13 +76,14 @@ function CatagoryAdd() {
         </Card.Body>
       </Card>
 
-  );  }else {
-    return (
-      <div class="alert alert-danger" role="alert">
-      Sorry You are not authorized to access this page
-      </div>
     );
-  }
+  // } else {
+  //   return (
+  //     <div class="alert alert-danger" role="alert">
+  //     Sorry You are not authorized to access this page
+  //     </div>
+  //   );
+  // }
 }
 
 export default CatagoryAdd;

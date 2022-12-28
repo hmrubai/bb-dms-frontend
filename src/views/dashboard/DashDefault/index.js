@@ -74,6 +74,7 @@ const DashDefault = () => {
 
         <Col xl={4}>
           <Card>
+            
             <Card.Body>
               <h6 className="mb-4">Tolat Users</h6>
               <div className="row d-flex align-items-center">
@@ -97,6 +98,7 @@ const DashDefault = () => {
                 />
               </div>
             </Card.Body>
+
           </Card>
         </Col>
         <Col md={6} xl={8}>
@@ -171,7 +173,7 @@ const DashDefault = () => {
                   </Link>
                 </div>
               </h2>
-              <h6 className="text-muted mt-3 mb-0 ">You can Uploade Your Document </h6>
+              <h6 classNameName="text-muted mt-3 mb-0 ">You can Uploade Your Document </h6>
               <div className="text-right">
                 {' '}
                 <BsFillFileEarmarkMedicalFill size={25} className="" />

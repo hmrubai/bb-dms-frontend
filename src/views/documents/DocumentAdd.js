@@ -50,6 +50,7 @@ function DocumentAdd() {
       await addDocument(formData).unwrap();
     } catch (error) {
       toast.error(error.data.message);
+      console.log(error);
     }
   };
 

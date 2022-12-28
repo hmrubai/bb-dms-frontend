@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 
 export const catagoryApi = createApi({
   reducerPath: 'catagoryApi',
@@ -14,6 +15,7 @@ export const catagoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -27,6 +29,7 @@ export const catagoryApi = createApi({
         url: `category/${id}`,
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -41,6 +44,7 @@ export const catagoryApi = createApi({
           method: 'POST',
           body: catagory,
           headers: {
+                "Authorization": `Bearer ${Cookies.get("token")}`,
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -53,6 +57,10 @@ export const catagoryApi = createApi({
           url: `category/${id}`,
           method: 'POST',
           body: data,
+          headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`
+            // 'Content-type': 'application/json; charset=UTF-8'
+          }
        
         };
       },
@@ -63,7 +71,11 @@ export const catagoryApi = createApi({
     deleteCatagory: builder.mutation({
       query: (id) => ({
         url: `category/${id}`,
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+          // 'Content-type': 'application/json; charset=UTF-8'
+        }
       }),
       invalidatesTags: ['Category']
     }),
@@ -73,6 +85,7 @@ export const catagoryApi = createApi({
         url: `category_all`,
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -87,6 +100,7 @@ export const catagoryApi = createApi({
         url: `category_show/${id}`,
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -103,6 +117,7 @@ export const catagoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }

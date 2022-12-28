@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 
 export const subSubCategoryApi = createApi({
   reducerPath: 'subSubCategoryApi',
@@ -14,6 +15,7 @@ export const subSubCategoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -27,6 +29,7 @@ export const subSubCategoryApi = createApi({
         url: `sub_sub_category/${id}`,
         method: 'GET',
         headers: {
+              "Authorization": `Bearer ${Cookies.get("token")}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -41,6 +44,7 @@ export const subSubCategoryApi = createApi({
           method: 'POST',
           body: SubSubCategory,
           headers: {
+                "Authorization": `Bearer ${Cookies.get("token")}`,
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -52,7 +56,11 @@ export const subSubCategoryApi = createApi({
         return {
           url: `sub_sub_category/${id}`,
           method: 'POST',
-          body: data
+          body: data,
+          headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`
+            // 'Content-type': 'application/json; charset=UTF-8'
+          }
         };
       },
       invalidatesTags: ['SubSubCategory']
@@ -61,7 +69,11 @@ export const subSubCategoryApi = createApi({
     deleteSubSubCategory: builder.mutation({
       query: (id) => ({
         url: `sub_sub_category/${id}`,
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+          // 'Content-type': 'application/json; charset=UTF-8'
+        }
       }),
       invalidatesTags: ['SubSubCategory']
     })
