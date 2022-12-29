@@ -37,6 +37,7 @@ function SubCategoryTable() {
                   <th>Name</th>
                   <th>Created By</th>
                   <th>Category Name</th>
+                  <th>Status</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>

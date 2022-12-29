@@ -41,6 +41,7 @@ function SubSubCategoryTable() {
                   <th>Created By</th>
                   <th>Category Name</th>
                   <th>Sub Category Name</th>
+                  <th>Status</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>

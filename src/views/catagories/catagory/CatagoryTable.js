@@ -35,6 +35,7 @@ function CatagoryTable() {
                   <th>ID</th>
                   <th>Name</th>
                   <th>Created By</th>
+                  <th>Status</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>

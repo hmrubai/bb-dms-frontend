@@ -164,8 +164,35 @@ export const documentApi = createApi({
       },
       invalidatesTags: ['DocumentData']
     }),
+
+    documentpublish: builder.mutation({
+      query: (id) => {
+        return {
+          url: `document_publish/${id}`,
+          method: 'POST',
+          headers: {
+            "Authorization": `Bearer ${Cookies.get("token")}`
+          }
+
+        };
+      },
+      invalidatesTags: ['DocumentData']
+    }),
+
   })
 });
 
 
-export const { useAddDocumentMutation, useDeleteDocumentMutation, useShowCategoryDocumentQuery,useShowSubCategoryQuery,useShowSubCategoryDocumentQuery,useShowSubSubCategoryQuery,useShowSubSubCategoryDocumentQuery,useGetAllDocumentQuery,useGetDocumentByIdQuery,useUpdateDocumentMutation} = documentApi;
+export const {
+  useAddDocumentMutation,
+  useDeleteDocumentMutation,
+  useShowCategoryDocumentQuery,
+  useShowSubCategoryQuery,
+  useShowSubCategoryDocumentQuery,
+  useShowSubSubCategoryQuery,
+  useShowSubSubCategoryDocumentQuery,
+  useGetAllDocumentQuery,
+  useGetDocumentByIdQuery,
+  useUpdateDocumentMutation,
+  useDocumentpublishMutation
+} = documentApi;

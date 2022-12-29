@@ -44,6 +44,7 @@ function CategoryTableBody({ subCatagory ,index}) {
         <td>{subCatagory.name}</td>
         <td >{subCatagory.user.name}</td>
         <td >{subCatagory.catagory.name}</td>
+        <td >{subCatagory.status}</td>
       
         <img className="img-circle mt-3" src={`${process.env.REACT_APP_IMAGE_URL}${subCatagory.image}`} width="60px" alt="" />
         <td>

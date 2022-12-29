@@ -19,7 +19,7 @@ function DocumentAdd() {
   const [sub_catagory_id, setsub_catagory_id] = useState();
   const [sub_sub_catagory_id, setSub_sub_catagory_id] = useState();
   const [description, setDescription] = useState();
-  const [status, setStatus] = useState();
+
   const [admin_status] = useState();
 
   const [file, setFile] = useState();
@@ -40,7 +40,7 @@ function DocumentAdd() {
       formData.append('sub_sub_catagory_id', sub_sub_catagory_id);
     }
     formData.append('description', description);
-    formData.append('status', status);
+
     formData.append('admin_status', admin_status);
     if (file !== undefined) {
       formData.append('file', file);
@@ -91,16 +91,7 @@ function DocumentAdd() {
                 />
               </Form.Group>
 
-              <Row>
-                <Col>
-                  <Form.Label>Status</Form.Label>
-                  <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)} required>
-                    <option>Selact Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Pending">Pending</option>
-                  </Form.Control>
-                </Col>
-              </Row>
+        
 
               <Row>
                 <Col>

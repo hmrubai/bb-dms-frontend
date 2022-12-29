@@ -10,15 +10,12 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useUpdateUserMutation } from '../../services/userApi';
 import Loading from '../../components/Loading/Loading';
 import { useSelector } from 'react-redux';
-
+import Cookies from 'js-cookie';
 
 const UserEdit = (props) => {
   const authPermission = useSelector((state) => state.auth.permissions);
   const history = useHistory();
   const { id } = useParams();
-
-
-
 
   const [updateUser, res] = useUpdateUserMutation() || {};
   const [mainPermissions, setMainPermissions] = useState([]);
@@ -35,25 +32,48 @@ const UserEdit = (props) => {
   const [image, setImage] = useState();
 
   //permission list api request
-
-  const permission = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}permission`);
-    setMainPermissions(res.data);
-    setLoading(false);
+  const permission = (e) => {
+    axios({
+      url: `${process.env.REACT_APP_BASE_URL}permission`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`
+      }
+    })
+      .then((res) => {
+        setMainPermissions(res.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        toast.error('Something went wrong');
+      });
   };
-
+  
   //user permission list api request
-  const userPermission = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}users/${id}`);
-    setUserDefaultPermissions(res.data.user_has_permission);
-    setName(res.data.name);
-    setEmail(res.data.email);
-    setUsername(res.data.username);
-    setNumber(res.data.number);
-    setGender(res.data.gender);
-    setStatus(res.data.status);
-    setImage(res.data.image);
+  const userPermission = (e) => {
+    axios({
+      url: `${process.env.REACT_APP_BASE_URL}users/${id}`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`
+      }
+    })
+      .then((res) => {
+        setUserDefaultPermissions(res.data.user_has_permission);
+        setName(res.data.name);
+        setEmail(res.data.email);
+        setUsername(res.data.username);
+        setNumber(res.data.number);
+        setGender(res.data.gender);
+        setStatus(res.data.status);
+        setImage(res.data.image);
+      })
+      .catch((error) => {
+        toast.error('Something went wrong');
+      });
   };
+
+
 
   // axios api request
   useEffect(() => {
@@ -96,7 +116,6 @@ const UserEdit = (props) => {
     });
     setPermissions(permissionsData);
   }, [userDefaultPermissions]);
-
 
   const checkPermission = (e, index) => {
     let permissionsData = { ...permissions };
@@ -234,11 +253,9 @@ const UserEdit = (props) => {
                 <Row>
                   <Col>
                     <hr />
-                 
-                    
+
                     <h6>Assign Permission</h6>
-         
-                  
+
                     <hr />
                     <Form.Group className="d-flex wrap 2">
                       {loading ? (

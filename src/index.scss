@@ -12,8 +12,8 @@
   border-radius: 3px 3px 0 0;
 }
 .file-sty {
-  margin-top: -53px !important;
-  margin-left:62px !important;
+  margin-top: -55px !important;
+  margin-left:65px !important;
   font-weight: bold !important;
   background-color: #00733B!important;
   color: white !important;
@@ -420,4 +420,29 @@ td {
       margin-top: 8px;
     }
   }
+}
+
+
+
+.swal2-title {
+
+  font-size: 13px !important;
+
+}
+
+.swal2-html-container {
+  font-size: 12px !important;
+}
+.swal2-icon{
+  font-size: 8px !important;
+}
+.swal2-styled.swal2-confirm {
+  font-size: 11px !important;
+}
+.swal2-styled.swal2-cancel {
+  font-size: 11px !important;
+}
+
+.swal2-popup {
+  width: 200px !important;
 }

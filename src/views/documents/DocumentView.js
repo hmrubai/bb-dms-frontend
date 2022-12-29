@@ -2,14 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillInfoCircleFill } from 'react-icons/bs';
+import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillInfoCircleFill, BsReplyAllFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import { toast, ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
+import { useDocumentpublishMutation } from '../../services/documentApi';
 
 function DocumentView() {
+  const [documentpublish, { data: no }] = useDocumentpublishMutation();
   const doc = useSelector((state) => state.document.documentView);
   const download = (e) => {
     console.log(e);
@@ -18,7 +21,7 @@ function DocumentView() {
       url: `${process.env.REACT_APP_BASE_URL}download/${doc.id}`,
       method: 'GET',
       headers: {
-        "Authorization": `Bearer ${Cookies.get("token")}`
+        Authorization: `Bearer ${Cookies.get('token')}`
       },
       responseType: 'blob'
     })
@@ -26,8 +29,25 @@ function DocumentView() {
         fileDownload(response.data, `${doc.name}.${response.data.type.split('/').pop()}`);
       })
       .catch((error) => {
-       toast.error("Something went wrong");
+        toast.error('Something went wrong');
       });
+  };
+  const DocumentPublish = async (Pid) => {
+    Swal.fire({
+      title: 'You want to Publish this Document?',
+      // text: "You won't be able to revert this!",
+      icon: 'warning',
+      confirmButtonColor: 'green',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Publish it!',
+      width: 200,
+      showCancelButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        documentpublish(Pid);
+        Swal.fire('Publish!', 'Your file has been Publish.', 'success');
+      }
+    });
   };
 
   return (
@@ -50,11 +70,23 @@ function DocumentView() {
               <Row>
                 <Col md={3}>
                   <Card>
-                    <div>
-                      <Button  className="label theme-bg2 text-white f-12" onClick={(e) => download(e)}>
-                        <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
-                        Download
-                      </Button>
+                    <div className="d-flex">
+                      <div>
+                        <Button className="label theme-bg text-white f-12" onClick={(e) => download(e)}>
+                          <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
+                          Download
+                        </Button>
+                      </div>
+
+                      {doc.status === 'Pending' && (
+                        // <  className="pointer mx-1 border " color="green" size={22} onClick={() => />
+                        <div>
+                          <Button className="label theme-bg2 text-white f-12" onClick={(e) => DocumentPublish(doc.id)}>
+                            <BsReplyAllFill color="blue" size={18} className="m-1" />
+                            Publish
+                          </Button>
+                        </div>
+                      )}
                     </div>
                     <div className=" mx-1 ">
                       <div>
@@ -81,10 +113,12 @@ function DocumentView() {
                         </p>
                       </div>
                       <div className=" py-2">
+
                         <b>Status:</b> <br />{' '}
                         <b className={doc.status === 'Active' ? 'bg-success text-dark p-1 rounded' : 'bg-danger text-dark p-1 rounded'}>
                           {doc.status}
                         </b>
+                        
                       </div>
                       <div className=" py-2">
                         <b>Created By:</b> <br />

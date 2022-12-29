@@ -68,7 +68,7 @@ function CatagoryEdit() {
               </Form.Group>
               <Form.Label>Status</Form.Label>
               <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
-                <option>{status}</option>
+        
                 <option value="Active">Active</option>
                 <option value="Pending">Pending</option>
               </Form.Control>

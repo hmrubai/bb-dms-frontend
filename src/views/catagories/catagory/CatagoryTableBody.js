@@ -33,6 +33,8 @@ function CatagoryTableBody({ catagory ,index}) {
         <th scope="row">{index+1}</th>
         <td>{catagory.name}</td>
         <td>{catagory.user.name}</td>
+        <td>{catagory.status}</td>
+
         <img className="img-circle mt-3" src={`${process.env.REACT_APP_IMAGE_URL}${catagory.image}`} width="60px" alt="" />
         <td>
           <Link to={`/catagories/catagory_view/${catagory.id}`}>
