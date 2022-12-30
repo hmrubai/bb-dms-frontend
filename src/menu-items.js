@@ -66,6 +66,14 @@ const menuItems = {
           url: '/documents/document',
           icon: 'feather icon-layout',
         },
+        {
+          id: 'Unpublish Documents',
+          title: 'Unpublish Documents',
+          type: 'item',
+          url: '/documents/adminunpublish_document_list',
+          icon: 'feather icon-layout',
+        },
+     
         // addnew
       ]
     },

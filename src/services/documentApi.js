@@ -178,9 +178,45 @@ export const documentApi = createApi({
       },
       invalidatesTags: ['DocumentData']
     }),
+ 
+
+    // adminUnpublishDocument: builder.query({
+    //   query: () => ({
+    //     url: `adminunpublish_document_list`,
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-type': 'application/json; charset=UTF-8',
+    //       "Authorization": `Bearer ${Cookies.get("token")}`
+    //     }
+    //   }),
+    //   providesTags: (result, error, arg) =>
+    //   result
+    //     ? [...result.map(({ id }) => ({ type: 'DocumentData', id })), 'DocumentData']
+    //     : ['DocumentData'],
+    // }),
+ 
+    
+    // adminDocumentPublish: builder.mutation({
+    //   query: (id) => {
+    //     return {
+    //       url: `admin_document_publish/${id}`,
+    //       method: 'POST',
+    //       headers: {
+    //         "Authorization": `Bearer ${Cookies.get("token")}`
+    //       }
+
+    //     };
+    //   },
+    //   providesTags: (result, error, arg) =>
+    //   result
+    //     ? [...result.map(({ id }) => ({ type: 'DocumentData', id })), 'DocumentData']
+    //     : ['DocumentData'],
+    // }),
+    
+    }),
 
   })
-});
+
 
 
 export const {
@@ -194,5 +230,7 @@ export const {
   useGetAllDocumentQuery,
   useGetDocumentByIdQuery,
   useUpdateDocumentMutation,
-  useDocumentpublishMutation
+  useDocumentpublishMutation,
+//   useAdminUnpublishDocumentQuery,
+//  useAdminDocumentPublishMutation
 } = documentApi;

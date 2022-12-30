@@ -177,6 +177,16 @@ const routes = [
         path: '/documents/document_sub_sub_category_view/:id',
         component: lazy(() => import('./views/documents/DocumentSubSubCategoryView'))
       },
+      {
+        exact: true,
+        path: '/documents/adminunpublish_document_list',
+        component: lazy(() => import('./views/UnPublishDocumnetList/AdminUnpublishDocumentList'))
+      },
+      {
+        exact: true,
+        path: '/documents/unpublish_document_view/:id',
+        component: lazy(() => import('./views/UnPublishDocumnetList/AdminUnpublishDocumentView'))
+      },
       // profile
       {
         exact: true,
