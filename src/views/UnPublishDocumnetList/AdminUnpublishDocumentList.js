@@ -4,18 +4,16 @@ import Pagination from 'react-bootstrap/Pagination';
 import { ToastContainer } from 'react-toastify';
 import Loading from '../../components/Loading/Loading';
 import { useAdminUnpublishDocumentListQuery } from '../../services/publishApi';
-
-
+import { useSelector } from '../../store';
 import AdminUnpublishDocumentTable from './AdminUnpublishDocumentTable';
 
 function AdminUnpublishDocumentList() {
-  // const [page, setPage] = useState(1);
-  // const { data, isFetching, isLoading } = useGetAllUserQuery(page);
   const { data, isFetching, isLoading }=useAdminUnpublishDocumentListQuery();
-  
-  console.log(data)
+  const authPermission = useSelector((state) => state.auth.permissions);
 
-  if (isLoading) {
+
+  if (authPermission.includes('unpublish_doc_list')){
+      if (isLoading) {
     return (
       <>
         <Loading />
@@ -30,17 +28,17 @@ function AdminUnpublishDocumentList() {
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Users</Card.Title>
+            <Card.Title as="h5">Unpublish Document List</Card.Title>
           </Card.Header>
-          <Card.Body className="table-responsive">
-            <Table responsive striped className="table-scroll table-earnings">
-              <thead style={{ background: 'grey'}} >
+          <Card.Body className="table-responsive table-scroll table-earnings ">
+            <Table responsive striped >
+              <thead style={{ background: 'grey'}}  >
                 <tr className=" text-white">
                   <th>ID</th>
-                  <th>Doc Name</th>
+                  <th>Document Name</th>
                   <th>Username</th>
                   <th>Admin Status</th>
-                  <th>Create Date</th>
+                  <th>Created Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -57,7 +55,15 @@ function AdminUnpublishDocumentList() {
         </Card>
       </>
     );
+  }  
+  } else {
+    return <div class="alert alert-danger" role="alert">
+    You are not authorized to access this page!
+  </div>
   }
+
+  
+
 }
 
 export default AdminUnpublishDocumentList;

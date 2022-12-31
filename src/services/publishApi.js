@@ -9,68 +9,74 @@ export const publishApi = createApi({
   tagTypes: ['Publish'],
 
   endpoints: (builder) => ({
-
- adminUnpublishDocumentList: builder.query({
+    adminUnpublishDocumentList: builder.query({
       query: () => ({
         url: `adminunpublish_document_list`,
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          Authorization: `Bearer ${Cookies.get('token')}`
         }
       }),
       providesTags: ['Publish']
     }),
- 
-    
+    AllPublishDocument: builder.query({
+      query: () => ({
+        url: `all_publish_document`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${Cookies.get('token')}`
+        }
+      }),
+      providesTags: ['Publish']
+    }),
+
     adminDocumentPublish: builder.mutation({
       query: (id) => {
         return {
           url: `admin_document_publish/${id}`,
           method: 'POST',
           headers: {
-            "Authorization": `Bearer ${Cookies.get("token")}`
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
-
         };
       },
       invalidatesTags: ['Publish']
     }),
 
     deleteUnpublishDocument: builder.mutation({
-        query: (id) => ({
-          url: `document/${id}`,
-          method: 'DELETE',
-          headers: {
-            "Authorization": `Bearer ${Cookies.get("token")}`
-          }
-        }),
-        invalidatesTags: ['Publish']
+      query: (id) => ({
+        url: `document/${id}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+        }
       }),
- 
+      invalidatesTags: ['Publish']
+    }),
 
-      unpublishDocument: builder.query({
-        query: (id) => ({
-          url: `document/${id}`,
-          method: 'GET',
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            "Authorization": `Bearer ${Cookies.get("token")}`
-          }
-        }),
-        // invalidatesTags: ['DocumentData'],
-        invalidatesTags: ['Publish']
+    unpublishDocument: builder.query({
+      query: (id) => ({
+        url: `document/${id}`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${Cookies.get('token')}`
+        }
       }),
-      
-
-  
+      // invalidatesTags: ['DocumentData'],
+      invalidatesTags: ['Publish']
+    })
   })
 });
 
 export const {
-    useAdminUnpublishDocumentListQuery,
-    useAdminDocumentPublishMutation,
-    useDeleteUnpublishDocumentMutation,
-    useUnpublishDocumentQuery
-    
+  
+  useAdminUnpublishDocumentListQuery,
+  useAdminDocumentPublishMutation,
+  useDeleteUnpublishDocumentMutation,
+  useUnpublishDocumentQuery,
+  useAllPublishDocumentQuery
+
 } = publishApi;

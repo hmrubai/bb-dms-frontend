@@ -2,7 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillInfoCircleFill, BsReplyAllFill } from 'react-icons/bs';
+import {
+  BsArrowLeftCircleFill,
+  BsFillArrowDownCircleFill,
+  BsFillInfoCircleFill,
+  BsReplyAllFill,
+  BsFillCheckCircleFill
+} from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
@@ -11,16 +17,15 @@ import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useDocumentpublishMutation } from '../../services/documentApi';
 import { useUnpublishDocumentQuery } from '../../services/publishApi';
+import Loading from '../../components/Loading/Loading';
 
 function AdminUnpublishDocumentView() {
-    const {id} = useParams()
+  const { id } = useParams();
 
-    const [documentpublish, { data: no }] = useDocumentpublishMutation();
-    const {data,isLoading,isSuccess,isError} = useUnpublishDocumentQuery(id)
-  
+  const [documentpublish, { data: no }] = useDocumentpublishMutation();
+  const { data, isLoading, isSuccess, isError } = useUnpublishDocumentQuery(id);
 
   const download = (e) => {
-  
     e.preventDefault();
     axios({
       url: `${process.env.REACT_APP_BASE_URL}download/${data.id}`,
@@ -55,6 +60,8 @@ function AdminUnpublishDocumentView() {
     });
   };
 
+  console.log(data);
+
   return (
     <>
       <Card>
@@ -69,94 +76,108 @@ function AdminUnpublishDocumentView() {
             </span>
           </div>
         </Card.Header>
-        <Card.Body>
-          <Row>
-            <Col>
-              <Row>
-                <Col md={3}>
-                  <Card>
-                    <div className="d-flex">
-                      <div>
-                        <Button className="label theme-bg text-white f-12" onClick={(e) => download(e)}>
-                          <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
-                          Download
-                        </Button>
-                      </div>
+        {isLoading && <Loading />}
 
-                      {data.admin_status === 'Pending' && (
-                        // <  className="pointer mx-1 border " color="green" size={22} onClick={() => />
+        {isSuccess && (
+          <Card.Body>
+            <Row>
+              <Col>
+                <Row>
+                  <Col md={3}>
+                    <Card>
+                      <div className="d-flex">
                         <div>
-                          <Button className="label theme-bg2 text-white f-12" onClick={(e) => DocumentPublish(data.id)}>
-                            <BsReplyAllFill color="blue" size={18} className="m-1" />
-                            Publish
+                          <Button className="label theme-bg text-white f-12" onClick={(e) => download(e)}>
+                            <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
+                            Download
                           </Button>
                         </div>
-                      )}
-                    </div>
-                    <div className=" mx-1 ">
-                      <div>
-                        <hr />
-                        <h5>
-                          {' '}
-                          <BsFillInfoCircleFill /> DOCUMENT INFORMATION
-                        </h5>
-                        <hr />
-                      </div>
-                      <div className=" py-2">
-                        <b>Document Name:</b> <br />
-                        <p className="text-primary ">
-                          <b>{data.name}</b>{' '}
-                        </p>
-                      </div>
-                      {/* <div className=" py-2">
-                        <b>Category Name:</b> <br />  <p className='text-primary '><b> {doc.catagory?.name}</b> </p>  
-                      </div> */}
-                      <div className=" py-2">
-                        <b>Description:</b> <br />{' '}
-                        <p className="text-primary ">
-                          <b> {data.description}</b>{' '}
-                        </p>
-                      </div>
-                      <div className=" py-2">
 
-                        <b>Status:</b> <br />{' '}
-                        <b className={data.admin_status === 'Active' ? 'bg-success text-dark p-1 rounded' : 'bg-danger text-dark p-1 rounded'}>
-                          {data.admin_status}
-                        </b>
-                        
+                        {data.admin === 'Pending' && (
+                          // <  className="pointer mx-1 border " color="green" size={22} onClick={() => />
+                          <div>
+                            <Button className="label theme-bg2 text-white f-12" onClick={(e) => DocumentPublish(data.id)}>
+                              <BsReplyAllFill color="blue" size={18} className="m-1" />
+                              Publish
+                            </Button>
+                          </div>
+                        )}
                       </div>
-                      <div className=" py-2">
-                        <b>Created By:</b> <br />
-                        <p className="text-primary ">
-                          <b> {data.user?.name} </b>{' '}
-                        </p>
+                      <div className=" mx-1 ">
+                        <div>
+                          <hr />
+                          <h5>
+                            {' '}
+                            <BsFillInfoCircleFill /> DOCUMENT INFORMATION
+                          </h5>
+                          <hr />
+                        </div>
+                        <div className=" py-2">
+                          <b>Document Name:</b> <br />
+                          <p className="text-primary ">
+                            <b>{data.name}</b>{' '}
+                          </p>
+                        </div>
+                        {/* <div className=" py-2">
+                          <b>Category Name:</b> <br />  <p className='text-primary '><b> {doc.catagory?.name}</b> </p>  
+                        </div> */}
+                        <div className=" py-2">
+                          <b>Description:</b> <br />{' '}
+                          <p className="text-primary ">
+                            <b> {data.description}</b>{' '}
+                          </p>
+                        </div>
+                        <div className=" py-2">
+                          {data.admin_status === 'Active' && (
+                            <div className=" py-2">
+                              <b>Publish By:</b> <br />
+                              <p className="text-primary ">
+                                <b> Super Admin </b>{' '}
+                              </p>
+                            </div>
+                          )}
+                          <b>Status:</b> <br />
+                          <b
+                            className={
+                              data.admin_status === 'Active' ? 'bg-success text-dark p-1 rounded' : 'bg-danger text-dark p-1 rounded'
+                            }
+                          >
+                            {data.admin_status}
+                          </b>
+                        </div>
+                        <div className=" py-2">
+                          <b>Created By:</b> <br />
+                          <p className="text-primary ">
+                            <b> {data.user?.name} </b>{' '}
+                          </p>
+                        </div>
+                        <div className=" py-2">
+                          <b>Created at :</b> <br />
+                          Time: <DayJS format="h:mm A">{data.created_at}</DayJS>
+                          <br />
+                          Date: <DayJS format="YYYY-MM-DD">{data.created_at}</DayJS>
+                        </div>
+                        <div className=" py-2">
+                          <b>Last Updated :</b> <br />
+                          Time: <DayJS format="h:mm A ">{data.updated_at}</DayJS>
+                          <br />
+                          Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS>
+                        </div>
                       </div>
-                      <div className=" py-2">
-                        <b>Created at :</b> <br />
-                        Time: <DayJS format="h:mm A">{data.created_at}</DayJS>
-                        <br />
-                        Date: <DayJS format="YYYY-MM-DD">{data.created_at}</DayJS>
+                    </Card>
+                  </Col>
+                  <Col md={9}>
+                    <Card width="1000px" height="600px">
+                      <div>
+                        <embed width="100%" height="600px" alt={data.name} src={`${process.env.REACT_APP_IMAGE_URL}${data?.file}`} />
                       </div>
-                      <div className=" py-2">
-                        <b>Last Updated :</b> <br />
-                        Time: <DayJS format="h:mm A ">{data.updated_at}</DayJS>
-                        <br />
-                        Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS>
-                      </div>
-                    </div>
-                  </Card>
-                </Col>
-                <Col md={9}>
-                  <Card width="1000px" height="600px">
-                    <div>
-                      <embed width="100%" height="600px" alt={data.name} src={`${process.env.REACT_APP_IMAGE_URL}${data?.file}`} />
-                    </div>
-                  </Card>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Card.Body>
+        )}
       </Card>
     </>
   );

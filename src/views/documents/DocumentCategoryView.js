@@ -16,7 +16,13 @@ import {
 import file from '../../assets/images/File/word.png';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
-import { useDeleteDocumentMutation, useDocumentpublishMutation, useDocumentPublishQuery, useShowCategoryDocumentQuery, useShowSubCategoryQuery } from '../../services/documentApi';
+import {
+  useDeleteDocumentMutation,
+  useDocumentpublishMutation,
+  useDocumentPublishQuery,
+  useShowCategoryDocumentQuery,
+  useShowSubCategoryQuery
+} from '../../services/documentApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
@@ -33,9 +39,7 @@ function DocumentCategoryView() {
   const { data, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
   const { data: subCategory, isSuccess: cateIssucess } = useShowSubCategoryQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
-  const [documentpublish ,{data:no}]=useDocumentpublishMutation();
-
- 
+  const [documentpublish, { data: no }] = useDocumentpublishMutation();
 
   const deleteHandel = async (Did) => {
     Swal.fire({
@@ -47,7 +51,7 @@ function DocumentCategoryView() {
       confirmButtonText: 'Yes, delete it!',
       width: 200,
       showCancelButton: true
-    }).then((result) => { 
+    }).then((result) => {
       if (result.isConfirmed) {
         deleteDocument(Did);
         Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
@@ -55,8 +59,7 @@ function DocumentCategoryView() {
     });
   };
 
-
-  const DocumentPublish = async (Pid)=>{
+  const DocumentPublish = async (Pid) => {
     Swal.fire({
       title: 'You want to Publish this Document?',
       // text: "You won't be able to revert this!",
@@ -65,17 +68,14 @@ function DocumentCategoryView() {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, Publish it!',
       width: 200,
-      showCancelButton: true,
-
-
-    }).then((result) => { 
+      showCancelButton: true
+    }).then((result) => {
       if (result.isConfirmed) {
-        documentpublish(Pid)
+        documentpublish(Pid);
         Swal.fire('Publish!', 'Your file has been Publish.', 'success');
       }
     });
-  }
-
+  };
 
   if (isSuccess) {
     toast.success(data.message);
@@ -161,26 +161,22 @@ function DocumentCategoryView() {
                   )}
 
                   <Card.Body className="py-2 px-2 py-3 mb-4">
-                    <div className=' d-flex justify-content-evenly'>
-                     <div className="mb-1 ">
-                      {item.status === 'Pending' ? (
-                        <span>
-                          <BsXCircleFill className="mx-1" color="red" />
-                          {item.status}
-                        </span>
-                      ) : (
-                        <span>
-                          <BsFillCheckCircleFill className=" mx-1" color="green" />
-                          Published
+                    <div className=" d-flex justify-content-evenly">
+                      <div className="mb-1 ">
+                        {item.status === 'Pending' ? (
+                          <span>
+                            <BsXCircleFill className="mx-1" color="red" />
+                            {item.status}
                           </span>
-                          
-                      )}
-                      </div>  
-                      <div >
-                   
+                        ) : (
+                          <span>
+                            <BsFillCheckCircleFill className=" mx-1" color="green" />
+                            Published
+                          </span>
+                        )}
                       </div>
+                      <div></div>
                     </div>
-                   
 
                     <Card.Title className="m-0 p-0 h6">
                       <b>{item.name.split(' ')[0]}</b>
@@ -210,12 +206,8 @@ function DocumentCategoryView() {
                     <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
 
                     {item.status === 'Pending' && (
-                        <BsReplyAllFill  className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
-
-                      )}
-                  
-
-                 
+                      <BsReplyAllFill className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
+                    )}
                   </div>
                 </Card>
               </div>

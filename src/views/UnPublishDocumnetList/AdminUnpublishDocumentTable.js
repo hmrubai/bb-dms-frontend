@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare, BsReplyAllFill } from 'react-icons/bs';
+import { BsFillClockFill, BsFillEyeFill, BsFillTrashFill, BsPencilSquare, BsReplyAllFill, BsXCircleFill } from 'react-icons/bs';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import Swal from 'sweetalert2';
@@ -15,7 +15,7 @@ function AdminUnpublishDocumentTable({ list, index }) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: 'error',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -48,28 +48,28 @@ function AdminUnpublishDocumentTable({ list, index }) {
   };
 
   return (
-    <tbody >
+    <tbody>
       <tr>
         <th scope="row">{index + 1}</th>
         <td>{list.name}</td>
-        <td>{list.user.name}</td>
-        <td>{list.admin_status}</td>
+        <td> {list.user.name}</td>
         <td>
-          Time: <DayJS format="h:mm A">{list.created_at}</DayJS>
-          || Date: <DayJS format="YYYY-MM-DD">{list.created_at}</DayJS>
+          {' '}
+          <span>
+            <BsXCircleFill color="red" />
+          </span>{' '}
+          {list.admin_status}
+        </td>
+        <td>
+          Date: <DayJS format="YYYY-MM-DD">{list.created_at}</DayJS> |<BsFillClockFill color='black'/>| Time:{' '}
+          <DayJS format="h:mm A">{list.created_at}</DayJS>
         </td>
 
         <td>
           <Link to={`/documents/unpublish_document_view/${list.id}`}>
             <BsFillEyeFill color="black" size={20} />
           </Link>
-          {/* {authPermission.includes('user_edit') && ( */}
-          {/* <Link to={`/users/user_edit/${list.id}`} className="px-2">
-            <BsPencilSquare size={18} />
-          </Link> */}
-          {/* )} */}
-
-          {/* {authPermission.includes('user_delete') && ( */}
+       
           <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(list.id)}>
             <BsFillTrashFill color="red" size={17} />
           </button>

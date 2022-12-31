@@ -71,7 +71,7 @@ const menuItems = {
           title: 'Unpublish Documents',
           type: 'item',
           url: '/documents/adminunpublish_document_list',
-          icon: 'feather icon-layout',
+          icon: 'feather icon-share-2',
         },
      
         // addnew
