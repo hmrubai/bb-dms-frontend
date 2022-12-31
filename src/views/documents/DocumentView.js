@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillInfoCircleFill, BsReplyAllFill } from 'react-icons/bs';
+import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillCheckCircleFill, BsFillInfoCircleFill, BsReplyAllFill, BsXCircleFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
@@ -15,7 +15,6 @@ function DocumentView() {
   const [documentpublish, { data: no }] = useDocumentpublishMutation();
   const doc = useSelector((state) => state.document.documentView);
   const download = (e) => {
-  
     e.preventDefault();
     axios({
       url: `${process.env.REACT_APP_BASE_URL}download/${doc.id}`,
@@ -49,7 +48,7 @@ function DocumentView() {
       }
     });
   };
-
+console.log(doc)  
   return (
     <>
       <Card>
@@ -103,22 +102,17 @@ function DocumentView() {
                           <b>{doc.name}</b>{' '}
                         </p>
                       </div>
-                      {/* <div className=" py-2">
+                      <div className=" py-2">
                         <b>Category Name:</b> <br />  <p className='text-primary '><b> {doc.catagory?.name}</b> </p>  
-                      </div> */}
-                      <div className=" py-2">
-                        <b>Description:</b> <br />{' '}
-                        <p className="text-primary ">
-                          <b> {doc.description}</b>{' '}
-                        </p>
                       </div>
-                      <div className=" py-2">
 
-                        <b>Status:</b> <br />{' '}
-                        <b className={doc.status === 'Active' ? 'bg-success text-dark p-1 rounded' : 'bg-danger text-dark p-1 rounded'}>
+                   
+                      
+                      <div className=" py-2">
+                        <b>Status:</b> <br />
+                        {doc.status === 'Active' ? <BsFillCheckCircleFill color="green" /> : <BsXCircleFill color="red" />}
                           {doc.status}
-                        </b>
-                        
+                    
                       </div>
                       <div className=" py-2">
                         <b>Created By:</b> <br />
@@ -142,10 +136,19 @@ function DocumentView() {
                   </Card>
                 </Col>
                 <Col md={9}>
-                  <Card width="1000px" height="600px">
+                  <Card width="1000px" height="500px">
                     <div>
                       <embed width="100%" height="600px" alt={doc.name} src={`${process.env.REACT_APP_IMAGE_URL}${doc?.file}`} />
                     </div>
+
+                    <Card.Header>
+                      <Card.Title as="h5">Description</Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                      <p className=" ">
+                        { doc.description=== 'undefined' ? "No Description" : <b>{doc.description }</b>}
+                      </p>
+                    </Card.Body>
                   </Card>
                 </Col>
               </Row>

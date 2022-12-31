@@ -52,10 +52,25 @@ function CatagoryEdit() {
         <Row>
           <Col>
             <Form onSubmit={submitHandel} encType="multipart/form-data">
-              <Form.Group controlId="exampleForm.ControlInput1">
+
+              <Row>
+                <Col md={6}>
+                   <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Catagory Name" name="name" onChange={(e) => setName(e.target.value)} value={name} />
-              </Form.Group>
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                <Form.Label>Status</Form.Label>
+              <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
+            
+                <option value="Active">Active</option>
+                <option value="Pending">Pending</option>
+                  </Form.Control>
+                </Col>
+              </Row>
+
+             
 
               <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description</Form.Label>
@@ -68,12 +83,7 @@ function CatagoryEdit() {
                   value={description}
                 />
               </Form.Group>
-              <Form.Label>Status</Form.Label>
-              <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
-            
-                <option value="Active">Active</option>
-                <option value="Pending">Pending</option>
-              </Form.Control>
+       
 
               <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
 

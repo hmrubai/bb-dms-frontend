@@ -45,20 +45,28 @@ function CatagoryAdd() {
           <Row>
             <Col>
               <Form onSubmit={submitHandel} encType="multipart/form-data">
+                <Row>
+                      <Col md={6}>
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label>Name</Form.Label>
                   <Form.Control type="text" placeholder="Catagory Name" name="name" onChange={(e) => setName(e.target.value)} required />
                 </Form.Group>
+                </Col>
+                <Col md={6}>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                   <Form.Label>Description</Form.Label>
                   <Form.Control
                     as="textarea"
-                    rows="3"
+                    rows="1"
                     placeholder="Catagory Description"
                     name="description"
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </Form.Group>
+                </Col> 
+                </Row>
+           
+               
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <input
                     type="file"

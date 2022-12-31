@@ -36,7 +36,7 @@ function AdminUnpublishDocumentList() {
                 <tr className=" text-white">
                   <th>ID</th>
                   <th>Document Name</th>
-                  <th>Username</th>
+                  <th>Created By</th>
                   <th>Admin Status</th>
                   <th>Created Date</th>
                   <th>Action</th>
@@ -58,7 +58,7 @@ function AdminUnpublishDocumentList() {
   }  
   } else {
     return <div class="alert alert-danger" role="alert">
-    You are not authorized to access this page!
+    You are not authorized to access this page! Only Admin can access this page.
   </div>
   }
 

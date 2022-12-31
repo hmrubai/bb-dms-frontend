@@ -72,24 +72,27 @@ function DocumentAdd() {
           <Col>
             <Form onSubmit={submitHandel} encType="multipart/form-data">
               <Row>
-                <Col>
+                <Col md={6}>
                   <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="text" placeholder="Name" name="name" onChange={(e) => setName(e.target.value)} required />
                   </Form.Group>
                 </Col>
-              </Row>
-
-              <Form.Group controlId="exampleForm.ControlTextarea1">
+                <Col md={6}>
+                      <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
-                  rows="3"
+                  rows="1"
                   placeholder="Description"
                   name="description"
                   onChange={(e) => setDescription(e.target.value)}
                 />
-              </Form.Group>
+                  </Form.Group>
+                </Col>
+              </Row>
+
+          
 
         
 

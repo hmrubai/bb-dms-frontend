@@ -6,9 +6,10 @@ import { authApiContext } from '../../../contexts/Api/AuthApi';
 import Breadcrumb from '../../../layouts/AdminLayout/Breadcrumb';
 import logo from '../../../../src/assets/images/logo.png';
 import { ToastContainer } from 'react-toastify';
+import Loading from '../../../components/Loading/Loading';
 
 const SignUp1 = () => {
-  const { login } = useContext(authApiContext);
+  const { login,resData } = useContext(authApiContext);
 
   const [allData, setData] = useState({
     email: '',
@@ -28,6 +29,7 @@ const SignUp1 = () => {
   return (
     <React.Fragment>
       <Breadcrumb />
+     
       <ToastContainer />
       <div className="auth-wrapper">
         <div className="auth-content">

@@ -23,6 +23,12 @@ function SubCategoryAdd() {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('user_id', auth.id);
+
+    if (catagory_id === undefined) {
+      toast.error('Please Select Catagory');
+  
+    }
+
     formData.append('catagory_id', catagory_id);
     formData.append('description', description);
     if (image !== undefined) {
@@ -48,10 +54,26 @@ function SubCategoryAdd() {
         <Row>
           <Col>
             <Form onSubmit={submitHandel} encType="multipart/form-data">
+
+              <Row>
+                <Col md={6}>
+                  
               <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Catagory Name" name="name" onChange={(e) => setName(e.target.value)} required />
-              </Form.Group>
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                <Form.Label>Category</Form.Label>
+              <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagoryId(e.target.value)}>
+                <option>Selact Category</option>
+                {cateSucess && category.map((item,i) => (
+                  <option key={i} value={item.id}>{item.name}</option>
+                ))}
+                  </Form.Control>
+                  </Col>
+              </Row>
+
 
               <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description</Form.Label>
@@ -63,13 +85,7 @@ function SubCategoryAdd() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </Form.Group>
-              <Form.Label>Category</Form.Label>
-              <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagoryId(e.target.value)}>
-                <option>Selact Category</option>
-                {cateSucess && category.map((item,i) => (
-                  <option key={i} value={item.id}>{item.name}</option>
-                ))}
-              </Form.Control>
+          
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input
                   type="file"

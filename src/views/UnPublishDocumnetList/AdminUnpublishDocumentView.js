@@ -7,7 +7,8 @@ import {
   BsFillArrowDownCircleFill,
   BsFillInfoCircleFill,
   BsReplyAllFill,
-  BsFillCheckCircleFill
+  BsFillCheckCircleFill,
+  BsXCircleFill
 } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from './../../store/index';
@@ -60,8 +61,6 @@ function AdminUnpublishDocumentView() {
     });
   };
 
-  console.log(data);
-
   return (
     <>
       <Card>
@@ -69,11 +68,11 @@ function AdminUnpublishDocumentView() {
         <Card.Header>
           <div>
             <Card.Title as="h5">Documnet </Card.Title>
-            <span className="me-auto">
+            {/* <span className="me-auto">
               <Link to={`/documents/document`}>
                 <BsArrowLeftCircleFill color="black" size={'20px'} />
               </Link>
-            </span>
+            </span> */}
           </div>
         </Card.Header>
         {isLoading && <Loading />}
@@ -119,32 +118,27 @@ function AdminUnpublishDocumentView() {
                           </p>
                         </div>
                         {/* <div className=" py-2">
-                          <b>Category Name:</b> <br />  <p className='text-primary '><b> {doc.catagory?.name}</b> </p>  
+                          <b>Category Name:</b> <br />  <p className='text-primary '><b> {data.catagory?.name}</b> </p>  
                         </div> */}
-                        <div className=" py-2">
-                          <b>Description:</b> <br />{' '}
-                          <p className="text-primary ">
-                            <b> {data.description}</b>{' '}
-                          </p>
-                        </div>
-                        <div className=" py-2">
-                          {data.admin_status === 'Active' && (
-                            <div className=" py-2">
-                              <b>Publish By:</b> <br />
-                              <p className="text-primary ">
-                                <b> Super Admin </b>{' '}
-                              </p>
-                            </div>
-                          )}
-                          <b>Status:</b> <br />
-                          <b
-                            className={
-                              data.admin_status === 'Active' ? 'bg-success text-dark p-1 rounded' : 'bg-danger text-dark p-1 rounded'
-                            }
-                          >
-                            {data.admin_status}
-                          </b>
-                        </div>
+
+                        {data.admin_status === 'Active' && (
+                          <div className=" py-2">
+                            <b>Publish By:</b> <br />
+                            <p className="text-primary ">
+                              <b> Super Admin </b>{' '}
+                            </p>
+                          </div>
+                        )}
+
+                        {data.admin_status === 'Pending' && (
+                          <div className=" py-2">
+                            <b>Admin Status:</b> <br />
+                            <p className="text-primary ">
+                              <BsXCircleFill color="red" /> <b> {data.admin_status} </b>
+                            </p>
+                          </div>
+                        )}
+
                         <div className=" py-2">
                           <b>Created By:</b> <br />
                           <p className="text-primary ">
@@ -171,6 +165,14 @@ function AdminUnpublishDocumentView() {
                       <div>
                         <embed width="100%" height="600px" alt={data.name} src={`${process.env.REACT_APP_IMAGE_URL}${data?.file}`} />
                       </div>
+                      <Card.Header>
+                        <Card.Title as="h5">Description</Card.Title>
+                      </Card.Header>
+                      <Card.Body>
+                        <p className=" ">
+                        { data.description=== 'undefined' ? "No Description" : <b>{data.description }</b>}
+                        </p>
+                      </Card.Body>
                     </Card>
                   </Col>
                 </Row>

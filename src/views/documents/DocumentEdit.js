@@ -60,7 +60,7 @@ function DocumentEdit() {
           <Col>
             <Form onSubmit={submitHandel} encType="multipart/form-data">
               <Row>
-                <Col>
+                <Col md={6}>
                   <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
@@ -73,6 +73,17 @@ function DocumentEdit() {
                     />
                   </Form.Group>
                 </Col>
+                <Col md={6}>
+                <Col>
+                  <Form.Label>Status</Form.Label>
+                  <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
+                    {/* <option>{status}</option> */}
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                  </Form.Control>
+                  </Col>
+                </Col>
+
               </Row>
 
               <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -87,18 +98,6 @@ function DocumentEdit() {
                 />
               </Form.Group>
 
-              <Row>
-                <Col>
-                  <Form.Label>Status</Form.Label>
-                  <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
-                    {/* <option>{status}</option> */}
-                    <option value="Active">Active</option>
-                    <option value="Pending">Pending</option>
-                  </Form.Control>
-                </Col>
-              </Row>
-
-              <Row></Row>
 
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input

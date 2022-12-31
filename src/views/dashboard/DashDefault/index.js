@@ -20,23 +20,26 @@ import { useSelector } from './../../../store/index';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import fileDownload from 'js-file-download';
-import { useAllPublishDocumentQuery } from '../../../services/publishApi';
+import { useAllPublishDocumentQuery, useYourDocumentQuery } from '../../../services/publishApi';
 import file from './../../../assets/images/File/word.png';
 import Loading from '../../../components/Loading/Loading';
-import Spinner from '../../../components/Loader/Spinner';
+
 const DashDefault = () => {
   const [page, setPage] = useState(1);
   const { data, isSuccess } = useAllCategoryQuery();
   const { data: doc, isSuccess: docIsSuccess } = useGetAllDocumentQuery();
   const { data: user, isSuccess: userSucess } = useTotalUserQuery();
   const { data: allDoc, isSuccess: docSuccess, isLoading } = useAllPublishDocumentQuery();
+  const {data:yourDoc }=useYourDocumentQuery()
+
+
   const { data: recentUser } = useGetAllUserQuery(page);
   const authPermission = useSelector((state) => state.auth.permissions);
 
   // download file
 
   const download = (e, item) => {
-    console.log(item);
+  
     e.preventDefault();
     axios({
       url: `${process.env.REACT_APP_BASE_URL}download/${item.id}`,
@@ -60,7 +63,7 @@ const DashDefault = () => {
         <Col md={12} xl={4}>
           <Card>
             <Card.Body>
-              <h6 className="mb-4">Total Documnets</h6>
+              <h6 className="mb-4">Total Published Documnets</h6>
               <div className="row d-flex align-items-center">
                 <div className="col-9">
                   <h3 className="f-w-300 d-flex align-items-center m-b-0">
@@ -86,12 +89,12 @@ const DashDefault = () => {
         <Col md={12} xl={4}>
           <Card>
             <Card.Body>
-              <h6 className="mb-4">Total Category</h6>
+              <h6 className="mb-4">Your Documents</h6>
               <div className="row d-flex align-items-center">
                 <div className="col-9">
                   <h3 className="f-w-300 d-flex align-items-center m-b-0">
                     <i className="feather icon-align-justify text-c-green f-30 m-r-5" />
-                    {/* {isSuccess ? data.length : 0} */}0
+                    {yourDoc && data.length }
                   </h3>
                 </div>
 

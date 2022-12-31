@@ -48,7 +48,7 @@ const UserEdit = (props) => {
         toast.error('Something went wrong');
       });
   };
-  
+
   //user permission list api request
   const userPermission = (e) => {
     axios({
@@ -72,8 +72,6 @@ const UserEdit = (props) => {
         toast.error('Something went wrong');
       });
   };
-
-
 
   // axios api request
   useEffect(() => {
@@ -144,7 +142,7 @@ const UserEdit = (props) => {
                 <Row>
                   <Col>
                     <Row>
-                      <Col>
+                      <Col md={4}>
                         <Form.Group controlId="exampleForm.ControlInput1">
                           <Form.Label>Name</Form.Label>
                           <Form.Control
@@ -157,7 +155,7 @@ const UserEdit = (props) => {
                           />
                         </Form.Group>
                       </Col>
-                      <Col>
+                      <Col md={4}>
                         <Form.Group controlId="exampleForm.ControlInput1">
                           <Form.Label>Username</Form.Label>
                           <Form.Control
@@ -170,33 +168,34 @@ const UserEdit = (props) => {
                           />
                         </Form.Group>
                       </Col>
-                    </Row>
+                      <Col md={4}>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                          <Form.Label>Email</Form.Label>
+                          <Form.Control
+                            type="email"
+                            placeholder="Email"
+                            name="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            value={email}
+                          />
+                        </Form.Group>
+                      </Col>
 
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder="Email"
-                        name="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        value={email}
-                      />
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <Form.Label>Number</Form.Label>
-                      <Form.Control
-                        type="number"
-                        placeholder="Number"
-                        name="number"
-                        onChange={(e) => setNumber(e.target.value)}
-                        required
-                        value={number}
-                      />
-                    </Form.Group>
-
-                    <Row>
-                      <Col>
+                      <Col md={6}>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                          <Form.Label>Number</Form.Label>
+                          <Form.Control
+                            type="number"
+                            placeholder="Number"
+                            name="number"
+                            onChange={(e) => setNumber(e.target.value)}
+                            required
+                            value={number}
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col md={6}>
                         <Form.Label>Status</Form.Label>
                         <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
                           <option value={status}>{status}</option>
@@ -204,43 +203,50 @@ const UserEdit = (props) => {
                           <option value="Pending">Pending</option>
                         </Form.Control>
                       </Col>
+
+                      <Col md={6}>
+                        <Form.Label>Gender</Form.Label>
+
+                        <div className="d-flex pb-3 pl-2">
+                          <div className=" pr-5">
+                            <Form.Check
+                              custom
+                              type="radio"
+                              label="Male"
+                              name="gender"
+                              id="supportedRadio3"
+                              value="Male"
+                              onChange={(e) => setGender(e.target.value)}
+                            />
+                          </div>
+                          <div>
+                            <Form.Check
+                              custom
+                              type="radio"
+                              label="Female"
+                              name="gender"
+                              id="supportedRadio4"
+                              value="Female"
+                              onChange={(e) => setGender(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md={12}>
+                         <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
+                        </Col>
+                     
+                      <Col md={6}>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                          <input
+                            type="file"
+                            name="image"
+                            accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
+                            onChange={(e) => setImage(e.target.files[0])}
+                          />
+                        </Form.Group>
+                      </Col>
                     </Row>
-
-                    <Form.Label>Gender</Form.Label>
-
-                    <div className="d-flex pb-3 pl-2">
-                      <div className=" pr-5">
-                        <Form.Check
-                          custom
-                          type="radio"
-                          label="Male"
-                          name="gender"
-                          id="supportedRadio3"
-                          value="Male"
-                          onChange={(e) => setGender(e.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <Form.Check
-                          custom
-                          type="radio"
-                          label="Female"
-                          name="gender"
-                          id="supportedRadio4"
-                          value="Female"
-                          onChange={(e) => setGender(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
-                    <Form.Group controlId="exampleForm.ControlInput1">
-                      <input
-                        type="file"
-                        name="image"
-                        accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                        onChange={(e) => setImage(e.target.files[0])}
-                      />
-                    </Form.Group>
                   </Col>
                 </Row>
               </Card.Body>

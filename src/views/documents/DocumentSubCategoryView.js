@@ -33,7 +33,8 @@ function DocumentSubCategoryView() {
   const { data: subCategory, isSuccess: cateIssucess } = useShowSubSubCategoryQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
   const [documentpublish ,{data:no}]=useDocumentpublishMutation();
-  // delete document
+  console.log(data);
+  
   const deleteHandel = async (id) => {
     Swal.fire({
       title: 'Are you sure?',

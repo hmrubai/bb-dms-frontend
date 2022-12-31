@@ -31,6 +31,17 @@ export const publishApi = createApi({
       }),
       providesTags: ['Publish']
     }),
+    yourDocument: builder.query({
+      query: () => ({
+        url: `your_document`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${Cookies.get('token')}`
+        }
+      }),
+      providesTags: ['Publish']
+    }),
 
     adminDocumentPublish: builder.mutation({
       query: (id) => {
@@ -77,6 +88,7 @@ export const {
   useAdminDocumentPublishMutation,
   useDeleteUnpublishDocumentMutation,
   useUnpublishDocumentQuery,
-  useAllPublishDocumentQuery
+  useAllPublishDocumentQuery,
+  useYourDocumentQuery
 
 } = publishApi;

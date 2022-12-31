@@ -15,7 +15,7 @@ export const catagoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
-              "Authorization": `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -29,7 +29,7 @@ export const catagoryApi = createApi({
         url: `category/${id}`,
         method: 'GET',
         headers: {
-              "Authorization": `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -44,7 +44,7 @@ export const catagoryApi = createApi({
           method: 'POST',
           body: catagory,
           headers: {
-                "Authorization": `Bearer ${Cookies.get("token")}`,
+            Authorization: `Bearer ${Cookies.get('token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -52,7 +52,7 @@ export const catagoryApi = createApi({
       invalidatesTags: ['Category']
     }),
     updateCatagory: builder.mutation({
-      query: ({id ,data}) => {
+      query: ({ id, data }) => {
         return {
           url: `category/${id}`,
           method: 'POST',
@@ -61,11 +61,9 @@ export const catagoryApi = createApi({
             Authorization: `Bearer ${Cookies.get('token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
-       
         };
       },
       invalidatesTags: ['Category']
-      
     }),
 
     deleteCatagory: builder.mutation({
@@ -79,28 +77,26 @@ export const catagoryApi = createApi({
       }),
       invalidatesTags: ['Category']
     }),
-   
+
     getCategoryAllShow: builder.query({
       query: () => ({
         url: `category_all`,
         method: 'GET',
         headers: {
-              "Authorization": `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
       providesTags: ['Category']
     }),
 
-
     getSubCatagoryShow: builder.query({
       query: (id) => ({
         url: `category_show/${id}`,
         method: 'GET',
         headers: {
-              "Authorization": `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -108,8 +104,6 @@ export const catagoryApi = createApi({
       invalidatesTags: ['Category']
     }),
 
-
-    
     allCategory: builder.query({
       query: () => ({
         url: `category_all`,
@@ -117,18 +111,14 @@ export const catagoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
-              "Authorization": `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${Cookies.get('token')}`,
           'Content-type': 'application/json; charset=UTF-8'
           // "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
       providesTags: ['Category']
-    }),
-
-    
-
-
+    })
   })
 });
 
@@ -140,6 +130,5 @@ export const {
   useDeleteCatagoryMutation,
   useGetCategoryAllShowQuery,
   useGetSubCatagoryShowQuery,
-  useAllCategoryQuery,
-  
+  useAllCategoryQuery
 } = catagoryApi;

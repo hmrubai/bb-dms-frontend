@@ -21,6 +21,7 @@ const AuthApi = ({ children }) => {
         withCredentials: true
       });
       toast.success(response.data.message);
+      setRes(response.data);
       window.location.replace(`${process.env.REACT_APP_APP_URL}auth/signin`);
     } catch (error) {
       if (error.response.data.errors.password) {
@@ -45,7 +46,6 @@ const AuthApi = ({ children }) => {
       toast.success(response.data[0].message);
        response.data[0].user.user_has_permission.map((item) => {
          permissions.push(item.permission.name);
-        //  localStorage.setItem('permissions', JSON.stringify(permissions));
        });
       dispatch(userPermission(permissions));
       dispatch(authUser(response.data[0]));

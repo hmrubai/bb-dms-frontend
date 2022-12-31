@@ -87,13 +87,13 @@ function UserAdd() {
               <Row>
                 <Col>
                   <Row>
-                    <Col>
+                    <Col md={6}>
                       <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Name</Form.Label>
                         <Form.Control type="text" placeholder="Name" name="name" onChange={(e) => setName(e.target.value)} required />
                       </Form.Group>
                     </Col>
-                    <Col>
+                    <Col md={6}>
                       <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Username</Form.Label>
                         <Form.Control
@@ -105,16 +105,23 @@ function UserAdd() {
                         />
                       </Form.Group>
                     </Col>
-                  </Row>
-
-                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <Col md={6}>
+                       <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" placeholder="Email" name="email" onChange={(e) => setEmail(e.target.value)} required />
-                  </Form.Group>
-                  <Form.Group controlId="exampleForm.ControlInput1">
+                      </Form.Group>
+                      </Col>
+
+                    <Col md={6}>
+                         <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Number</Form.Label>
                     <Form.Control type="number" placeholder="Number" name="number" onChange={(e) => setNumber(e.target.value)} required />
                   </Form.Group>
+                </Col>
+                  </Row>
+
+                 
+               
 
                   <Row>
                     <Col>

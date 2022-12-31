@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetAllCatagoryQuery, useGetSubCatagoryShowQuery } from '../../../services/catagoryApi';
+import { useGetAllCatagoryQuery, useGetCategoryAllShowQuery, useGetSubCatagoryShowQuery } from '../../../services/catagoryApi';
 // import { useGetAllSubCategoryQuery } from '../../../services/subCategoryApi';
 import { useAddSubSubCategoryMutation } from '../../../services/subSubCategoryApi';
 import { useSelector } from './../../../store/index';
@@ -12,7 +12,7 @@ function SubCategoryAdd() {
   const history = useHistory();
   const auth = useSelector((state) => state.auth.user);
   const [addSubSubCategory, { data, isSuccess }] = useAddSubSubCategoryMutation();
-  const { data: category } = useGetAllCatagoryQuery();
+  const { data: category } = useGetCategoryAllShowQuery();
   // const { data: subCatagory } = useGetAllSubCategoryQuery();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
@@ -28,8 +28,10 @@ function SubCategoryAdd() {
     formData.append('name', name);
     formData.append('user_id', auth.id);
     formData.append('catagory_id', catagory_id);
-    if (sub_catagory_id !== undefined) {
-      formData.append('sub_catagory_id', sub_catagory_id);
+        formData.append('sub_catagory_id', sub_catagory_id);
+    if (sub_catagory_id === undefined) {
+      toast.error('Please Select Sub Catagory');
+      
     }
     formData.append('description', description);
     if (image !== undefined) {
@@ -55,10 +57,34 @@ function SubCategoryAdd() {
         <Row>
           <Col>
             <Form onSubmit={submitHandel} encType="multipart/form-data">
-              <Form.Group controlId="exampleForm.ControlInput1">
+              <Row>
+                <Col md={4}>
+                       <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Catagory Name" name="name" onChange={(e) => setName(e.target.value)} required />
-              </Form.Group>
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                <Form.Label>Category</Form.Label>
+              <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagoryId(e.target.value)}>
+                <option>Selact Category</option>
+                {category?.map((cate,i) => (
+                  <option key={i} value={cate.id}>{cate.name}</option>
+                ))}
+                  </Form.Control>
+                </Col>
+                <Col md={4}>
+                <Form.Label>Sub Category</Form.Label>
+              <Form.Control as="select" className="mb-3" name="sub_catagory_id" onChange={(e) => setSubCatagoryId(e.target.value)}>
+                <option>Selact Category</option>
+                {cataSucess && subCategoryShow?.sub_catagory?.map((subCate, i) =>
+                  <option key={i} value={subCate?.id}>{subCate?.name}</option>)}
+                  </Form.Control>
+                </Col>
+              </Row>
+
+
+         
 
               <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description</Form.Label>
@@ -71,21 +97,10 @@ function SubCategoryAdd() {
                 />
               </Form.Group>
               
-              <Form.Label>Category</Form.Label>
-              <Form.Control as="select" className="mb-3" name="catagory_id" onChange={(e) => setCatagoryId(e.target.value)}>
-                <option>Selact Category</option>
-                {category?.data.map((cate,i) => (
-                  <option key={i} value={cate.id}>{cate.name}</option>
-                ))}
-              </Form.Control>
+          
 
               
-              <Form.Label>Sub Category</Form.Label>
-              <Form.Control as="select" className="mb-3" name="sub_catagory_id" onChange={(e) => setSubCatagoryId(e.target.value)}>
-                <option>Selact Category</option>
-                {cataSucess && subCategoryShow?.sub_catagory?.map((subCate, i) =>
-                  <option key={i} value={subCate?.id}>{subCate?.name}</option>)}
-              </Form.Control>
+             
 
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input
