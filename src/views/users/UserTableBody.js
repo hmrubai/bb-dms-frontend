@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
-import { useSelector } from './../../store/index';
+// import { useSelector } from './../../store/index';
 import { useDeleteUserMutation } from '../../services/userApi';
 import Swal from 'sweetalert2';
 
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 function UserTableBody({ user, index }) {
   const [deleteUser] = useDeleteUserMutation();
 
-  const authPermission = useSelector((state) => state.auth.permissions);
+  // const authPermission = useSelector((state) => state.auth.permissions);
 
   const deleteHandel = async (id) => {
     Swal.fire({

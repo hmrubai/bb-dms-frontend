@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 import { useDocumentpublishMutation } from '../../services/documentApi';
 
 function DocumentView() {
-  const [documentpublish, { data: no }] = useDocumentpublishMutation();
+  const [documentpublish] = useDocumentpublishMutation();
   const doc = useSelector((state) => state.document.documentView);
   const download = (e) => {
     e.preventDefault();
@@ -137,15 +137,24 @@ console.log(doc)
                 </Col>
                 <Col md={9}>
                   <Card width="1000px" height="500px">
-                    <div>
-                      <embed width="100%" height="600px" alt={doc.name} src={`${process.env.REACT_APP_IMAGE_URL}${doc?.file}`} />
-                    </div>
+                  <div>
+                        {doc.file.split('.').pop().includes('docx') ||
+                        doc.file.split('.').pop().includes('xls') ||
+                        doc.file.split('.').pop().includes('xlsx') ||
+                        doc.file.split('.').pop().includes('csv') ? (
+                          <div class="alert alert-warning" role="alert">
+                            Pleass Download this Document !!
+                          </div>
+                        ) : (
+                          <embed width="100%" height="600px" alt={doc.name} src={`${process.env.REACT_APP_IMAGE_URL}${doc?.file}`} />
+                        )}
+                      </div>
 
                     <Card.Header>
                       <Card.Title as="h5">Description</Card.Title>
                     </Card.Header>
                     <Card.Body>
-                      <p className=" ">
+                      <p className=" p-0 m-0 ">
                         { doc.description=== 'undefined' ? "No Description" : <b>{doc.description }</b>}
                       </p>
                     </Card.Body>

@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { Row, Col, Card, Table, Pagination } from 'react-bootstrap';
+import React from 'react';
+import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { useAllCategoryQuery } from '../../../services/catagoryApi';
-import { useGetAllDocumentQuery } from '../../../services/documentApi';
-import { useGetAllUserQuery, useTotalUserQuery } from '../../../services/userApi';
 import {
   BsFillArrowUpCircleFill,
   BsFillFileEarmarkMedicalFill,
@@ -12,34 +9,35 @@ import {
   BsFillCheckCircleFill,
   BsFillEyeFill,
   BsFillArrowDownCircleFill,
-  BsPencilSquare,
-  BsFillTrashFill
+  BsFillArrowRightCircleFill
 } from 'react-icons/bs';
-import DayJS from 'react-dayjs';
-import { useSelector } from './../../../store/index';
+
+// import { useSelector } from './../../../store/index';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import fileDownload from 'js-file-download';
-import { useAllPublishDocumentQuery, useYourDocumentQuery } from '../../../services/publishApi';
+import { useAllPublishDocumentQuery, useDashboardPublishDocumentQuery, useYourDocumentQuery } from '../../../services/publishApi';
 import file from './../../../assets/images/File/word.png';
 import Loading from '../../../components/Loading/Loading';
+import { useState } from 'react';
 
 const DashDefault = () => {
-  const [page, setPage] = useState(1);
-  const { data, isSuccess } = useAllCategoryQuery();
-  const { data: doc, isSuccess: docIsSuccess } = useGetAllDocumentQuery();
-  const { data: user, isSuccess: userSucess } = useTotalUserQuery();
-  const { data: allDoc, isSuccess: docSuccess, isLoading } = useAllPublishDocumentQuery();
-  const {data:yourDoc }=useYourDocumentQuery()
+  // const [page, setPage] = useState(1);
 
+  // const { data: doc,   } = useGetAllDocumentQuery();
+  // const { data: user, } = useTotalUserQuery();
+  const [search, setSearch] = useState('');
 
-  const { data: recentUser } = useGetAllUserQuery(page);
-  const authPermission = useSelector((state) => state.auth.permissions);
+  const { data: allDoc, isSuccess: docSuccess, isLoading } = useDashboardPublishDocumentQuery();
+  const { data: puballDoc } = useAllPublishDocumentQuery({ search: search });
+  const { data: yourDoc } = useYourDocumentQuery();
+
+  // const { data: recentUser } = useGetAllUserQuery(page);
+  // const authPermission = useSelector((state) => state.auth.permissions);
 
   // download file
 
   const download = (e, item) => {
-  
     e.preventDefault();
     axios({
       url: `${process.env.REACT_APP_BASE_URL}download/${item.id}`,
@@ -67,7 +65,7 @@ const DashDefault = () => {
               <div className="row d-flex align-items-center">
                 <div className="col-9">
                   <h3 className="f-w-300 d-flex align-items-center m-b-0">
-                    <i className="feather icon-layout text-c-green f-30 m-r-5" /> {docSuccess && allDoc.length}
+                    <i className="feather icon-share-2 text-c-green f-30 m-r-5" /> {puballDoc && puballDoc.length}
                   </h3>
                 </div>
 
@@ -93,8 +91,8 @@ const DashDefault = () => {
               <div className="row d-flex align-items-center">
                 <div className="col-9">
                   <h3 className="f-w-300 d-flex align-items-center m-b-0">
-                    <i className="feather icon-align-justify text-c-green f-30 m-r-5" />
-                    {yourDoc && data.length }
+                    <i className="feather icon-layout  text-c-green f-30 m-r-5" />
+                    {yourDoc && yourDoc.length}
                   </h3>
                 </div>
 
@@ -114,60 +112,6 @@ const DashDefault = () => {
           </Card>
         </Col>
 
-        {/* <Col md={6} xl={8}>
-          <Card className="Recent-Users">
-            <Card.Header>
-              <Card.Title as="h5">Document Approval list</Card.Title>
-            </Card.Header>
-            <Card.Body className="px-0 py-2">
-              <Table responsive hover>
-                <tbody>
-                  {recentUser &&
-                    recentUser?.data.map((item ,i) => (
-                      <tr className="unread" key={i}>
-                        <td>
-                          <img
-                            className="rounded-circle"
-                            style={{ width: '40px' }}
-                            src={`${process.env.REACT_APP_IMAGE_URL}${item.image}`}
-                            alt="activity-user"
-                          />
-                        </td>
-                        <td>
-                          <h6 className="mb-1">{item.name}</h6>
-                          <p className="m-0">{item.email}</p>
-                        </td>
-                        <td>
-                          <h6 className="text-muted">
-                            <i className="fa fa-circle text-c-green f-10 m-r-15" />
-                            Time: <DayJS format="h:mm A">{item?.created_at}</DayJS> || Date:{' '}
-                            <DayJS format="YYYY-MM-DD">{item?.created_at}</DayJS>
-                          </h6>
-                        </td>
-                        <td>
-                       
-                          <Link to={`/users/user_view/${item.id}`} className="label theme-bg2 text-white f-12">
-                            View
-                          </Link>
-                          {authPermission.includes('user_edit') && (
-                            <Link to={`/users/user_edit/${item.id}`} className="label theme-bg text-white f-12">
-                              Edit
-                            </Link>
-                          )}
-                        </td>
-           
-                      </tr>
-                    ))}
-
-                  <Pagination className=" justify-content-end mt-4  mr-5">
-                    <Pagination.Prev onClick={() => setPage(page - 1)} />
-                    <Pagination.Next onClick={() => setPage(page + 1)} />
-                  </Pagination>
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-        </Col> */}
         <Col md={6} xl={4}>
           <Card className="card-event">
             <Card.Body>
@@ -192,7 +136,7 @@ const DashDefault = () => {
                   </div>
                 </div>
               </h2>
-              <h6 classNameName="text-muted mt-3 mb-0 ">You can Uploade Your Document </h6>
+              <h6 className="text-muted mt-3 mb-0 ">You can Uploade Your Document </h6>
             </Card.Body>
           </Card>
         </Col>
@@ -201,9 +145,14 @@ const DashDefault = () => {
         {/* document */}
         <Col>
           <Card>
-            <Card.Header>
-              <Card.Title as="h5">Published Document</Card.Title>
+            <Card.Header className="">
+              <div className=" d-flex justify-content-between ">
+                <div>
+                  <Card.Title as="h5">Published Document</Card.Title>
+                </div>
+              </div>
             </Card.Header>
+
             {isLoading && (
               <div className="text-center">
                 <Loading animation="border" variant="primary" />
@@ -211,7 +160,7 @@ const DashDefault = () => {
             )}
             {docSuccess && (
               <div className="d-flex flex-wrap ">
-                {allDoc?.map((item) => (
+                {allDoc?.data.map((item) => (
                   <div className="mx-1 " key={item.id}>
                     <Card style={{ width: '15rem', height: '15rem' }}>
                       {item.file.split('.').pop().includes('png') ||
@@ -253,25 +202,28 @@ const DashDefault = () => {
                       </Card.Body>
 
                       <div className=" text-center p-2 shadow my-3 mt-4">
-                        {item.file.split('.').pop().includes('pdf') ||
-                        item.file.split('.').pop().includes('png') ||
-                        item.file.split('.').pop().includes('jpg') ||
-                        item.file.split('.').pop().includes('jpeg') ||
-                        item.file.split('.').pop().includes('txt') ? (
+                        <div>
                           <Link to={`/documents/unpublish_document_view/${item.id}`}>
-                            <BsFillEyeFill color="black" size={20} />
+                            <BsFillEyeFill color="blue" size={22} />
                           </Link>
-                        ) : (
-                          <span className="pointer">
+                          <span className="pointer m-2">
                             <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
                           </span>
-                        )}
+                        </div>
                       </div>
                     </Card>
                   </div>
                 ))}
               </div>
             )}
+            <div className="text-right">
+              <Link to={`documents/All_document_list`}>
+                <Button>
+                  {' '}
+                  See More <BsFillArrowRightCircleFill color="black" />
+                </Button>
+              </Link>
+            </div>
           </Card>
         </Col>
       </Row>

@@ -6,10 +6,10 @@ import { authApiContext } from '../../../contexts/Api/AuthApi';
 import Breadcrumb from '../../../layouts/AdminLayout/Breadcrumb';
 import logo from '../../../../src/assets/images/logo.png';
 import { ToastContainer } from 'react-toastify';
-import Loading from '../../../components/Loading/Loading';
+
 
 const SignUp1 = () => {
-  const { login,resData } = useContext(authApiContext);
+  const { login } = useContext(authApiContext);
 
   const [allData, setData] = useState({
     email: '',

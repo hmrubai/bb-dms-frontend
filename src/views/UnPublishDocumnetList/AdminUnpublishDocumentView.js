@@ -163,15 +163,22 @@ function AdminUnpublishDocumentView() {
                   <Col md={9}>
                     <Card width="1000px" height="600px">
                       <div>
-                        <embed width="100%" height="600px" alt={data.name} src={`${process.env.REACT_APP_IMAGE_URL}${data?.file}`} />
+                        {data.file.split('.').pop().includes('docx') ||
+                        data.file.split('.').pop().includes('xls') ||
+                        data.file.split('.').pop().includes('xlsx') ||
+                        data.file.split('.').pop().includes('csv') ? (
+                          <div class="alert alert-warning" role="alert">
+                            Pleass Download this Document !!
+                          </div>
+                        ) : (
+                          <embed width="100%" height="600px" alt={data.name} src={`${process.env.REACT_APP_IMAGE_URL}${data?.file}`} />
+                        )}
                       </div>
                       <Card.Header>
                         <Card.Title as="h5">Description</Card.Title>
                       </Card.Header>
                       <Card.Body>
-                        <p className=" ">
-                        { data.description=== 'undefined' ? "No Description" : <b>{data.description }</b>}
-                        </p>
+                        <p className=" ">{data.description === 'undefined' ? 'No Description' : <b>{data.description}</b>}</p>
                       </Card.Body>
                     </Card>
                   </Col>

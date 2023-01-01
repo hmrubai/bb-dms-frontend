@@ -1,5 +1,5 @@
 import React, { Suspense, Fragment, lazy } from 'react';
-import { Switch, Redirect, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import Loader from './components/Loader/Loader';
 import AdminLayout from './layouts/AdminLayout';
@@ -186,6 +186,11 @@ const routes = [
         exact: true,
         path: '/documents/unpublish_document_view/:id',
         component: lazy(() => import('./views/UnPublishDocumnetList/AdminUnpublishDocumentView'))
+      },
+      {
+        exact: true,
+        path: '/documents/All_document_list/',
+        component: lazy(() => import('./views/UnPublishDocumnetList/AllPublishDocumentList'))
       },
       // profile
       {

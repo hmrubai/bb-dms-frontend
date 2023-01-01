@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Table } from 'react-bootstrap';
-import Pagination from 'react-bootstrap/Pagination';
 import { ToastContainer } from 'react-toastify';
 import Loading from '../../components/Loading/Loading';
 import { useAdminUnpublishDocumentListQuery } from '../../services/publishApi';
@@ -8,7 +7,7 @@ import { useSelector } from '../../store';
 import AdminUnpublishDocumentTable from './AdminUnpublishDocumentTable';
 
 function AdminUnpublishDocumentList() {
-  const { data, isFetching, isLoading }=useAdminUnpublishDocumentListQuery();
+  const { data, isLoading }=useAdminUnpublishDocumentListQuery();
   const authPermission = useSelector((state) => state.auth.permissions);
 
 

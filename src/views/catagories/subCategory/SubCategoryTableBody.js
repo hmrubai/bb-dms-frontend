@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
 import { useDeleteSubCategoryMutation } from '../../../services/subCategoryApi';
 import  Swal  from 'sweetalert2';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 function CategoryTableBody({ subCatagory ,index}) {
 
   const [deleteSubCategory] = useDeleteSubCategoryMutation()
-  const authPermission = useSelector((state) => state.auth.permissions);
+  // const authPermission = useSelector((state) => state.auth.permissions);
   const deleteHandel = async(id) => {
 
     Swal.fire({

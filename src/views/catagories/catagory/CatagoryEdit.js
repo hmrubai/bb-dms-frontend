@@ -4,12 +4,12 @@ import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { useGetCatagoryByIdQuery, useUpdateCatagoryMutation } from '../../../services/catagoryApi';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 function CatagoryEdit() {
   const { id } = useParams();
   const history = useHistory();
-  const authPermission = useSelector((state) => state.auth.permissions);
+  // const authPermission = useSelector((state) => state.auth.permissions);
   const [updateCatagory, { data: cataResData, isSuccess: cataResSucess }] = useUpdateCatagoryMutation() || {};
   const { data, isSuccess } = useGetCatagoryByIdQuery(id);
   const [name, setName] = useState();

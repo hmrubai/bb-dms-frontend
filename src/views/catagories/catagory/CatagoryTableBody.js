@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { BsFillEyeFill, BsFillTrashFill, BsPencilSquare } from 'react-icons/bs';
 import { useDeleteCatagoryMutation } from '../../../services/catagoryApi';
 import Swal from 'sweetalert2';
-import { useSelector } from './../../../store/index';
+// import { useSelector } from './../../../store/index';
 function CatagoryTableBody({ catagory ,index}) {
   const [deleteCatagory] = useDeleteCatagoryMutation();
-  const authPermission = useSelector((state) => state.auth.permissions);
+  // const authPermission = useSelector((state) => state.auth.permissions);
 
 
   const deleteHandel = async (id) => {

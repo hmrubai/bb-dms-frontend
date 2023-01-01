@@ -15,8 +15,13 @@ import {
 import file from '../../assets/images/File/word.png';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
-import { useDeleteDocumentMutation, useDocumentpublishMutation, useShowSubCategoryDocumentQuery, useShowSubSubCategoryQuery } from '../../services/documentApi';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useDeleteDocumentMutation,
+  useDocumentpublishMutation,
+  useShowSubCategoryDocumentQuery,
+  useShowSubSubCategoryQuery
+} from '../../services/documentApi';
+import { useDispatch } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
 import DocumentSubSubCategory from './DocumentSubSubCategory';
@@ -26,15 +31,15 @@ import fileDownload from 'js-file-download';
 import Cookies from 'js-cookie';
 
 function DocumentSubCategoryView() {
-  const authPermission = useSelector((state) => state.auth.permissions);
+  // const authPermission = useSelector((state) => state.auth.permissions);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { data, isLoading, isError, isSuccess } = useShowSubCategoryDocumentQuery(id);
   const { data: subCategory, isSuccess: cateIssucess } = useShowSubSubCategoryQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
-  const [documentpublish ,{data:no}]=useDocumentpublishMutation();
+  const [documentpublish] = useDocumentpublishMutation();
   console.log(data);
-  
+
   const deleteHandel = async (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -57,7 +62,7 @@ function DocumentSubCategoryView() {
     toast.success(data.message);
   }
 
-  const DocumentPublish = async (Pid)=>{
+  const DocumentPublish = async (Pid) => {
     Swal.fire({
       title: 'You want to Publish this Document?',
       // text: "You won't be able to revert this!",
@@ -66,16 +71,14 @@ function DocumentSubCategoryView() {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, Publish it!',
       width: 200,
-      showCancelButton: true,
-
-
-    }).then((result) => { 
+      showCancelButton: true
+    }).then((result) => {
       if (result.isConfirmed) {
-        documentpublish(Pid)
+        documentpublish(Pid);
         Swal.fire('Publish!', 'Your file has been Publish.', 'success');
       }
     });
-  }
+  };
 
   // download file
   const download = (e, item) => {
@@ -122,13 +125,12 @@ function DocumentSubCategoryView() {
         <Card.Header className="">
           <div className=" d-flex justify-content-between ">
             <div>
-              <Card.Title as="h5">Document</Card.Title>
-
-              <span>
-                <Link to={`/documents/document`}>
-                  <BsArrowLeftCircleFill color="black" size={'20px'} />
-                </Link>
-              </span>
+              <Card.Title as="h5">Documents</Card.Title>
+            </div>
+            <div>
+              <Link to={`/documents/document`}>
+                <BsArrowLeftCircleFill color="black" size={'20px'} />
+              </Link>
             </div>
           </div>
         </Card.Header>
@@ -147,7 +149,7 @@ function DocumentSubCategoryView() {
           <div className="d-flex flex-wrap ">
             {data?.map((item, i) => (
               <div className="mx-1" key={i}>
-                <Card style={{ width: '15rem', height: '15rem'}} onClick={() => dispatch(documentView(item))}>
+                <Card style={{ width: '15rem', height: '15rem' }} onClick={() => dispatch(documentView(item))}>
                   {item.file.split('.').pop().includes('png') || item.file.split('.').pop().includes('jpg') ? (
                     <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} />
                   ) : (
@@ -177,30 +179,27 @@ function DocumentSubCategoryView() {
                   </Card.Body>
 
                   <div className="  text-center p-2 shadow my-3 mt-4 ">
-                    {item.file.split('.').pop().includes('pdf') ||
+                    {/* {item.file.split('.').pop().includes('pdf') ||
                     item.file.split('.').pop().includes('png') ||
-                    item.file.split('.').pop().includes('jpg') ? (
+                    item.file.split('.').pop().includes('jpg') ? ( */}
                       <Link to={`/documents/document_view/${item.id}`}>
-                        <BsFillEyeFill color="black" size={20} />
+                        <BsFillEyeFill color="black" size={22} />
                       </Link>
-                    ) : (
-                      <span className="pointer">
+                    {/* ) : ( */}
+                      <span className="pointer ml-3">
                         <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
                       </span>
-        
-                    )}
+                    {/* )} */}
 
                     <Link to={`/documents/document_edit/${item.id}`} className="px-3">
                       <BsPencilSquare size={18} />
                     </Link>
 
-                
-                      <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
-            
-                      {item.status === 'Pending' && (
-                        <BsReplyAllFill  className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
+                    <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
 
-                      )}
+                    {item.status === 'Pending' && (
+                      <BsReplyAllFill className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
+                    )}
                   </div>
                 </Card>
               </div>

@@ -23,6 +23,7 @@ const AuthApi = ({ children }) => {
       toast.success(response.data.message);
       setRes(response.data);
       window.location.replace(`${process.env.REACT_APP_APP_URL}auth/signin`);
+
     } catch (error) {
       if (error.response.data.errors.password) {
         toast.warning(error.response.data.errors.password[0]);
@@ -30,7 +31,7 @@ const AuthApi = ({ children }) => {
       if (error.response.data.errors.email) {
         toast.warning(error.response.data.errors.email[0]);
       }
-      console.log(error.response);
+
     }
   };
 
@@ -51,26 +52,10 @@ const AuthApi = ({ children }) => {
       dispatch(authUser(response.data[0]));
       window.location.replace(`${process.env.REACT_APP_APP_URL}dashboard`);
     } catch (error) {
-      console.log(error.response.data.message);
+
       toast.error(error.response.data.message);
     }
   };
-
-  //   const signout = async () => {
-  //     try {
-  //       const response = await axios.get(`${process.env.REACT_APP_SRVER_BASE_URL}/auth/signout`, {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${localStorage.getItem('token')}`
-  //         }
-  //       });
-  //       // setResData(response.data.token);
-  //       toast.success(response.data.messages);
-  //       window.location.reload(false);
-  //     } catch (error) {
-  //       toast.error(error.response.data.messages);
-  //     }
-  //   };
 
   const logOut = () => {
     Cookies.remove('token');

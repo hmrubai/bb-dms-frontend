@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BsFillClockFill, BsFillEyeFill, BsFillTrashFill, BsPencilSquare, BsReplyAllFill, BsXCircleFill } from 'react-icons/bs';
-import { useSelector } from './../../store/index';
+import { BsFillClockFill, BsFillEyeFill, BsFillTrashFill, BsReplyAllFill, BsXCircleFill } from 'react-icons/bs';
+// import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import Swal from 'sweetalert2';
 import { useAdminDocumentPublishMutation, useDeleteUnpublishDocumentMutation } from '../../services/publishApi';
 
 function AdminUnpublishDocumentTable({ list, index }) {
   const [deleteUnpublishDocument] = useDeleteUnpublishDocumentMutation();
-  const [adminDocumentPublish, { data: no }] = useAdminDocumentPublishMutation();
-  const authPermission = useSelector((state) => state.auth.permissions);
+  const [adminDocumentPublish,] = useAdminDocumentPublishMutation();
+  // const authPermission = useSelector((state) => state.auth.permissions);
 
   const deleteHandel = async (id) => {
     Swal.fire({

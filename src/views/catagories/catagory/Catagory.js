@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { ToastContainer } from 'react-toastify';
 import CatagoryTable from './CatagoryTable';
-import { useSelector } from './../../../store/index';
+// import { useSelector } from './../../../store/index';
 function Catagory() {
   // const authPermission = useSelector((state) => state.auth.permissions);
   

@@ -54,7 +54,7 @@ function Profile() {
                 </span>
               </p>
               <p>
-                Created at :
+                Updated at :
                 <span class="font-weight-bold text-primary">
                   Time: <DayJS format="h:mm A ">{users.updated_at}</DayJS>
                   || Date: <DayJS format="YYYY-MM-DD">{users.updated_at}</DayJS>

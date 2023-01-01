@@ -21,8 +21,8 @@ export const publishApi = createApi({
       providesTags: ['Publish']
     }),
     AllPublishDocument: builder.query({
-      query: () => ({
-        url: `all_publish_document`,
+      query: ({search}) => ({
+        url: `all_publish_document?search=${search}`,
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
@@ -78,17 +78,33 @@ export const publishApi = createApi({
       }),
       // invalidatesTags: ['DocumentData'],
       invalidatesTags: ['Publish']
-    })
+    }),
+    dashboardPublishDocument: builder.query({
+      query: () => ({
+        url: `dashboard_Publish_Document`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${Cookies.get('token')}`
+        }
+      }),
+      providesTags: ['Publish']
+    }),
   })
 });
 
 export const {
   
-  useAdminUnpublishDocumentListQuery,
-  useAdminDocumentPublishMutation,
-  useDeleteUnpublishDocumentMutation,
-  useUnpublishDocumentQuery,
-  useAllPublishDocumentQuery,
-  useYourDocumentQuery
+useAdminUnpublishDocumentListQuery,
+useAdminDocumentPublishMutation,
+useDeleteUnpublishDocumentMutation,
+useUnpublishDocumentQuery,
+useAllPublishDocumentQuery,
+useYourDocumentQuery,
+useDashboardPublishDocumentQuery
 
 } = publishApi;
+
+
+
+

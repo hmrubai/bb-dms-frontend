@@ -15,7 +15,7 @@ import file from '../../assets/images/File/word.png';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import { useDeleteDocumentMutation, useDocumentpublishMutation, useShowSubSubCategoryDocumentQuery } from '../../services/documentApi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
@@ -23,12 +23,12 @@ import axios from 'axios';
 import fileDownload from 'js-file-download';
 import Cookies from 'js-cookie';
 function DocumentSubSubCategoryView() {
-  const authPermission = useSelector((state) => state.auth.permissions);
+  // const authPermission = useSelector((state) => state.auth.permissions);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { data, isLoading, isError, isSuccess } = useShowSubSubCategoryDocumentQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
-  const [documentpublish ,{data:no}]=useDocumentpublishMutation();
+  const [documentpublish ]=useDocumentpublishMutation();
   // delete document
   const deleteHandel = async (id) => {
     await Swal.fire({
@@ -111,14 +111,14 @@ function DocumentSubSubCategoryView() {
         <Card.Header className="">
           <div className=" d-flex justify-content-between ">
             <div>
-              <Card.Title as="h5">Document</Card.Title>
-
-              <span>
+              <Card.Title as="h5">Documents</Card.Title>
+  </div>
+              <div>
                 <Link to={`/documents/document`}>
                   <BsArrowLeftCircleFill color="black" size={'20px'} />
                 </Link>
-              </span>
-            </div>
+              </div>
+          
           </div>
         </Card.Header>
         <div>{isLoading && <Loading />}</div>
@@ -159,25 +159,25 @@ function DocumentSubSubCategoryView() {
                   </Card.Body>
 
                   <div className=" text-center p-2 shadow my-3 mt-4">
-                    {item.file.split('.').pop().includes('pdf') ||
+                    {/* {item.file.split('.').pop().includes('pdf') ||
                     item.file.split('.').pop().includes('png') ||
-                    item.file.split('.').pop().includes('jpg') ? (
+                    item.file.split('.').pop().includes('jpg') ? ( */}
                       <Link to={`/documents/document_view/${item.id}`}>
-                        <BsFillEyeFill color="black" size={20} />
+                        <BsFillEyeFill color="black" size={22} />
                       </Link>
-                    ) : (
-                      <span className="pointer">
+                    {/* ) : ( */}
+                      <span className="pointer ml-3">
                         <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
                       </span>
-                    )}
+                    {/* )} */}
 
                     <Link to={`/documents/document_edit/${item.id}`} className="px-3">
                       <BsPencilSquare size={18} />
                     </Link>
 
-                    {authPermission.includes('document_delete') && (
+                    {/* {authPermission.includes('document_delete') && ( */}
                       <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
-                    )}
+                    {/* )} */}
 
                     {item.status === 'Pending' && (
                         <BsReplyAllFill  className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />

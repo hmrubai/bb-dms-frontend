@@ -10,7 +10,6 @@ import {
   BsPencilSquare,
   BsFillCheckCircleFill,
   BsXCircleFill,
-  BsCheckCircleFill,
   BsReplyAllFill
 } from 'react-icons/bs';
 import file from '../../assets/images/File/word.png';
@@ -19,11 +18,10 @@ import Loading from '../../components/Loading/Loading';
 import {
   useDeleteDocumentMutation,
   useDocumentpublishMutation,
-  useDocumentPublishQuery,
   useShowCategoryDocumentQuery,
   useShowSubCategoryQuery
 } from '../../services/documentApi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
 import DocumentSubCategory from './DocumentSubCategory';
@@ -33,13 +31,13 @@ import fileDownload from 'js-file-download';
 import Cookies from 'js-cookie';
 
 function DocumentCategoryView() {
-  const authPermission = useSelector((state) => state.auth.permissions);
+  // const authPermission = useSelector((state) => state.auth.permissions);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { data, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
   const { data: subCategory, isSuccess: cateIssucess } = useShowSubCategoryQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
-  const [documentpublish, { data: no }] = useDocumentpublishMutation();
+  const [documentpublish] = useDocumentpublishMutation();
 
   const deleteHandel = async (Did) => {
     Swal.fire({
@@ -126,12 +124,11 @@ function DocumentCategoryView() {
           <div className=" d-flex justify-content-between ">
             <div>
               <Card.Title as="h5">Documents</Card.Title>
-
-              <span>
-                <Link to={`/documents/document`}>
-                  <BsArrowLeftCircleFill color="black" size={'20px'} />
-                </Link>
-              </span>
+            </div>
+            <div>
+              <Link to={`/documents/document`}>
+                <BsArrowLeftCircleFill color="black" size={'20px'} />
+              </Link>
             </div>
           </div>
         </Card.Header>
@@ -186,28 +183,22 @@ function DocumentCategoryView() {
                     </Card.Text>
                   </Card.Body>
 
-                  <div className=" text-center p-2 shadow my-3 mt-4">
-                    {item.file.split('.').pop().includes('pdf') ||
-                    item.file.split('.').pop().includes('png') ||
-                    item.file.split('.').pop().includes('jpg') ? (
+                  <div className=" text-center py-2 shadow my-3 mt-4">
+                    <div>
                       <Link to={`/documents/document_view/${item.id}`}>
-                        <BsFillEyeFill color="black" size={20} />
+                        <BsFillEyeFill color="black" size={22} />
                       </Link>
-                    ) : (
-                      <span className="pointer">
+                      <span className="pointer ml-3">
                         <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
                       </span>
-                    )}
-
-                    <Link to={`/documents/document_edit/${item.id}`} className="px-3">
-                      <BsPencilSquare size={18} />
-                    </Link>
-
-                    <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
-
-                    {item.status === 'Pending' && (
-                      <BsReplyAllFill className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
-                    )}
+                      <Link to={`/documents/document_edit/${item.id}`} className="px-3">
+                        <BsPencilSquare size={18} />
+                      </Link>
+                      <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
+                      {item.status === 'Pending' && (
+                        <BsReplyAllFill className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
+                      )}
+                    </div>
                   </div>
                 </Card>
               </div>
