@@ -216,14 +216,15 @@ const DashDefault = () => {
                 ))}
               </div>
             )}
-            <div className="text-right">
-              <Link to={`documents/All_document_list`}>
-                <Button>
-                  {' '}
-                  See More <BsFillArrowRightCircleFill color="black" />
-                </Button>
-              </Link>
-            </div>
+            {allDoc?.data.length > 10 && (
+              <div className="text-right">
+                <Link to={`documents/All_document_list`}>
+                  <Button>
+                    See More <BsFillArrowRightCircleFill color="black" />
+                  </Button>
+                </Link>
+              </div>
+            )}
           </Card>
         </Col>
       </Row>

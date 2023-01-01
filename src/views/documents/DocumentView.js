@@ -92,7 +92,7 @@ console.log(doc)
                         <hr />
                         <h5>
                           {' '}
-                          <BsFillInfoCircleFill /> DOCUMENT INFORMATION
+                          <BsFillInfoCircleFill />INFORMATION
                         </h5>
                         <hr />
                       </div>
