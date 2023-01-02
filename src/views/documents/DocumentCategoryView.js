@@ -1,5 +1,9 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import fileDownload from 'js-file-download';
+import Cookies from 'js-cookie';
 import {
   BsArrowLeftCircleFill,
   BsFillEyeFill,
@@ -25,10 +29,7 @@ import { useDispatch } from 'react-redux';
 import { documentView } from '../../features/documentSlice';
 import { toast } from 'react-toastify';
 import DocumentSubCategory from './DocumentSubCategory';
-import Swal from 'sweetalert2';
-import axios from 'axios';
-import fileDownload from 'js-file-download';
-import Cookies from 'js-cookie';
+
 
 function DocumentCategoryView() {
   // const authPermission = useSelector((state) => state.auth.permissions);
@@ -176,7 +177,7 @@ function DocumentCategoryView() {
                     </div>
 
                     <Card.Title className="m-0 p-0 h6">
-                      <b>{item.name.split(' ')[0]}</b>
+                      <b>{item.name.slice(0, 15)}</b>
                     </Card.Title>
                     <Card.Text className="m-0 p-0" style={{ fontSize: '11px' }}>
                       Author by: {item.user.name}

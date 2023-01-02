@@ -19,7 +19,7 @@ function UserTable() {
       </>
     );
   } else if (!data?.data) {
-    return <div>No catagory :(</div>;
+    return <div>No Users List :(</div>;
   } else {
     return (
       <>

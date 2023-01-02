@@ -28,7 +28,7 @@ function DocumentSubSubCategoryView() {
   const dispatch = useDispatch();
   const { data, isLoading, isError, isSuccess } = useShowSubSubCategoryDocumentQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
-  const [documentpublish ]=useDocumentpublishMutation();
+  const [documentpublish] = useDocumentpublishMutation();
   // delete document
   const deleteHandel = async (id) => {
     await Swal.fire({
@@ -48,7 +48,7 @@ function DocumentSubSubCategoryView() {
     });
   };
 
-  const DocumentPublish = async (Pid)=>{
+  const DocumentPublish = async (Pid) => {
     Swal.fire({
       title: 'You want to Publish this Document?',
       // text: "You won't be able to revert this!",
@@ -57,17 +57,14 @@ function DocumentSubSubCategoryView() {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, Publish it!',
       width: 200,
-      showCancelButton: true,
-
-
-    }).then((result) => { 
+      showCancelButton: true
+    }).then((result) => {
       if (result.isConfirmed) {
-        documentpublish(Pid)
+        documentpublish(Pid);
         Swal.fire('Publish!', 'Your file has been Publish.', 'success');
       }
     });
-  }
-
+  };
 
   if (isSuccess) {
     toast.success(data.message);
@@ -93,7 +90,7 @@ function DocumentSubSubCategoryView() {
       });
   };
 
-  // console.log(subCategory);
+
 
   return (
     <>
@@ -112,13 +109,12 @@ function DocumentSubSubCategoryView() {
           <div className=" d-flex justify-content-between ">
             <div>
               <Card.Title as="h5">Documents</Card.Title>
-  </div>
-              <div>
-                <Link to={`/documents/document`}>
-                  <BsArrowLeftCircleFill color="black" size={'20px'} />
-                </Link>
-              </div>
-          
+            </div>
+            <div>
+              <Link to={`/documents/document`}>
+                <BsArrowLeftCircleFill color="black" size={'20px'} />
+              </Link>
+            </div>
           </div>
         </Card.Header>
         <div>{isLoading && <Loading />}</div>
@@ -153,36 +149,31 @@ function DocumentSubSubCategoryView() {
                     </div>
 
                     <Card.Title className="m-0 p-0  h6">
-                      <b>{item.name}</b>
+                      <b>{item.name.slice(0, 15)}</b>
                     </Card.Title>
                     <Card.Text style={{ fontSize: '11px' }}>Author by: {item.user.name}</Card.Text>
                   </Card.Body>
 
                   <div className=" text-center p-2 shadow my-3 mt-4">
-                    {/* {item.file.split('.').pop().includes('pdf') ||
-                    item.file.split('.').pop().includes('png') ||
-                    item.file.split('.').pop().includes('jpg') ? ( */}
-                      <Link to={`/documents/document_view/${item.id}`}>
-                        <BsFillEyeFill color="black" size={22} />
-                      </Link>
-                    {/* ) : ( */}
-                      <span className="pointer ml-3">
-                        <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
-                      </span>
-                    {/* )} */}
+                    <Link to={`/documents/document_view/${item.id}`}>
+                      <BsFillEyeFill color="black" size={22} />
+                    </Link>
+
+                    <span className="pointer ml-3">
+                      <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
+                    </span>
 
                     <Link to={`/documents/document_edit/${item.id}`} className="px-3">
                       <BsPencilSquare size={18} />
                     </Link>
 
                     {/* {authPermission.includes('document_delete') && ( */}
-                      <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
+                    <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
                     {/* )} */}
 
                     {item.status === 'Pending' && (
-                        <BsReplyAllFill  className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
-
-                      )}
+                      <BsReplyAllFill className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
+                    )}
                   </div>
                 </Card>
               </div>

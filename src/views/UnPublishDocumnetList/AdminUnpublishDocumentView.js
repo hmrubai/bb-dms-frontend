@@ -3,15 +3,15 @@ import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import {
-  BsArrowLeftCircleFill,
+
   BsFillArrowDownCircleFill,
   BsFillInfoCircleFill,
   BsReplyAllFill,
-  BsFillCheckCircleFill,
+
   BsXCircleFill
 } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
-import { useSelector } from './../../store/index';
+import { useParams } from 'react-router-dom';
+// import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import { toast, ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
@@ -23,8 +23,8 @@ import Loading from '../../components/Loading/Loading';
 function AdminUnpublishDocumentView() {
   const { id } = useParams();
 
-  const [documentpublish, { data: no }] = useDocumentpublishMutation();
-  const { data, isLoading, isSuccess, isError } = useUnpublishDocumentQuery(id);
+  const [documentpublish,] = useDocumentpublishMutation();
+  const { data, isLoading, isSuccess } = useUnpublishDocumentQuery(id);
 
   const download = (e) => {
     e.preventDefault();
@@ -107,7 +107,8 @@ function AdminUnpublishDocumentView() {
                           <hr />
                           <h5>
                             {' '}
-                            <BsFillInfoCircleFill />INFORMATION
+                            <BsFillInfoCircleFill />
+                            INFORMATION
                           </h5>
                           <hr />
                         </div>
@@ -177,7 +178,7 @@ function AdminUnpublishDocumentView() {
                       <Card.Header>
                         <Card.Title as="h5">Description</Card.Title>
                       </Card.Header>
-                      <Card.Body>
+                      <Card.Body className="p-0">
                         <p className=" ">{data.description === 'undefined' ? 'No Description' : <b>{data.description}</b>}</p>
                       </Card.Body>
                     </Card>

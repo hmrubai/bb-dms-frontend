@@ -173,23 +173,19 @@ function DocumentSubCategoryView() {
                       )}
                     </div>
                     <Card.Title className="m-0 p-0 h6">
-                      <b>{item.name}</b>
+                      <b>{item.name.slice(0, 15)}</b>
                     </Card.Title>
                     <Card.Text style={{ fontSize: '11px' }}>Author by: {item.user.name}</Card.Text>
                   </Card.Body>
 
                   <div className="  text-center p-2 shadow my-3 mt-4 ">
-                    {/* {item.file.split('.').pop().includes('pdf') ||
-                    item.file.split('.').pop().includes('png') ||
-                    item.file.split('.').pop().includes('jpg') ? ( */}
-                      <Link to={`/documents/document_view/${item.id}`}>
-                        <BsFillEyeFill color="black" size={22} />
-                      </Link>
-                    {/* ) : ( */}
-                      <span className="pointer ml-3">
-                        <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
-                      </span>
-                    {/* )} */}
+                    <Link to={`/documents/document_view/${item.id}`}>
+                      <BsFillEyeFill color="black" size={22} />
+                    </Link>
+
+                    <span className="pointer ml-3">
+                      <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
+                    </span>
 
                     <Link to={`/documents/document_edit/${item.id}`} className="px-3">
                       <BsPencilSquare size={18} />

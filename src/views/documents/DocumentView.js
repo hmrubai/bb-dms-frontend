@@ -2,7 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-import { BsArrowLeftCircleFill, BsFillArrowDownCircleFill, BsFillCheckCircleFill, BsFillInfoCircleFill, BsReplyAllFill, BsXCircleFill } from 'react-icons/bs';
+import {
+  BsArrowLeftCircleFill,
+  BsFillArrowDownCircleFill,
+  BsFillCheckCircleFill,
+  BsFillInfoCircleFill,
+  BsReplyAllFill,
+  BsXCircleFill
+} from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
@@ -31,6 +38,7 @@ function DocumentView() {
         toast.error('Something went wrong');
       });
   };
+  
   const DocumentPublish = async (Pid) => {
     Swal.fire({
       title: 'You want to Publish this Document?',
@@ -48,7 +56,7 @@ function DocumentView() {
       }
     });
   };
-console.log(doc)  
+
   return (
     <>
       <Card>
@@ -92,7 +100,8 @@ console.log(doc)
                         <hr />
                         <h5>
                           {' '}
-                          <BsFillInfoCircleFill />INFORMATION
+                          <BsFillInfoCircleFill />
+                          INFORMATION
                         </h5>
                         <hr />
                       </div>
@@ -103,16 +112,16 @@ console.log(doc)
                         </p>
                       </div>
                       <div className=" py-2">
-                        <b>Category Name:</b> <br />  <p className='text-primary '><b> {doc.catagory?.name}</b> </p>  
+                        <b>Category Name:</b> <br />{' '}
+                        <p className="text-primary ">
+                          <b> {doc.catagory?.name}</b>{' '}
+                        </p>
                       </div>
 
-                   
-                      
                       <div className=" py-2">
                         <b>Status:</b> <br />
                         {doc.status === 'Active' ? <BsFillCheckCircleFill color="green" /> : <BsXCircleFill color="red" />}
-                          {doc.status}
-                    
+                        {doc.status}
                       </div>
                       <div className=" py-2">
                         <b>Created By:</b> <br />
@@ -137,26 +146,24 @@ console.log(doc)
                 </Col>
                 <Col md={9}>
                   <Card width="1000px" height="500px">
-                  <div>
-                        {doc.file.split('.').pop().includes('docx') ||
-                        doc.file.split('.').pop().includes('xls') ||
-                        doc.file.split('.').pop().includes('xlsx') ||
-                        doc.file.split('.').pop().includes('csv') ? (
-                          <div class="alert alert-warning" role="alert">
-                            Pleass Download this Document !!
-                          </div>
-                        ) : (
-                          <embed width="100%" height="600px" alt={doc.name} src={`${process.env.REACT_APP_IMAGE_URL}${doc?.file}`} />
-                        )}
-                      </div>
+                    <div>
+                      {doc.file.split('.').pop().includes('docx') ||
+                      doc.file.split('.').pop().includes('xls') ||
+                      doc.file.split('.').pop().includes('xlsx') ||
+                      doc.file.split('.').pop().includes('csv') ? (
+                        <div class="alert alert-warning" role="alert">
+                          Pleass Download this Document !!
+                        </div>
+                      ) : (
+                        <embed width="100%" height="600px" alt={doc.name} src={`${process.env.REACT_APP_IMAGE_URL}${doc?.file}`} />
+                      )}
+                    </div>
 
                     <Card.Header>
                       <Card.Title as="h5">Description</Card.Title>
                     </Card.Header>
-                    <Card.Body>
-                      <p className=" p-0 m-0 ">
-                        { doc.description=== 'undefined' ? "No Description" : <b>{doc.description }</b>}
-                      </p>
+                    <Card.Body className="p-0">
+                      <p className="  ">{doc.description === 'undefined' ? 'No Description' : <b>{doc.description}</b>}</p>
                     </Card.Body>
                   </Card>
                 </Col>

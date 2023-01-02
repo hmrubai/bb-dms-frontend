@@ -3,7 +3,6 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function DocumentSubCategory({ item }) {
-  // console.log(item);
   return (
     <div className="mx-1">
       <Link to={`/documents/document_sub_category_view/${item.id}`} className=" m-2 ">

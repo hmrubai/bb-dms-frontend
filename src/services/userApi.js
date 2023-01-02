@@ -12,8 +12,6 @@ export const userApi = createApi({
     getAllUser: builder.query({
       query: (page = 1) => ({
         url: `users?page=${page}`,
-        // transformResponse: res => res.sort((a, b) => b.id - a.id),
-        // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
           Authorization: `Bearer ${Cookies.get('token')}`,

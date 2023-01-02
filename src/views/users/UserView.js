@@ -1,18 +1,15 @@
 import React from 'react';
-import { Card, Row} from 'react-bootstrap';
+import { Card, Row } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 
 import { useGetUserByIdQuery } from '../../services/userApi';
-import  DayJS  from 'react-dayjs';
+import DayJS from 'react-dayjs';
 function CategoryView() {
   const { id } = useParams();
 
-  // const  response  = useGetCatagoryByIdQuery(id);
-  const { data,isLoading,  } = useGetUserByIdQuery(id);
-
-  
+  const { data, isLoading } = useGetUserByIdQuery(id);
 
   if (isLoading) {
     return (
@@ -25,10 +22,9 @@ function CategoryView() {
     return <div>No User List:( </div>;
   }
 
-
   return (
     <>
-        <Card>
+      <Card>
         <Card.Header>
           <div>
             <Card.Title as="h5">User</Card.Title>
@@ -54,21 +50,19 @@ function CategoryView() {
                 src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`}
                 alt=""
               />
-                <p className='pt-3'>
+              <p className="pt-3">
                 Name:
                 <span class="font-weight-bold text-primary ">{data.name}</span>
               </p>
             </div>
             <div class="col-md-4 col-12 py-3">
-            
               <p>
                 Username:
                 <span class="font-weight-bold text-primary ">{data.username}</span>
               </p>
-           
-             
+
               <p>
-               Email:
+                Email:
                 <span class="font-weight-bold text-primary ">{data.email} </span>
               </p>
 
@@ -104,7 +98,6 @@ function CategoryView() {
           </Row>
         </Card.Body>
       </Card>
-
     </>
   );
 }

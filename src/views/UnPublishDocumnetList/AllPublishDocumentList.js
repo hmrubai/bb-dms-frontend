@@ -13,21 +13,11 @@ import file from './../../assets/images/File/word.png';
 
 import { useState } from 'react';
 import Loading from './../../components/Loading/Loading';
-import { useAllPublishDocumentQuery, useYourDocumentQuery } from '../../services/publishApi';
+import { useAllPublishDocumentQuery } from '../../services/publishApi';
 function AllPublishDocumentList() {
-  const [page, setPage] = useState(1);
-
-  // const { data: doc,   } = useGetAllDocumentQuery();
-  // const { data: user, } = useTotalUserQuery();
+  
   const [search, setSearch] = useState('');
-
   const { data: allDoc, isSuccess: docSuccess, isLoading } = useAllPublishDocumentQuery({ search: search });
-  const { data: yourDoc } = useYourDocumentQuery();
-
-  // const { data: recentUser } = useGetAllUserQuery(page);
-  // const authPermission = useSelector((state) => state.auth.permissions);
-
-  // download file
 
   const download = (e, item) => {
     e.preventDefault();
@@ -111,7 +101,7 @@ function AllPublishDocumentList() {
                           </div>
 
                           <Card.Title className="m-0 p-0 h6">
-                            <b>{item.name.split(' ')[0]}</b>
+                            <b>{item.name.slice(0, 15)}</b>
                           </Card.Title>
                           <Card.Text className="m-0 p-0" style={{ fontSize: '11px' }}>
                             Created by: {item.user.name}

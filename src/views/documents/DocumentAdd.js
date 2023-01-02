@@ -13,15 +13,12 @@ function DocumentAdd() {
   const auth = useSelector((state) => state.auth.user);
   const [addDocument, res] = useAddDocumentMutation();
   const { data } = useGetCategoryAllShowQuery();
-
   const [name, setName] = useState();
   const [catagory_id, setCatagry_id] = useState();
   const [sub_catagory_id, setsub_catagory_id] = useState();
   const [sub_sub_catagory_id, setSub_sub_catagory_id] = useState();
   const [description, setDescription] = useState();
-
   const [admin_status] = useState();
-
   const [file, setFile] = useState();
 
   const submitHandel = async (e) => {
@@ -50,7 +47,6 @@ function DocumentAdd() {
       await addDocument(formData).unwrap();
     } catch (error) {
       toast.error(error.data.message);
-      console.log(error);
     }
   };
 
@@ -79,22 +75,18 @@ function DocumentAdd() {
                   </Form.Group>
                 </Col>
                 <Col md={6}>
-                      <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows="1"
-                  placeholder="Description"
-                  name="description"
-                  onChange={(e) => setDescription(e.target.value)}
-                />
+                  <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows="1"
+                      placeholder="Description"
+                      name="description"
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
                   </Form.Group>
                 </Col>
               </Row>
-
-          
-
-        
 
               <Row>
                 <Col>

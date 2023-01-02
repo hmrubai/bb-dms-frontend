@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
-import { authUser,userPermission } from '../../features/authSlice';
+import { authUser, userPermission } from '../../features/authSlice';
 
 export const authApiContext = React.createContext();
 
@@ -31,7 +31,6 @@ const AuthApi = ({ children }) => {
       if (error.response.data.errors.email) {
         toast.warning(error.response.data.errors.email[0]);
       }
-
     }
   };
 
@@ -45,14 +44,13 @@ const AuthApi = ({ children }) => {
 
       const permissions = [];
       toast.success(response.data[0].message);
-       response.data[0].user.user_has_permission.map((item) => {
-         permissions.push(item.permission.name);
-       });
+      response.data[0].user.user_has_permission.map((item) => {
+      permissions.push(item.permission.name);
+      });
       dispatch(userPermission(permissions));
       dispatch(authUser(response.data[0]));
-      window.location.replace(`${process.env.REACT_APP_APP_URL}dashboard`);
+      window.location.replace(`${process.env.REACT_APP_APP_URL}`);
     } catch (error) {
-
       toast.error(error.response.data.message);
     }
   };
@@ -63,6 +61,7 @@ const AuthApi = ({ children }) => {
     toast.success('Logout Successfully');
     window.location.reload(false);
   };
+
 
   const userGetById = async (id) => {
     try {
@@ -78,7 +77,9 @@ const AuthApi = ({ children }) => {
     }
   };
 
-  return <authApiContext.Provider value={{ registration, login, logOut, resData, ErrData ,userGetById}}>{children}</authApiContext.Provider>;
+  return (
+    <authApiContext.Provider value={{ registration, login, logOut, resData, ErrData, userGetById }}>{children}</authApiContext.Provider>
+  );
 };
 
 export default AuthApi;

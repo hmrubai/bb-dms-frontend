@@ -8,7 +8,7 @@ import { useAdminDocumentPublishMutation, useDeleteUnpublishDocumentMutation } f
 
 function AdminUnpublishDocumentTable({ list, index }) {
   const [deleteUnpublishDocument] = useDeleteUnpublishDocumentMutation();
-  const [adminDocumentPublish,] = useAdminDocumentPublishMutation();
+  const [adminDocumentPublish] = useAdminDocumentPublishMutation();
   // const authPermission = useSelector((state) => state.auth.permissions);
 
   const deleteHandel = async (id) => {
@@ -61,7 +61,7 @@ function AdminUnpublishDocumentTable({ list, index }) {
           {list.admin_status}
         </td>
         <td>
-          Date: <DayJS format="YYYY-MM-DD">{list.created_at}</DayJS> |<BsFillClockFill color='black'/>| Time:{' '}
+          Date: <DayJS format="YYYY-MM-DD">{list.created_at}</DayJS> |<BsFillClockFill color="black" />| Time:{' '}
           <DayJS format="h:mm A">{list.created_at}</DayJS>
         </td>
 
@@ -69,7 +69,7 @@ function AdminUnpublishDocumentTable({ list, index }) {
           <Link to={`/documents/unpublish_document_view/${list.id}`}>
             <BsFillEyeFill color="black" size={20} />
           </Link>
-       
+
           <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(list.id)}>
             <BsFillTrashFill color="red" size={17} />
           </button>

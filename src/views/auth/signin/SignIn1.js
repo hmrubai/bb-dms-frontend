@@ -72,12 +72,7 @@ const SignUp1 = () => {
                       />
                     </div>
 
-                    {/* <div className="custom-control custom-checkbox  text-left mb-4 mt-2">
-                      <input type="checkbox" className="custom-control-input" id="customCheck1" defaultChecked={false} />
-                      <label className="custom-control-label" htmlFor="customCheck1">
-                        Send me the <Link to="#"> Newsletter</Link> weekly.
-                      </label>
-                    </div> */}
+                
                     <button type="submit" className="btn btn-primary mb-4">
                       Sign In
                     </button>

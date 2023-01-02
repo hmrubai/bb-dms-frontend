@@ -74,16 +74,15 @@ function DocumentEdit() {
                   </Form.Group>
                 </Col>
                 <Col md={6}>
-                <Col>
-                  <Form.Label>Status</Form.Label>
-                  <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
-                    {/* <option>{status}</option> */}
-                    <option value="Active">Active</option>
-                    <option value="Pending">Pending</option>
-                  </Form.Control>
+                  <Col>
+                    <Form.Label>Status</Form.Label>
+                    <Form.Control as="select" className="mb-3" name="status" onChange={(e) => setStatus(e.target.value)}>
+                      {/* <option>{status}</option> */}
+                      <option value="Active">Active</option>
+                      <option value="Pending">Pending</option>
+                    </Form.Control>
                   </Col>
                 </Col>
-
               </Row>
 
               <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -98,6 +97,7 @@ function DocumentEdit() {
                 />
               </Form.Group>
 
+              <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${file}`} width="90px" alt="" />
 
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input

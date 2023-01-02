@@ -7,15 +7,11 @@ import { useGetAllPermissionQuery } from '../../services/permissionApi';
 import { useAddUserMutation } from '../../services/userApi';
 import { useSelector } from 'react-redux';
 
-
 function UserAdd() {
   const authPermission = useSelector((state) => state.auth.permissions);
   const history = useHistory();
   const [addUser, res] = useAddUserMutation();
   const response = useGetAllPermissionQuery();
- 
-
-  
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -43,18 +39,16 @@ function UserAdd() {
     if (image !== undefined) {
       formData.append('image', image);
     }
- 
+
     if (permission.length > 0) {
       formData.append('permission', permissionArr);
     }
 
     try {
-       await addUser(formData).unwrap();
+      await addUser(formData).unwrap();
     } catch (error) {
       toast.error(res.error?.data.message);
     }
-
-   
   };
 
   if (res.isSuccess) {
@@ -62,8 +56,6 @@ function UserAdd() {
     history.push('/users/user');
   }
 
-
-  
   const handleChange = (event) => {
     const { checked, value } = event.target;
     if (checked) {
@@ -73,10 +65,8 @@ function UserAdd() {
     }
   };
 
-
   if (authPermission.includes('user_create')) {
     return (
-
       <>
         <Form onSubmit={submitHandel} encType="multipart/form-data">
           <Card>
@@ -106,22 +96,25 @@ function UserAdd() {
                       </Form.Group>
                     </Col>
                     <Col md={6}>
-                       <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Email" name="email" onChange={(e) => setEmail(e.target.value)} required />
+                      <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Email" name="email" onChange={(e) => setEmail(e.target.value)} required />
                       </Form.Group>
-                      </Col>
+                    </Col>
 
                     <Col md={6}>
-                         <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label>Number</Form.Label>
-                    <Form.Control type="number" placeholder="Number" name="number" onChange={(e) => setNumber(e.target.value)} required />
-                  </Form.Group>
-                </Col>
+                      <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Label>Number</Form.Label>
+                        <Form.Control
+                          type="number"
+                          placeholder="Number"
+                          name="number"
+                          onChange={(e) => setNumber(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+                    </Col>
                   </Row>
-
-                 
-               
 
                   <Row>
                     <Col>
@@ -230,7 +223,7 @@ function UserAdd() {
                   <hr />
                   <h6>Assign Permission</h6>
                   <hr />
-                  <Form.Group >
+                  <Form.Group>
                     <div className="d-flex flex-wrap">
                       {response.isSuccess &&
                         response.data.map((item) => (
@@ -268,7 +261,6 @@ function UserAdd() {
       </div>
     );
   }
-
 }
 
 export default UserAdd;

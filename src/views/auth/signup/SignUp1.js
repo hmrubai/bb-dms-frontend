@@ -18,14 +18,12 @@ const SignIn1 = () => {
   });
 
   const handleChange = (e) => setData({ ...allData, [e.target.name]: e.target.value });
-  
   const handleSubmit = async (e) => {
-  
     e.preventDefault();
     if (allData.password !== allData.confirm_password) {
       toast.warning('Password and confirm password does not match');
     } else {
-     await registration(allData);
+      await registration(allData);
     }
 
     // after submit allData
@@ -132,18 +130,13 @@ const SignIn1 = () => {
                         />
                       </div>
                     </div>
-                    {/* <div className="custom-control custom-checkbox  text-left mb-4 mt-2">
-                      <input type="checkbox" className="custom-control-input" id="customCheck1" defaultChecked={false} />
-                      <label className="custom-control-label" htmlFor="customCheck1">
-                        Send me the <Link to="#"> Newsletter</Link> weekly.
-                      </label>
-                    </div> */}
+
                     <button type="submit" className="btn btn-primary mb-4">
                       Sign Up
                     </button>
                   </form>
                   <p className="mb-2">
-                    Already have an account?{' '}
+                    Already have an account?
                     <NavLink to="/auth/signin" className="f-w-400">
                       Sign In
                     </NavLink>

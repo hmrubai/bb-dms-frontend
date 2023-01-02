@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
 import {
   BsFillArrowUpCircleFill,
   BsFillFileEarmarkMedicalFill,
@@ -22,12 +21,7 @@ import Loading from '../../../components/Loading/Loading';
 import { useState } from 'react';
 
 const DashDefault = () => {
-  // const [page, setPage] = useState(1);
-
-  // const { data: doc,   } = useGetAllDocumentQuery();
-  // const { data: user, } = useTotalUserQuery();
-  const [search, setSearch] = useState('');
-
+  const [search] = useState('');
   const { data: allDoc, isSuccess: docSuccess, isLoading } = useDashboardPublishDocumentQuery();
   const { data: puballDoc } = useAllPublishDocumentQuery({ search: search });
   const { data: yourDoc } = useYourDocumentQuery();
@@ -194,7 +188,7 @@ const DashDefault = () => {
                         </div>
 
                         <Card.Title className="m-0 p-0 h6">
-                          <b>{item.name.split(' ')[0]}</b>
+                          <b>{item.name.slice(0, 15)}</b>
                         </Card.Title>
                         <Card.Text className="m-0 p-0" style={{ fontSize: '11px' }}>
                           Created by: {item.user.name}
@@ -216,10 +210,10 @@ const DashDefault = () => {
                 ))}
               </div>
             )}
-            {allDoc?.data.length > 10 && (
-              <div className="text-right">
+            {allDoc?.data.length > 9 && (
+              <div className="text-right mr-3">
                 <Link to={`documents/All_document_list`}>
-                  <Button>
+                  <Button className="btn btn-primary btn-sm btn-round">
                     See More <BsFillArrowRightCircleFill color="black" />
                   </Button>
                 </Link>
