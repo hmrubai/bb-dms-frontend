@@ -172,7 +172,7 @@ function AdminUnpublishDocumentView() {
                             Pleass Download this Document !!
                           </div>
                         ) : (
-                          <embed width="100%" height="600px" alt={data.name} src={`${process.env.REACT_APP_IMAGE_URL}${data?.file}`} />
+                          <embed width="100%" height="600px" alt={data.name} src={`${process.env.REACT_APP_File_URL}${data?.file}`} />
                         )}
                       </div>
                       <Card.Header>

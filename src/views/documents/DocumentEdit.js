@@ -97,7 +97,7 @@ function DocumentEdit() {
                 />
               </Form.Group>
 
-              <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${file}`} width="90px" alt="" />
+              <img className="img-circle mb-1" src={`${process.env.REACT_APP_File_URL}${file}`} width="90px" alt="" />
 
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input

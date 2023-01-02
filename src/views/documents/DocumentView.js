@@ -155,7 +155,7 @@ function DocumentView() {
                           Pleass Download this Document !!
                         </div>
                       ) : (
-                        <embed width="100%" height="600px" alt={doc.name} src={`${process.env.REACT_APP_IMAGE_URL}${doc?.file}`} />
+                        <embed width="100%" height="600px" alt={doc.name} src={`${process.env.REACT_APP_File_URL}${doc?.file}`} />
                       )}
                     </div>
 

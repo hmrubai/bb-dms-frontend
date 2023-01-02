@@ -74,7 +74,7 @@ function AllPublishDocumentList() {
                         item.file.split('.').pop().includes('jpg') ||
                         item.file.split('.').pop().includes('jpeg') ||
                         item.file.split('.').pop().includes('gif') ? (
-                          <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_IMAGE_URL}${item.file}`} />
+                          <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_File_URL}${item.file}`} />
                         ) : (
                           <div className="box border border-bottom-0 pb-4">
                             <img className="" width="100px" src={file} alt={file} />
