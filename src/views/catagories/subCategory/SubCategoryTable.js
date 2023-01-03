@@ -19,7 +19,7 @@ function SubCategoryTable() {
       </>
     );
   } else if (!data?.data) {
-    return <div>No catagory :(</div>;
+    return <div>No Sub Category :(</div>;
   } else {
     return (
       <>
@@ -27,7 +27,7 @@ function SubCategoryTable() {
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Sub Catagory</Card.Title>
+            <Card.Title as="h5">Sub Category</Card.Title>
           </Card.Header>
           <Card.Body>
             <Table responsive striped>

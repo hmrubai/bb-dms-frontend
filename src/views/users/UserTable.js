@@ -11,7 +11,7 @@ import { useGetAllUserQuery } from '../../services/userApi';
 
 function UserTable() {
   const [page, setPage] = useState(1);
-  const { data, isFetching, isLoading } = useGetAllUserQuery(page);
+  const { data, isFetching, isLoading,isSuccess } = useGetAllUserQuery(page);
   if (isLoading) {
     return (
       <>
@@ -44,7 +44,7 @@ function UserTable() {
                   <th>Action</th>
                 </tr>
               </thead>
-              {data.data.map((user,index) => (
+              {isSuccess&&data.data.map((user,index) => (
                 <UserTableBody key={ index } user={user} index={index} />
               ))}
             </Table>

@@ -4,13 +4,14 @@ import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import {
 
+  BsArrowLeftCircleFill,
   BsFillArrowDownCircleFill,
   BsFillInfoCircleFill,
   BsReplyAllFill,
 
   BsXCircleFill
 } from 'react-icons/bs';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 // import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import { toast, ToastContainer } from 'react-toastify';
@@ -66,13 +67,19 @@ function AdminUnpublishDocumentView() {
       <Card>
         <ToastContainer />
         <Card.Header>
-          <div>
-            <Card.Title as="h5">Documnet </Card.Title>
-            {/* <span className="me-auto">
-              <Link to={`/documents/document`}>
+        <div className="d-flex justify-content-between">
+            <div>
+              <Card.Title as="h5">Documnet </Card.Title>
+            </div>
+            <div>
+               <span className="me-auto">
+              <Link to={`/`}>
                 <BsArrowLeftCircleFill color="black" size={'20px'} />
               </Link>
-            </span> */}
+            </span>
+            </div>
+            
+           
           </div>
         </Card.Header>
         {isLoading && <Loading />}

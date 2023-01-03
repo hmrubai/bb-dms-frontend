@@ -18,7 +18,7 @@ function CatagoryTable() {
       </>
     );
   } else if (!data?.data) {
-    return <div>No catagory :(</div>;
+    return <div>No Category :(</div>;
   } else {
     return (
       <>
@@ -26,7 +26,7 @@ function CatagoryTable() {
           
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Catagory</Card.Title>
+            <Card.Title as="h5">Category</Card.Title>
           </Card.Header>
           <Card.Body>
             <Table responsive striped>

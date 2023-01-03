@@ -83,7 +83,10 @@ function CatagoryView() {
               
               Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS> </span>
               </p>
-
+              <p>
+              Description:
+                <span class="font-weight-bold text-primary">{data.description}</span>
+              </p>
 
             </div>
           </Row>

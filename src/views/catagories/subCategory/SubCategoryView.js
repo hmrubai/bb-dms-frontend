@@ -69,10 +69,6 @@ function CategoryView() {
                 <span class="font-weight-bold text-primary ">{data.user.name} </span>
               </p>
 
-              <p>
-                Description:
-                <span class="font-weight-bold text-primary ">{data.description} </span>
-              </p>
 
               <p>
                 Status:
@@ -92,6 +88,10 @@ function CategoryView() {
                   {' '}
                   Time: <DayJS format="h:mm A">{data.updated_at}</DayJS> || Date: <DayJS format="YYYY-MM-DD">{data.updated_at}</DayJS>{' '}
                 </span>
+              </p>
+              <p>
+              Description:
+                <span class="font-weight-bold text-primary">{data.description}</span>
               </p>
             </div>
           </Row>

@@ -15,7 +15,6 @@ import { useState } from 'react';
 import Loading from './../../components/Loading/Loading';
 import { useAllPublishDocumentQuery } from '../../services/publishApi';
 function AllPublishDocumentList() {
-  
   const [search, setSearch] = useState('');
   const { data: allDoc, isSuccess: docSuccess, isLoading } = useAllPublishDocumentQuery({ search: search });
 
@@ -76,7 +75,7 @@ function AllPublishDocumentList() {
                         item.file.split('.').pop().includes('gif') ? (
                           <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_File_URL}${item.file}`} />
                         ) : (
-                          <div className="box border border-bottom-0 pb-4">
+                          <div className="box border border-bottom-0 pb-4 bg-info">
                             <img className="" width="100px" src={file} alt={file} />
                             <h3 className="bg-light file-sty  text-center rounded text-uppercase">{item.file.split('.').pop()}</h3>
                           </div>

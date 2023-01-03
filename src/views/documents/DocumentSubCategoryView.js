@@ -38,7 +38,7 @@ function DocumentSubCategoryView() {
   const { data: subCategory, isSuccess: cateIssucess } = useShowSubSubCategoryQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
   const [documentpublish] = useDocumentpublishMutation();
-  console.log(data);
+
 
   const deleteHandel = async (id) => {
     Swal.fire({
@@ -121,7 +121,7 @@ function DocumentSubCategoryView() {
           </Link>
         </div>
       </div>
-      <Card>
+      <Card className='p-0'>
         <Card.Header className="">
           <div className=" d-flex justify-content-between ">
             <div>
@@ -136,7 +136,7 @@ function DocumentSubCategoryView() {
         </Card.Header>
         <div>{isLoading && <Loading />}</div>
         <div>{isError && <div>No Document:</div>}</div>
-        <Card.Body>
+        <Card.Body className='p-0'>
           {cateIssucess && (
             <div>
               <div className="d-flex flex-wrap ">
@@ -150,10 +150,14 @@ function DocumentSubCategoryView() {
             {data?.map((item, i) => (
               <div className="mx-1" key={i}>
                 <Card style={{ width: '15rem', height: '15rem' }} onClick={() => dispatch(documentView(item))}>
-                  {item.file.split('.').pop().includes('png') || item.file.split('.').pop().includes('jpg') ? (
+                {item.file.split('.').pop().includes('png') ||
+                        item.file.split('.').pop().includes('jpg') ||
+                        item.file.split('.').pop().includes('jpeg') ||
+                        item.file.split('.').pop().includes('gif')
+                    ? (
                     <Card.Img className="h-50" variant="top" src={`${process.env.REACT_APP_File_URL}${item.file}`} />
                   ) : (
-                    <div className="box border border-bottom-0 pb-4">
+                    <div className="box border border-bottom-0 pb-4 bg-info">
                       <img className="" width="100px" src={file} alt={file} />
                       <h3 className="bg-light file-sty  text-center rounded text-uppercase">{item.file.split('.').pop()}</h3>
                     </div>
@@ -180,7 +184,7 @@ function DocumentSubCategoryView() {
 
                   <div className="  text-center p-2 shadow my-3 mt-4 ">
                     <Link to={`/documents/document_view/${item.id}`}>
-                      <BsFillEyeFill color="black" size={22} />
+                      <BsFillEyeFill color="blue" size={22} />
                     </Link>
 
                     <span className="pointer ml-3">

@@ -62,13 +62,19 @@ function DocumentView() {
       <Card>
         <ToastContainer />
         <Card.Header>
-          <div>
-            <Card.Title as="h5">Documnet </Card.Title>
-            <span className="me-auto">
+          <div className="d-flex justify-content-between">
+            <div>
+              <Card.Title as="h5">Documnet </Card.Title>
+            </div>
+            <div>
+               <span className="me-auto">
               <Link to={`/documents/document`}>
                 <BsArrowLeftCircleFill color="black" size={'20px'} />
               </Link>
             </span>
+            </div>
+            
+           
           </div>
         </Card.Header>
         <Card.Body>
@@ -147,10 +153,11 @@ function DocumentView() {
                 <Col md={9}>
                   <Card width="1000px" height="500px">
                     <div>
-                      {doc.file.split('.').pop().includes('docx') ||
-                      doc.file.split('.').pop().includes('xls') ||
-                      doc.file.split('.').pop().includes('xlsx') ||
-                      doc.file.split('.').pop().includes('csv') ? (
+                      {
+                        doc.file?.split('.').pop().includes('docx') ||
+                      doc.file?.split('.').pop().includes('xls') ||
+                      doc.file?.split('.').pop().includes('xlsx') ||
+                      doc.file?.split('.').pop().includes('csv') ? (
                         <div class="alert alert-warning" role="alert">
                           Pleass Download this Document !!
                         </div>
