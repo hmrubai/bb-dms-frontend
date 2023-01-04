@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import { useGetCategoryAllShowQuery } from '../../services/catagoryApi';
+import folder from '../../assets/images/file-folder.png';
 function DocumentTable() {
   const { data, isLoading, isSuccess, isError } = useGetCategoryAllShowQuery();
 
@@ -24,7 +25,7 @@ function DocumentTable() {
                     <Card.Img
                       className="m-1 pointer "
                       variant="top"
-                      src="https://img.icons8.com/emoji/500/null/open-file-folder-emoji.png"
+                      src={folder}
                       alt={category.name}
                     />
                     <Card.Body className="p-0 m-0">

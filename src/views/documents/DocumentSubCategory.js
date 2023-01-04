@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import folder from '../../assets/images/file-folder.png';
 function DocumentSubCategory({ item }) {
   return (
     <div className="mx-1">
@@ -10,7 +10,7 @@ function DocumentSubCategory({ item }) {
           <Card.Img
             className="m-1 pointer "
             variant="top"
-            src="https://img.icons8.com/emoji/500/null/open-file-folder-emoji.png"
+            src={folder}
             alt={item.name}
           />
           <Card.Body className="p-1 m-0">

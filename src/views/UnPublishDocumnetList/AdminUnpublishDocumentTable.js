@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillClockFill, BsFillEyeFill, BsFillTrashFill, BsReplyAllFill, BsXCircleFill } from 'react-icons/bs';
+import {RiUploadCloud2Fill } from 'react-icons/ri';
 // import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import Swal from 'sweetalert2';
@@ -75,7 +76,7 @@ function AdminUnpublishDocumentTable({ list, index }) {
           </button>
 
           {list.admin_status === 'Pending' && (
-            <BsReplyAllFill className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(list.id)} />
+            <RiUploadCloud2Fill className="pointer mx-1  " color="Teal" size={20} onClick={() => DocumentPublish(list.id)} />
           )}
         </td>
       </tr>

@@ -67,7 +67,7 @@ function AllPublishDocumentList() {
               {docSuccess && (
                 <div className="d-flex flex-wrap ">
                   {allDoc?.map((item) => (
-                    <div className="mx-1 " key={item.id}>
+                    <div className="mx-1 sm-col-12" key={item.id}>
                       <Card style={{ width: '15rem', height: '15rem' }}>
                         {item.file.split('.').pop().includes('png') ||
                         item.file.split('.').pop().includes('jpg') ||
