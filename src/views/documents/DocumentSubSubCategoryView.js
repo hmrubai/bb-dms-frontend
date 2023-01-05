@@ -9,8 +9,8 @@ import {
   BsPencilSquare,
   BsXCircleFill,
   BsFillCheckCircleFill,
-  BsReplyAllFill
 } from 'react-icons/bs';
+import { RiUploadCloud2Fill } from 'react-icons/ri';
 import file from '../../assets/images/File/word.png';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
@@ -121,7 +121,7 @@ function DocumentSubSubCategoryView() {
         <div>{isError && <div>No Document:</div>}</div>
 
         <Card.Body className='p-0'>
-          <div className="d-flex flex-wrap ">
+          <div className="d-flex flex-wrap justify-content-center justify-content-md-start">
             {data?.map((item) => (
               <div className="mx-1" key={item.id}>
                 <Card style={{ width: '15rem', height: '15rem' }} onClick={() => dispatch(documentView(item))}>
@@ -175,7 +175,7 @@ function DocumentSubSubCategoryView() {
                     {/* )} */}
 
                     {item.status === 'Pending' && (
-                      <BsReplyAllFill className="pointer mx-1 border " color="green" size={22} onClick={() => DocumentPublish(item.id)} />
+                      <RiUploadCloud2Fill  className="pointer mx-1 " color="Teal" size={22} onClick={() => DocumentPublish(item.id)} />
                     )}
                   </div>
                 </Card>

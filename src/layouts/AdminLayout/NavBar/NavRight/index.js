@@ -11,17 +11,16 @@ import avatar1 from '../../../../assets/images/user/avatar-1.jpg';
 // import avatar2 from '../../../../assets/images/user/avatar-2.jpg';
 // import avatar3 from '../../../../assets/images/user/avatar-3.jpg';
 // import avatar4 from '../../../../assets/images/user/avatar-4.jpg';
-import  { authApiContext } from '../../../../contexts/Api/AuthApi';
+import { authApiContext } from '../../../../contexts/Api/AuthApi';
 import { useSelector } from './../../../../store/index';
 
 const NavRight = () => {
   const configContext = useContext(ConfigContext);
   const users = useSelector((state) => state.auth.user);
-  
 
   // const { logout } = useAuth();
   const { rtlLayout } = configContext.state;
-  const{logOut}=useContext(authApiContext)
+  const { logOut } = useContext(authApiContext);
   const [listOpen, setListOpen] = useState(false);
 
   const handleLogout = async () => {
@@ -35,7 +34,7 @@ const NavRight = () => {
 
   return (
     <React.Fragment>
-      <ToastContainer/>
+      <ToastContainer />
       <ListGroup as="ul" bsPrefix=" " className="navbar-nav ml-auto" id="navbar-right">
         {/* <ListGroup.Item as="li" bsPrefix=" ">
           <Dropdown alignRight={!rtlLayout}>
@@ -138,11 +137,22 @@ const NavRight = () => {
         <ListGroup.Item as="li" bsPrefix=" ">
           <Dropdown alignRight={!rtlLayout} className="drp-user">
             <Dropdown.Toggle as={Link} variant="link" to="#" id="dropdown-basic">
-              <i className="icon feather icon-settings" />
+              {/* <i className="icon feather icon-settings" /> */}
+
+              <img
+                width={25}
+                src={users.image !== null ? `${process.env.REACT_APP_IMAGE_URL}${users.image}` : avatar1}
+                className="img-radius"
+                alt="User Profile"
+              />
             </Dropdown.Toggle>
             <Dropdown.Menu alignRight className="profile-notification">
               <div className="pro-head">
-                <img src={users.image !== null ?`${process.env.REACT_APP_IMAGE_URL}${users.image}`:avatar1} className="img-radius" alt="User Profile" />
+                <img
+                  src={users.image !== null ? `${process.env.REACT_APP_IMAGE_URL}${users.image}` : avatar1}
+                  className="img-radius"
+                  alt="User Profile"
+                />
                 <span>{users.name}</span>
                 <Link to="#" onClick={handleLogout} className="dud-logout" title="Logout">
                   <i className="feather icon-log-out" />

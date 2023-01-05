@@ -65,7 +65,7 @@ function AllPublishDocumentList() {
                 </div>
               )}
               {docSuccess && (
-                <div className="d-flex flex-wrap ">
+                <div className="d-flex flex-wrap justify-content-center justify-content-md-start">
                   {allDoc?.map((item) => (
                     <div className="mx-1 sm-col-12" key={item.id}>
                       <Card style={{ width: '15rem', height: '15rem' }}>

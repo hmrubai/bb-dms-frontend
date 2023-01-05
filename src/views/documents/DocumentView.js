@@ -7,9 +7,10 @@ import {
   BsFillArrowDownCircleFill,
   BsFillCheckCircleFill,
   BsFillInfoCircleFill,
-  BsReplyAllFill,
   BsXCircleFill
 } from 'react-icons/bs';
+
+import {RiUploadCloud2Fill} from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
@@ -95,7 +96,7 @@ function DocumentView() {
                         // <  className="pointer mx-1 border " color="green" size={22} onClick={() => />
                         <div>
                           <Button className="label theme-bg2 text-white f-12" onClick={(e) => DocumentPublish(doc.id)}>
-                            <BsReplyAllFill color="blue" size={18} className="m-1" />
+                            <RiUploadCloud2Fill color="Teal" size={18} className="m-1" />
                             Publish
                           </Button>
                         </div>
