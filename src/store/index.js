@@ -14,6 +14,7 @@ import { permissionApi } from '../services/permissionApi';
 import authReducer from './../features/authSlice'
 import documentReducer from '../features/documentSlice';
 import { publishApi } from './../services/publishApi';
+import { groupApi } from '../services/groupApi';
 
 
 const store = configureStore({
@@ -29,6 +30,8 @@ const store = configureStore({
     [documentApi.reducerPath]: documentApi.reducer,
     [permissionApi.reducerPath]: permissionApi.reducer,
     [publishApi.reducerPath]: publishApi.reducer,
+    [groupApi.reducerPath]: groupApi.reducer,
+
    
 
     devTools: true
@@ -43,6 +46,7 @@ const store = configureStore({
       documentApi.middleware,
       permissionApi.middleware,
       publishApi.middleware,
+      groupApi.middleware,
 
     ])
 });

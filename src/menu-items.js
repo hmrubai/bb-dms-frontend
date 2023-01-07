@@ -17,6 +17,21 @@ const menuItems = {
         }
       ]
     },
+    {
+      id: 'group',
+      title: 'Group',
+      type: 'group',
+      icon: 'icon-group',
+      children: [
+        {
+          id: 'group',
+          title: 'Groups',
+          type: 'item',
+          url: '/groups/group',
+          icon: 'feather icon-user-plus',
+        }
+      ]
+    },
 
     {
       id: 'categories',

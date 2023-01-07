@@ -179,7 +179,7 @@ function DocumentCategoryView() {
                           </span>
                         )}
                       </div>
-                      <div></div>
+                
                     </div>
 
                     <Card.Title className="m-0 p-0 h6">

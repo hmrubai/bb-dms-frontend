@@ -197,6 +197,16 @@ const routes = [
         exact: true,
         path: '/profile',
         component: lazy(() => import('./views/profile/Profile'))
+      },
+      {
+        exact: true,
+        path: '/groups/group',
+        component: lazy(() => import('./views/groups/Group'))
+      },
+      {
+        exact: true,
+        path: '/groups/group_create',
+        component: lazy(() => import('./views/groups/GroupCreate'))
       }
 
 
