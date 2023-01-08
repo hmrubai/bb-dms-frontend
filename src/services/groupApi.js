@@ -21,18 +21,6 @@ export const groupApi = createApi({
       providesTags: ['Group']
     }),
 
-    AllPublishDocument: builder.query({
-      query: ({ search }) => ({
-        url: `all_publish_document?search=${search}`,
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
-        }
-      }),
-      providesTags: ['Publish']
-    }),
-
     createGroup: builder.mutation({
       query: (group) => {
         return {
@@ -44,58 +32,76 @@ export const groupApi = createApi({
           }
         };
       },
-      invalidatesTags: ['Publish']
+      invalidatesTags: ['Group']
     }),
 
-    yourDocument: builder.query({
+    userWiseGroupView: builder.query({
       query: () => ({
-        url: `your_document`,
+        url: `user_wise_group_view`,
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${Cookies.get('token')}`
         }
       }),
-      providesTags: ['Publish']
+      providesTags: ['Group']
     }),
 
-    deleteUnpublishDocument: builder.mutation({
+     addGroupDocument: builder.mutation({
+      query: (document) => {
+        return {
+          url: `create_group_documnet`,
+          method: 'POST',
+          body: document,
+          headers: {
+            // 'Content-type': 'application/json; charset=UTF-8'
+          
+              "Authorization": `Bearer ${Cookies.get("token")}`
+       
+          }
+        };
+      },
+      invalidatesTags: ['Group']
+    }),
+ 
+
+    deleteGroup: builder.mutation({
       query: (id) => ({
-        url: `document/${id}`,
+        url: `delete_group/${id}`,
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${Cookies.get('token')}`
         }
       }),
-      invalidatesTags: ['Publish']
+      invalidatesTags: ['Group']
     }),
-
-    unpublishDocument: builder.query({
+    // get_group_document
+    groupDocument: builder.query({
       query: (id) => ({
-        url: `document/${id}`,
+        url: `get_group_document/${id}`,
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
+          "Authorization": `Bearer ${Cookies.get("token")}`
         }
       }),
-      // invalidatesTags: ['DocumentData'],
-      providesTags: ['Publish']
+      providesTags: ['Group']
+      // providesTags: (result, error, arg) =>
+      // result
+      //   ? [...result.map(({ id }) => ({ type: 'DocumentData', id })), 'DocumentData']
+      //   : ['DocumentData'],
     }),
-    dashboardPublishDocument: builder.query({
-      query: () => ({
-        url: `dashboard_Publish_Document`,
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
-        }
-      }),
-      providesTags: ['Publish']
-    })
+    
+
   })
 });
 
-export const { useAllUserforGroupQuery,
+export const {
+  useAllUserforGroupQuery,
   useCreateGroupMutation,
+  useUserWiseGroupViewQuery,
+  useAddGroupDocumentMutation,
+  useGroupDocumentQuery,
+  useDeleteGroupMutation
 } = groupApi;
+

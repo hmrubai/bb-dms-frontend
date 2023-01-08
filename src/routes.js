@@ -198,6 +198,7 @@ const routes = [
         path: '/profile',
         component: lazy(() => import('./views/profile/Profile'))
       },
+      // groups
       {
         exact: true,
         path: '/groups/group',
@@ -207,6 +208,17 @@ const routes = [
         exact: true,
         path: '/groups/group_create',
         component: lazy(() => import('./views/groups/GroupCreate'))
+      },
+      {
+        exact: true,
+        path: '/groups/group_document/:id',
+        component: lazy(() => import('./views/groups/GroupDocument'))
+      }
+      ,
+      {
+        exact: true,
+        path: '/groups/group_add_document/:id',
+        component: lazy(() => import('./views/groups/GroupAddDocument'))
       }
 
 

@@ -18,7 +18,7 @@ function GroupCreate() {
   const [user, setUser] = useState([]);
   const [member, setMember] = useState([]);
 
-  console.log(res);
+  // console.log(res);
 
   const submitHandel = async (e) => {
     e.preventDefault();
@@ -93,7 +93,7 @@ function GroupCreate() {
                   <Col md={6}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                       <Form.Label>Select Group Member</Form.Label>
-                      <Multiselect options={user} placeholder="Select Member" onSelect={(e) => setMember(e)} displayValue="name" 
+                      <Multiselect options={user} placeholder="Select Member" onSelect={(e) => setMember(e)} displayValue="username" 
                         showArrow={true}
                       />
                     </Form.Group>
