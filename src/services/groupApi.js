@@ -91,6 +91,33 @@ export const groupApi = createApi({
       //   ? [...result.map(({ id }) => ({ type: 'DocumentData', id })), 'DocumentData']
       //   : ['DocumentData'],
     }),
+    singalGroup: builder.query({
+      query: (id) => ({
+        url: `get_singal_group/${id}`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
+        }
+      }),
+      providesTags: ['Group']
+    }),
+    updateGroup: builder.mutation({
+      query: ({ id, data }) => {
+        return {
+          url: `group_update/${id}`,
+          method: 'POST',
+          body: data,
+          headers: {
+            "Authorization": `Bearer ${Cookies.get("token")}`
+          }
+
+        };
+      },
+      invalidatesTags: ['Group']
+    }),
+
+   
     
 
   })
@@ -102,6 +129,8 @@ export const {
   useUserWiseGroupViewQuery,
   useAddGroupDocumentMutation,
   useGroupDocumentQuery,
-  useDeleteGroupMutation
+  useDeleteGroupMutation,
+  useSingalGroupQuery,
+  useUpdateGroupMutation,
 } = groupApi;
 

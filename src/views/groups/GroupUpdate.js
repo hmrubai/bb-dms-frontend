@@ -3,24 +3,36 @@ import Multiselect from 'multiselect-react-dropdown';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
-import { useCreateGroupMutation } from '../../services/groupApi';
+import { useCreateGroupMutation, useSingalGroupQuery, useUpdateGroupMutation } from '../../services/groupApi';
 
-function GroupCreate() {
+function GroupUpdate() {
+  const {id}=useParams()
   const history = useHistory();
+  const { data, isFetching, isSuccess, isLoading } = useSingalGroupQuery(id)
+  const [updateGroup,resp]=useUpdateGroupMutation()
+ 
 
-  const [createGroup, res] = useCreateGroupMutation();
+  console.log(resp);
+
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [image, setImage] = useState();
   const [user, setUser] = useState([]);
   const [member, setMember] = useState([]);
+  const [defaultSelectMember, setDefaultSelectMember] = useState([]);
+
 
   // console.log(res);
 
+
+
+
+
   const submitHandel = async (e) => {
+ 
     e.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
@@ -33,33 +45,38 @@ function GroupCreate() {
       toast.error('Please select member');
     }
 
-  
-
     if (member.length > 0) {
       const arr = [];
       member.map((item) => {
         arr.push(item.id);
       });
+      
       const memberArr = JSON.stringify(arr);
       
       formData.append('member', memberArr);
     }
 
     try {
-      await createGroup(formData).unwrap();
+      await updateGroup({ id: id, data: formData }).unwrap();
     } catch (error) {
       toast.error(error?.data.message);
     }
   };
 
-  if (res.isSuccess) {
-    toast.success(res.data.message);
+  if (resp.isSuccess) {
+    toast.success(resp.data.message);
     history.push('/groups/group');
   }
 
   useEffect(() => {
     addUserMember();
-  }, []);
+    if (isSuccess) {
+      setName(data?.data?.name)
+      setDescription(data?.data?.description)
+      setDefaultSelectMember(data?.data?.user)
+
+    }
+  }, [isSuccess]);
 
   const addUserMember = (e) => {
     axios({
@@ -87,18 +104,26 @@ function GroupCreate() {
                   <Col md={6}>
                     <Form.Group controlId="exampleForm.ControlInput1">
                       <Form.Label>Name</Form.Label>
-                      <Form.Control type="text" placeholder="Name" name="name" onChange={(e) => setName(e.target.value)} required />
+                      <Form.Control type="text" placeholder="Name" name="name" onChange={(e) => setName(e.target.value)} value={name} required />
                     </Form.Group>
                   </Col>
 
                   <Col md={6}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                       <Form.Label>Select Group Member</Form.Label>
-                      <Multiselect options={user} placeholder="Select Member" onSelect={(e) => setMember(e)} displayValue="username" 
+                      <Multiselect
+                        options={user}
+                        placeholder="Select Member"
+                        onSelect={(e) => setMember(e)}
+                        displayValue="username"
                         showArrow={true}
+                        selectedValues={defaultSelectMember}
+                        
+
+
+                        
                       />
                     </Form.Group>
-
                   </Col>
                   <Col md={12}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -108,6 +133,7 @@ function GroupCreate() {
                         rows="1"
                         placeholder="Group Description"
                         name="description"
+                        value={description}
                         onChange={(e) => setDescription(e.target.value)}
                       />
                     </Form.Group>
@@ -139,4 +165,4 @@ function GroupCreate() {
   );
 }
 
-export default GroupCreate;
+export default GroupUpdate;

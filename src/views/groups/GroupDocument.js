@@ -18,7 +18,7 @@ function GroupDocument() {
   const download = (e, item) => {
     e.preventDefault();
     axios({
-      url: `${process.env.REACT_APP_BASE_URL}download/${item.id}`,
+      url: `${process.env.REACT_APP_BASE_URL}download/${item}`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${Cookies.get('token')}`
@@ -103,7 +103,7 @@ function GroupDocument() {
                     ) : (
                       <div>
                         <span className="pointer m-2">
-                          <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
+                          <BsFillArrowDownCircleFill onClick={(e) => download(e, item.id)} color="black" size={18} />
                         </span>
                         <span>
                           <Link to={`/documents/unpublish_document_view/${item.id}`}>

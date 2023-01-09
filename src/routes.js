@@ -211,6 +211,11 @@ const routes = [
       },
       {
         exact: true,
+        path: '/groups/group_update/:id',
+        component: lazy(() => import('./views/groups/GroupUpdate'))
+      },
+      {
+        exact: true,
         path: '/groups/group_document/:id',
         component: lazy(() => import('./views/groups/GroupDocument'))
       }

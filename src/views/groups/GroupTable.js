@@ -71,7 +71,7 @@ export const GroupTable = () => {
                         <BsFillEyeFill color="blue" size={22} />
                       </Link>
 
-                      <Link to={`/documents/document_edit/`} className="px-3">
+                      <Link to={`/groups/group_update/${item.group.id}`} className="px-3">
                         <BsPencilSquare size={18} />
                       </Link>
                       {auth.id === item?.group?.user[0].id &&
