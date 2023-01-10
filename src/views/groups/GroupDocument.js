@@ -9,7 +9,8 @@ import {
   BsFillEyeFill,
   BsFillArrowDownCircleFill,
   BsFillTrashFill,
-  BsFillInfoCircleFill
+  BsFillInfoCircleFill,
+  BsPencilSquare
 } from 'react-icons/bs';
 import { useGroupDeleteDocumentMutation, useGroupDocumentQuery, useSingalGroupQuery } from '../../services/groupApi';
 import Loading from './../../components/Loading/Loading';
@@ -17,11 +18,10 @@ import file from './../../assets/images/File/word.png';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import fileDownload from 'js-file-download';
-import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useSelector } from './../../store/index';
 import { HiUserGroup } from 'react-icons/hi';
-
+import avatar from '../../assets/images/user/avatar-1.jpg'
 function GroupDocument() {
   const { id } = useParams();
   
@@ -89,7 +89,8 @@ function GroupDocument() {
                   alt={item.name}
                   className="rounded-circle pb-1 "
                   variant="top"
-                  src={`${process.env.REACT_APP_IMAGE_URL}${item.image}`}
+                  src={item.image ? `${process.env.REACT_APP_IMAGE_URL}${item.image}` : { avatar}
+                }
                 />
               </span>
             ))}
@@ -135,15 +136,16 @@ function GroupDocument() {
                   </Card.Body>
 
                   <div className=" text-center p-2 shadow my-3 mt-4">
-                    {item.file.split('.').pop().includes('pdf') ||
-                    item.file.split('.').pop().includes('png') ||
-                    item.file.split('.').pop().includes('jpg') ||
-                    item.file.split('.').pop().includes('jpeg') ||
-                    item.file.split('.').pop().includes('txt') ? (
+          
                       <div>
-                        <Link to={`/groups/group_document_view/${item.id}`}>
+                        <Link className='px-1' to={`/groups/group_document_view/${item.id}`}>
                           <BsFillEyeFill color="blue" size={22} />
-                        </Link>
+                      </Link>
+                      {auth.id === item?.user.id && (
+                      <Link to={`/groups/group_document_update/${item.id}`} className="px-2">
+                        <BsPencilSquare size={18} />
+                      </Link>
+)}
                         <span className="pointer m-2">
                           <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
                         </span>
@@ -151,21 +153,8 @@ function GroupDocument() {
                           <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
                         )}
                       </div>
-                    ) : (
-                      <div>
-                        <span className="pointer m-2">
-                          <BsFillArrowDownCircleFill onClick={(e) => download(e, item.id)} color="black" size={18} />
-                        </span>
-                        <span>
-                          <Link to={`/groups/group_document_view/${item.id}`}>
-                            <BsFillEyeFill color="blue" size={22} />
-                          </Link>
-                        </span>
-                        {auth.id === item?.user.id && (
-                          <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
-                        )}
-                      </div>
-                    )}
+                    
+               
                   </div>
                 </Card>
               </div>

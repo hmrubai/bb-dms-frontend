@@ -141,8 +141,22 @@ export const groupApi = createApi({
     }),
     invalidatesTags: ['Group']
   }),
+  // group_documnet_update
 
-   
+  groupDocumentUpdate: builder.mutation({
+    query: ({ id, data }) => {
+      return {
+        url: `group_documnet_update/${id}`,
+        method: 'POST',
+        body: data,
+        headers: {
+          "Authorization": `Bearer ${Cookies.get("token")}`
+        }
+
+      };
+    },
+    invalidatesTags: ['Group']
+  }),
     
 
   })
@@ -158,7 +172,8 @@ export const {
   useSingalGroupQuery,
   useUpdateGroupMutation,
   useGroupSingalDocumnetQuery,
-  useGroupDeleteDocumentMutation
+  useGroupDeleteDocumentMutation,
+  useGroupDocumentUpdateMutation
   
 } = groupApi;
 

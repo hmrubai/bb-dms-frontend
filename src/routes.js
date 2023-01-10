@@ -230,7 +230,11 @@ const routes = [
         path: '/groups/group_document_view/:id',
         component: lazy(() => import('./views/groups/GroupDocumentView'))
       },
-
+      {
+        exact: true,
+        path: '/groups/group_document_update/:id',
+        component: lazy(() => import('./views/groups/GroupDocumentUpdate'))
+      },
 
 
       // {
