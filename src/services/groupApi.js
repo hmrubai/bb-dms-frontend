@@ -116,6 +116,31 @@ export const groupApi = createApi({
       },
       invalidatesTags: ['Group']
     }),
+    // group_singal_document
+
+   groupSingalDocumnet: builder.query({
+      query: (id) => ({
+        url: `group_singal_document/${id}`,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          "Authorization": `Bearer ${Cookies.get("token")}`
+        }
+      }),
+      providesTags: ['Group']
+   }),
+  //  delete_group_documnet
+   
+  groupDeleteDocument: builder.mutation({
+    query: (id) => ({
+      url: `delete_group_documnet/${id}`,
+      method: 'DELETE',
+      headers: {
+        "Authorization": `Bearer ${Cookies.get("token")}`
+      }
+    }),
+    invalidatesTags: ['Group']
+  }),
 
    
     
@@ -132,5 +157,8 @@ export const {
   useDeleteGroupMutation,
   useSingalGroupQuery,
   useUpdateGroupMutation,
+  useGroupSingalDocumnetQuery,
+  useGroupDeleteDocumentMutation
+  
 } = groupApi;
 

@@ -224,7 +224,12 @@ const routes = [
         exact: true,
         path: '/groups/group_add_document/:id',
         component: lazy(() => import('./views/groups/GroupAddDocument'))
-      }
+      },
+      {
+        exact: true,
+        path: '/groups/group_document_view/:id',
+        component: lazy(() => import('./views/groups/GroupDocumentView'))
+      },
 
 
 

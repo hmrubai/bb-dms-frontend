@@ -2,23 +2,58 @@ import React from 'react';
 
 import { Card, Button } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import { BsFillPlusCircleFill, BsXCircleFill, BsFillCheckCircleFill, BsFillEyeFill, BsFillArrowDownCircleFill } from 'react-icons/bs';
-import { useGroupDocumentQuery } from '../../services/groupApi';
+import {
+  BsFillPlusCircleFill,
+  BsXCircleFill,
+  BsFillCheckCircleFill,
+  BsFillEyeFill,
+  BsFillArrowDownCircleFill,
+  BsFillTrashFill,
+  BsFillInfoCircleFill
+} from 'react-icons/bs';
+import { useGroupDeleteDocumentMutation, useGroupDocumentQuery, useSingalGroupQuery } from '../../services/groupApi';
 import Loading from './../../components/Loading/Loading';
 import file from './../../assets/images/File/word.png';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import fileDownload from 'js-file-download';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
+import { useSelector } from './../../store/index';
+import { HiUserGroup } from 'react-icons/hi';
 
 function GroupDocument() {
   const { id } = useParams();
+  
   const { data, isFetching, isSuccess } = useGroupDocumentQuery(id);
-  console.log(data);
+  const [groupDeleteDocument] = useGroupDeleteDocumentMutation();
+  const { data: singalData, isFetching: singalDataFetching, isSuccess: singalDataSuccess } = useSingalGroupQuery(id);
+
+  const auth = useSelector((state) => state.auth.user);
+
+
+  const deleteHandel = async (Did) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      // text: "You won't be able to revert this!",
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      width: 200,
+      showCancelButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        groupDeleteDocument(Did);
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
+    });
+  };
 
   const download = (e, item) => {
     e.preventDefault();
     axios({
-      url: `${process.env.REACT_APP_BASE_URL}download/${item}`,
+      url: `${process.env.REACT_APP_BASE_URL}download_file/${item.id}`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${Cookies.get('token')}`
@@ -45,10 +80,23 @@ function GroupDocument() {
       </div>
       <Card>
         <Card.Header>
-          <Card.Title as="h5">Groups</Card.Title>
+          {singalDataSuccess && <Card.Title as="h5">{singalData.data.name}</Card.Title>}
+          {singalDataSuccess &&
+            singalData.data.user.map((item) => (
+              <span>
+                <img
+                  width={20}
+                  alt={item.name}
+                  className="rounded-circle pb-1 "
+                  variant="top"
+                  src={`${process.env.REACT_APP_IMAGE_URL}${item.image}`}
+                />
+              </span>
+            ))}
         </Card.Header>
-
+  
         {isFetching && <Loading />}
+     
 
         {isSuccess && (
           <div className="d-flex flex-wrap justify-content-center justify-content-md-start">
@@ -71,7 +119,7 @@ function GroupDocument() {
                     <div className=" d-flex justify-content-evenly">
                       <div className="mb-1 ">
                         <span>
-                          <BsFillCheckCircleFill className=" mx-1" color="green" />
+                          <HiUserGroup className=" mx-1 mb-1" color="green" />
                           {item.group.name}
                         </span>
                       </div>
@@ -93,12 +141,15 @@ function GroupDocument() {
                     item.file.split('.').pop().includes('jpeg') ||
                     item.file.split('.').pop().includes('txt') ? (
                       <div>
-                        <Link to={`/documents/unpublish_document_view/${item.id}`}>
+                        <Link to={`/groups/group_document_view/${item.id}`}>
                           <BsFillEyeFill color="blue" size={22} />
                         </Link>
                         <span className="pointer m-2">
                           <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
                         </span>
+                        {auth.id === item?.user.id && (
+                          <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
+                        )}
                       </div>
                     ) : (
                       <div>
@@ -106,10 +157,13 @@ function GroupDocument() {
                           <BsFillArrowDownCircleFill onClick={(e) => download(e, item.id)} color="black" size={18} />
                         </span>
                         <span>
-                          <Link to={`/documents/unpublish_document_view/${item.id}`}>
+                          <Link to={`/groups/group_document_view/${item.id}`}>
                             <BsFillEyeFill color="blue" size={22} />
                           </Link>
                         </span>
+                        {auth.id === item?.user.id && (
+                          <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
+                        )}
                       </div>
                     )}
                   </div>

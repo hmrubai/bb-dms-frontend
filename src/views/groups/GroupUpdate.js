@@ -15,7 +15,7 @@ function GroupUpdate() {
   const [updateGroup,resp]=useUpdateGroupMutation()
  
 
-  console.log(resp);
+  // console.log(data);
 
   const [name, setName] = useState();
   const [description, setDescription] = useState();
@@ -41,18 +41,21 @@ function GroupUpdate() {
       formData.append('image', image);
     }
 
-    if (member.length <= 0) {
-      toast.error('Please select member');
-    }
 
+
+   const arr = [];
     if (member.length > 0) {
-      const arr = [];
       member.map((item) => {
         arr.push(item.id);
       });
       
       const memberArr = JSON.stringify(arr);
-      
+      formData.append('member', memberArr);
+    } else {
+      defaultSelectMember.map((item) => {
+        arr.push(item.id);
+      })
+      const memberArr = JSON.stringify(arr);
       formData.append('member', memberArr);
     }
 
@@ -74,6 +77,7 @@ function GroupUpdate() {
       setName(data?.data?.name)
       setDescription(data?.data?.description)
       setDefaultSelectMember(data?.data?.user)
+      setImage(data?.data?.image)
 
     }
   }, [isSuccess]);
@@ -118,10 +122,7 @@ function GroupUpdate() {
                         displayValue="username"
                         showArrow={true}
                         selectedValues={defaultSelectMember}
-                        
-
-
-                        
+                        disablePreSelectedValues={true}
                       />
                     </Form.Group>
                   </Col>
@@ -139,6 +140,9 @@ function GroupUpdate() {
                     </Form.Group>
                   </Col>
                   <Col>
+                    
+                    <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
+                    <br/>
                     <Form.Label>Feature image</Form.Label>
                     <br />
                     <Form.Group controlId="exampleForm.ControlInput1">
