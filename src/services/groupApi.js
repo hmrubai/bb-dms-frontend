@@ -157,8 +157,23 @@ export const groupApi = createApi({
     },
     invalidatesTags: ['Group']
   }),
-    
-
+  // share_document
+  shareDocument: builder.mutation({
+    query: (document) => {
+      return {
+        url: `share_document`,
+        method: 'POST',
+        body: document,
+        headers: {
+          // 'Content-type': 'application/json; charset=UTF-8'
+        
+            "Authorization": `Bearer ${Cookies.get("token")}`
+     
+        }
+      };
+    },
+    invalidatesTags: ['Group']
+  }),
   })
 });
 
@@ -173,7 +188,8 @@ export const {
   useUpdateGroupMutation,
   useGroupSingalDocumnetQuery,
   useGroupDeleteDocumentMutation,
-  useGroupDocumentUpdateMutation
+  useGroupDocumentUpdateMutation,
+  useShareDocumentMutation
   
 } = groupApi;
 

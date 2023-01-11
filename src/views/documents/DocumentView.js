@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
-import { Card, Row, Col, Button } from 'react-bootstrap';
+import { Card, Row, Col, Button, Form } from 'react-bootstrap';
 import {
   BsArrowLeftCircleFill,
   BsFillArrowDownCircleFill,
@@ -10,7 +10,7 @@ import {
   BsXCircleFill
 } from 'react-icons/bs';
 
-import {RiUploadCloud2Fill} from 'react-icons/ri';
+import { RiUploadCloud2Fill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
@@ -18,10 +18,46 @@ import { toast, ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useDocumentpublishMutation } from '../../services/documentApi';
+import downloade from '../../assets/images/File/download.png'
+import shareDoc from '../../assets/images/File/shire.png'
 
+import Modal from 'react-bootstrap/Modal';
+import { useShareDocumentMutation, useUserWiseGroupViewQuery } from '../../services/groupApi';
 
 function DocumentView() {
+ const [shareDocument,{data:shareData,isSuccess:shareIsSuccess}] = useShareDocumentMutation()
+
+  const [smShow, setSmShow] = useState(false);
+  const [group_id, setGroupId] = useState();
+  const [share, setShare] = useState({
+    name: '',
+    description: '',
+    file: '',
+  });
+
+  const shareDocHandler = (doc) => {
+
+    setShare({
+      name: doc.name,
+      description: doc.description,
+      file: doc.file,
+    });
+
+  };
+
+  const shareHandler = () => {
+
+    shareDocument({ name: share.name, description: share.description, file: share.file, group_id: group_id });
+    setSmShow(false);
+
+  };
+
+
+  console.log(share.name, share.description, share.file, group_id);
+  
   const [documentpublish] = useDocumentpublishMutation();
+  const {data,isFetching,isSuccess}=useUserWiseGroupViewQuery()
+
   const doc = useSelector((state) => state.document.documentView);
   const download = (e) => {
     e.preventDefault();
@@ -40,7 +76,7 @@ function DocumentView() {
         toast.error('Something went wrong');
       });
   };
-  
+
   const DocumentPublish = async (Pid) => {
     Swal.fire({
       title: 'You want to Publish this Document?',
@@ -61,6 +97,36 @@ function DocumentView() {
 
   return (
     <>
+      <Modal size="sm" show={smShow} onHide={() => setSmShow(false)} aria-labelledby="example-modal-sizes-title-sm">
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-sm">Small Modal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="form-group">
+          
+
+            
+            <Form.Control as="select" className="mb-3" name="group_id"
+              onChange={(e) => setGroupId(e.target.value)}
+              >
+                 <option>Selact Group</option>
+                {isSuccess && data.data?.map((item, i) => (
+                  <option key={i} value={item.group.id}>
+                    {item.group.name}
+                  </option>
+                ))}
+
+          
+          
+          
+                  </Form.Control>
+              <Button onClick={()=>shareHandler()} type="submit" className="btn btn-primary">Shaire</Button>
+          
+            </div>
+            
+        </Modal.Body>
+      </Modal>
+
       <Card>
         <ToastContainer />
         <Card.Header>
@@ -68,15 +134,14 @@ function DocumentView() {
             <div>
               <Card.Title as="h5">Documnet </Card.Title>
             </div>
+
             <div>
-               <span className="me-auto">
-              <Link to={`/documents/document`}>
-                <BsArrowLeftCircleFill color="black" size={'20px'} />
-              </Link>
-            </span>
+              <span className="me-auto">
+                <Link to={`/documents/document`}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </Link>
+              </span>
             </div>
-            
-           
           </div>
         </Card.Header>
         <Card.Body>
@@ -87,10 +152,28 @@ function DocumentView() {
                   <Card>
                     <div className="d-flex">
                       <div>
-                        <Button className="label theme-bg text-white f-12" onClick={(e) => download(e)}>
+                        {/* <Button className="label theme-bg text-white f-12" onClick={(e) => download(e)}>
                           <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
                           Download
-                        </Button>
+                        </Button> */}
+
+                        <img onClick={(e) => download(e)} className='btn' width={85} src={downloade} alt="" />
+                        
+                        <img  onClick={() => {
+                            setSmShow(true);
+                            shareDocHandler(doc);
+                          }} className='btn' width={85}  src={shareDoc} alt="" />
+
+                        {/* <Button
+                          onClick={() => {
+                            setSmShow(true);
+                            shareDocHandler(doc);
+                          }}
+                          className="me-2"
+                        >
+                          Small modal
+                        </Button> */}
+
                       </div>
 
                       {doc.status === 'Pending' && (
@@ -155,8 +238,7 @@ function DocumentView() {
                 <Col md={9}>
                   <Card width="1000px" height="500px">
                     <div>
-                      {
-                        doc.file?.split('.').pop().includes('docx') ||
+                      {doc.file?.split('.').pop().includes('docx') ||
                       doc.file?.split('.').pop().includes('xls') ||
                       doc.file?.split('.').pop().includes('xlsx') ||
                       doc.file?.split('.').pop().includes('csv') ? (
