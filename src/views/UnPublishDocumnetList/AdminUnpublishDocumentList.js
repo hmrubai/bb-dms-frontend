@@ -1,5 +1,7 @@
 import React from 'react';
 import { Card, Table } from 'react-bootstrap';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
+import { useHistory } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Loading from '../../components/Loading/Loading';
 import { useAdminUnpublishDocumentListQuery } from '../../services/publishApi';
@@ -7,7 +9,8 @@ import { useSelector } from '../../store';
 import AdminUnpublishDocumentTable from './AdminUnpublishDocumentTable';
 
 function AdminUnpublishDocumentList() {
-  const { data, isLoading, isSuccess } = useAdminUnpublishDocumentListQuery();
+  const history = useHistory();
+  const { data, isSuccess,isFetching } = useAdminUnpublishDocumentListQuery();
   const authPermission = useSelector((state) => state.auth.permissions);
 
   if (authPermission.includes('superadmin_view')) {
@@ -17,7 +20,19 @@ function AdminUnpublishDocumentList() {
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Unpublish Document List</Card.Title>
+          
+            <div className='d-flex justify-content-between'>
+            <div>
+              <Card.Title as="h5">Unpublish Document List</Card.Title>
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
           </Card.Header>
           <Card.Body className="table-responsive table-scroll table-earnings ">
             <Table responsive striped>
@@ -31,7 +46,7 @@ function AdminUnpublishDocumentList() {
                   <th>Action</th>
                 </tr>
               </thead>
-              {isLoading && (
+              {isFetching && (
                 <div className="text-center">
                   <Loading />
                 </div>

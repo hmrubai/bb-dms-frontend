@@ -46,6 +46,7 @@ function AllPublishDocumentList() {
                   <div>
                     <Card.Title as="h5">Published Document</Card.Title>
                   </div>
+                  
                   <div>
                     <input
                       type="search"

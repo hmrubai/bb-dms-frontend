@@ -5,7 +5,10 @@ import Loading from '../../../components/Loading/Loading';
 import { useGetAllCatagoryQuery } from '../../../services/catagoryApi';
 import CatagoryTableBody from './CatagoryTableBody';
 import Pagination from 'react-bootstrap/Pagination';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
+import { useHistory } from 'react-router-dom';
 function CatagoryTable() {
+  const history = useHistory();
   const [page, setPage] = useState(1);
   // const [show, setShow] = useState(false);
 
@@ -26,7 +29,19 @@ function CatagoryTable() {
           
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Category</Card.Title>
+              
+              <div className='d-flex justify-content-between'>
+            <div>
+              <Card.Title as="h5">Category</Card.Title>
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
           </Card.Header>
           <Card.Body>
             <Table responsive striped>

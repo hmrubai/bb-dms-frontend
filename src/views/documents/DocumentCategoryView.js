@@ -14,12 +14,11 @@ import {
   BsPencilSquare,
   BsFillCheckCircleFill,
   BsXCircleFill,
-  BsReplyAllFill
 } from 'react-icons/bs';
 import { RiUploadCloud2Fill } from 'react-icons/ri';
 
 import file from '../../assets/images/File/word.png';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import {
   useDeleteDocumentMutation,
@@ -37,6 +36,7 @@ function DocumentCategoryView() {
   // const authPermission = useSelector((state) => state.auth.permissions);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history =useHistory()
   const { data, isLoading, isError, isSuccess } = useShowCategoryDocumentQuery(id);
   const { data: subCategory, isSuccess: cateIssucess } = useShowSubCategoryQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
@@ -124,14 +124,16 @@ function DocumentCategoryView() {
       </div>
       <Card className='p-0'>
         <Card.Header className="">
-          <div className=" d-flex justify-content-between ">
+        <div className='d-flex justify-content-between'>
             <div>
-              <Card.Title as="h5">Documents</Card.Title>
+                 <Card.Title as="h5">Documents</Card.Title>
             </div>
             <div>
-              <Link to={`/documents/document`}>
-                <BsArrowLeftCircleFill color="black" size={'20px'} />
-              </Link>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
             </div>
           </div>
         </Card.Header>

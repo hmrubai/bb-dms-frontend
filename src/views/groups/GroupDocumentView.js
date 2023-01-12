@@ -1,33 +1,21 @@
 import React from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
-import { Card, Row, Col, Button } from 'react-bootstrap';
-import {
-
-  BsArrowLeftCircleFill,
-  BsFillArrowDownCircleFill,
-  BsFillInfoCircleFill,
-  BsXCircleFill
-} from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
-// import { useSelector } from './../../store/index';
+import { Card, Row, Col, } from 'react-bootstrap';
+import { BsArrowLeftCircleFill, BsFillInfoCircleFill } from 'react-icons/bs';
+import {  useHistory, useParams } from 'react-router-dom';
 import DayJS from 'react-dayjs';
 import { toast, ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
-
 import Loading from './../../components/Loading/Loading';
-
-
 import { useGroupSingalDocumnetQuery } from '../../services/groupApi';
-
-
+import downloade from '../../assets/images/File/download.png';
 function GroupDocumentView() {
+  let history = useHistory();
   const { id } = useParams();
-
-
-  const { data, isLoading, isSuccess } = useGroupSingalDocumnetQuery(id)
   
-  console.log(data)
+
+  const { data, isLoading, isSuccess } = useGroupSingalDocumnetQuery(id);
 
   const download = (e) => {
     e.preventDefault();
@@ -47,25 +35,22 @@ function GroupDocumentView() {
       });
   };
 
-
   return (
     <>
       <Card>
         <ToastContainer />
         <Card.Header>
-        <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between">
             <div>
               <Card.Title as="h5">Documnet </Card.Title>
             </div>
             <div>
-               <span className="me-auto">
-              <Link to={`/`}>
-                <BsArrowLeftCircleFill color="black" size={'20px'} />
-              </Link>
-            </span>
+              <span className="me-auto pointer">
+                <div onClick={()=>history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
             </div>
-            
-           
           </div>
         </Card.Header>
         {isLoading && <Loading />}
@@ -79,13 +64,8 @@ function GroupDocumentView() {
                     <Card>
                       <div className="d-flex">
                         <div>
-                          <Button className="label theme-bg text-white f-12" onClick={(e) => download(e)}>
-                            <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
-                            Download
-                          </Button>
+                          <img onClick={(e) => download(e)} className="btn" width={85} src={downloade} alt="" />
                         </div>
-
-                   
                       </div>
                       <div className=" mx-1 ">
                         <div>
@@ -104,10 +84,11 @@ function GroupDocumentView() {
                           </p>
                         </div>
                         <div className=" py-2">
-                          <b>Group Name:</b> <br />  <p className='text-primary '><b> {data.group?.name}</b> </p>  
+                          <b>Group Name:</b> <br />{' '}
+                          <p className="text-primary ">
+                            <b> {data.group?.name}</b>{' '}
+                          </p>
                         </div>
-
-
 
                         <div className=" py-2">
                           <b>Created By:</b> <br />

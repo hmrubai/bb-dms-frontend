@@ -1,16 +1,16 @@
 import React from 'react';
-import { Card, Row, } from 'react-bootstrap';
+import { Card, Row } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
+import {  useParams, useHistory } from 'react-router-dom';
 import Loading from '../../../components/Loading/Loading';
 
 import { useGetSubCategoryByIdQuery } from '../../../services/subCategoryApi';
 import DayJS from 'react-dayjs';
 function CategoryView() {
   const { id } = useParams();
-
+  const history = useHistory();
   // const  response  = useGetCatagoryByIdQuery(id);
-  const { data, isLoading,  } = useGetSubCategoryByIdQuery(id);
+  const { data, isLoading } = useGetSubCategoryByIdQuery(id);
 
   if (isLoading) {
     return (
@@ -25,17 +25,21 @@ function CategoryView() {
 
   return (
     <>
-
-
       <Card>
         <Card.Header>
           <div>
-            <Card.Title as="h5">Sub Catagory</Card.Title>
-            <span className="me-auto">
-              <Link to={`/catagories/sub_category`}>
-                <BsArrowLeftCircleFill color="black" size={'20px'} />
-              </Link>
-            </span>
+            <div className="d-flex justify-content-between">
+              <div>
+                <Card.Title as="h5">Sub Catagory</Card.Title>
+              </div>
+              <div>
+                <span className="me-auto pointer">
+                  <div onClick={() => history.goBack()}>
+                    <BsArrowLeftCircleFill color="black" size={'20px'} />
+                  </div>
+                </span>
+              </div>
+            </div>
           </div>
         </Card.Header>
         <Card.Header>
@@ -53,13 +57,12 @@ function CategoryView() {
                 src={`${process.env.REACT_APP_IMAGE_URL}${data.image}`}
                 alt=""
               />
-                <p className='pt-3'>
+              <p className="pt-3">
                 Sub Category Name:
                 <span class="font-weight-bold text-primary ">{data.name}</span>
               </p>
             </div>
             <div class="col-md-4 col-12 py-3">
-            
               <p>
                 Category Name:
                 <span class="font-weight-bold text-primary ">{data.catagory.name}</span>
@@ -68,7 +71,6 @@ function CategoryView() {
                 Created By:
                 <span class="font-weight-bold text-primary ">{data.user.name} </span>
               </p>
-
 
               <p>
                 Status:
@@ -90,7 +92,7 @@ function CategoryView() {
                 </span>
               </p>
               <p>
-              Description:
+                Description:
                 <span class="font-weight-bold text-primary">{data.description}</span>
               </p>
             </div>

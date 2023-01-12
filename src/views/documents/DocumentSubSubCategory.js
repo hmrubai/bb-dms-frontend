@@ -10,7 +10,6 @@ function DocumentSubSubCategory({ item }) {
           <Card.Img className="m-1 pointer " variant="top" src={folder} alt={item.name} />
           <Card.Body className="p-1 m-0">
             <Card.Title className="h6 text-center font-weight-bold">{item.name}</Card.Title>
-            <Card.Text> </Card.Text>
           </Card.Body>
         </Card>
       </Link>

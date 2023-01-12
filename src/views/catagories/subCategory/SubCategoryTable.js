@@ -6,7 +6,10 @@ import SubCategoryTableBody from '../../../views/catagories/subCategory/SubCateg
 import Pagination from 'react-bootstrap/Pagination';
 import { useGetAllSubCategoryQuery } from '../../../services/subCategoryApi';
 import { ToastContainer } from 'react-toastify';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
+import { useHistory } from 'react-router-dom';
 function SubCategoryTable() {
+  const history =useHistory()
   const [page, setPage] = useState(1);
   // const [show, setShow] = useState(false);
 
@@ -27,7 +30,19 @@ function SubCategoryTable() {
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Sub Category</Card.Title>
+            
+            <div className='d-flex justify-content-between'>
+            <div>
+               <Card.Title as="h5">Sub Category</Card.Title> 
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
           </Card.Header>
           <Card.Body>
             <Table responsive striped>

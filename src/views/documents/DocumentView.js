@@ -4,61 +4,65 @@ import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button, Form } from 'react-bootstrap';
 import {
   BsArrowLeftCircleFill,
-  BsFillArrowDownCircleFill,
   BsFillCheckCircleFill,
   BsFillInfoCircleFill,
   BsXCircleFill
 } from 'react-icons/bs';
 
-import { RiUploadCloud2Fill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+
+import {  useHistory } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import { toast, ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { useDocumentpublishMutation } from '../../services/documentApi';
-import downloade from '../../assets/images/File/download.png'
-import shareDoc from '../../assets/images/File/shire.png'
+import downloade from '../../assets/images/File/download.png';
+import shareDoc from '../../assets/images/File/shire.png';
+import cloud from '../../assets/images/File/cloud.png';
+import shere_ic from '../../assets/images/File/shere_ic.png';
 
 import Modal from 'react-bootstrap/Modal';
 import { useShareDocumentMutation, useUserWiseGroupViewQuery } from '../../services/groupApi';
 
 function DocumentView() {
- const [shareDocument,{data:shareData,isSuccess:shareIsSuccess}] = useShareDocumentMutation()
+  const history=useHistory();
+  const [shareDocument,] = useShareDocumentMutation();
+  const [documentpublish] = useDocumentpublishMutation();
+  const { data,  isSuccess } = useUserWiseGroupViewQuery();
+  const doc = useSelector((state) => state.document.documentView);
 
   const [smShow, setSmShow] = useState(false);
   const [group_id, setGroupId] = useState();
   const [share, setShare] = useState({
     name: '',
     description: '',
-    file: '',
+    file: ''
   });
 
-  const shareDocHandler = (doc) => {
 
+
+  const shareDocHandler = (doc) => {
     setShare({
       name: doc.name,
       description: doc.description,
-      file: doc.file,
+      file: doc.file
     });
-
   };
 
-  const shareHandler = () => {
+  const shareHandler = async () => {
+    try {
+     await shareDocument({ name: share.name, description: share.description, file: share.file, group_id: group_id }).unwrap();
+      setSmShow(false);
 
-    shareDocument({ name: share.name, description: share.description, file: share.file, group_id: group_id });
-    setSmShow(false);
-
+    } catch (error) {
+      toast.error(error.data.message);
+    }
   };
 
 
-  console.log(share.name, share.description, share.file, group_id);
-  
-  const [documentpublish] = useDocumentpublishMutation();
-  const {data,isFetching,isSuccess}=useUserWiseGroupViewQuery()
 
-  const doc = useSelector((state) => state.document.documentView);
+
   const download = (e) => {
     e.preventDefault();
     axios({
@@ -71,6 +75,7 @@ function DocumentView() {
     })
       .then((response) => {
         fileDownload(response.data, `${doc.name}.${response.data.type.split('/').pop()}`);
+        
       })
       .catch((error) => {
         toast.error('Something went wrong');
@@ -95,35 +100,31 @@ function DocumentView() {
     });
   };
 
+
   return (
     <>
+      <ToastContainer/>
       <Modal size="sm" show={smShow} onHide={() => setSmShow(false)} aria-labelledby="example-modal-sizes-title-sm">
         <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">Small Modal</Modal.Title>
+          <Modal.Title id="example-modal-sizes-title-xs"><img width={35 } src={shere_ic} alt="" />  Share Documnet</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="form-group">
-          
-
-            
-            <Form.Control as="select" className="mb-3" name="group_id"
-              onChange={(e) => setGroupId(e.target.value)}
-              >
-                 <option>Selact Group</option>
-                {isSuccess && data.data?.map((item, i) => (
+            <Form.Control as="select" className="mb-3 " name="group_id" onChange={(e) => setGroupId(e.target.value)}>
+              <option>Selact Group</option>
+              {isSuccess &&
+                data.data?.map((item, i) => (
                   <option key={i} value={item.group.id}>
                     {item.group.name}
                   </option>
                 ))}
-
-          
-          
-          
-                  </Form.Control>
-              <Button onClick={()=>shareHandler()} type="submit" className="btn btn-primary">Shaire</Button>
-          
+            </Form.Control>
+            <div className="text-right">
+              <Button onClick={() => shareHandler()} type="submit" className="btn btn-primary btn-sm">
+                Share now
+              </Button>
             </div>
-            
+          </div>
         </Modal.Body>
       </Modal>
 
@@ -136,10 +137,10 @@ function DocumentView() {
             </div>
 
             <div>
-              <span className="me-auto">
-                <Link to={`/documents/document`}>
+              <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
                   <BsArrowLeftCircleFill color="black" size={'20px'} />
-                </Link>
+                </div>
               </span>
             </div>
           </div>
@@ -152,40 +153,28 @@ function DocumentView() {
                   <Card>
                     <div className="d-flex">
                       <div>
-                        {/* <Button className="label theme-bg text-white f-12" onClick={(e) => download(e)}>
-                          <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
-                          Download
-                        </Button> */}
+                        <img onClick={(e) => download(e)} className="btn" width={85} src={downloade} alt="" />
+                      </div>
+                      {doc.status === 'Pending' && (
+                        <div>
+                          <img onClick={(e) => DocumentPublish(doc.id)} className="btn" width={85} src={cloud} alt="" />
+                        </div>
+                      )}
 
-                        <img onClick={(e) => download(e)} className='btn' width={85} src={downloade} alt="" />
-                        
-                        <img  onClick={() => {
-                            setSmShow(true);
-                            shareDocHandler(doc);
-                          }} className='btn' width={85}  src={shareDoc} alt="" />
-
-                        {/* <Button
+                      <div>
+                        <img
                           onClick={() => {
                             setSmShow(true);
                             shareDocHandler(doc);
                           }}
-                          className="me-2"
-                        >
-                          Small modal
-                        </Button> */}
-
+                          className="btn"
+                          width={85}
+                          src={shareDoc}
+                          alt=""
+                        />
                       </div>
-
-                      {doc.status === 'Pending' && (
-                        // <  className="pointer mx-1 border " color="green" size={22} onClick={() => />
-                        <div>
-                          <Button className="label theme-bg2 text-white f-12" onClick={(e) => DocumentPublish(doc.id)}>
-                            <RiUploadCloud2Fill color="Teal" size={18} className="m-1" />
-                            Publish
-                          </Button>
-                        </div>
-                      )}
                     </div>
+
                     <div className=" mx-1 ">
                       <div>
                         <hr />

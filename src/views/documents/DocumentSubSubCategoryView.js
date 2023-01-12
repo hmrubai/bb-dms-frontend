@@ -12,7 +12,7 @@ import {
 } from 'react-icons/bs';
 import { RiUploadCloud2Fill } from 'react-icons/ri';
 import file from '../../assets/images/File/word.png';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import { useDeleteDocumentMutation, useDocumentpublishMutation, useShowSubSubCategoryDocumentQuery } from '../../services/documentApi';
 import { useDispatch } from 'react-redux';
@@ -25,6 +25,7 @@ import Cookies from 'js-cookie';
 function DocumentSubSubCategoryView() {
   // const authPermission = useSelector((state) => state.auth.permissions);
   const { id } = useParams();
+  const history=useHistory();
   const dispatch = useDispatch();
   const { data, isLoading, isError, isSuccess } = useShowSubSubCategoryDocumentQuery(id);
   const [deleteDocument] = useDeleteDocumentMutation();
@@ -106,14 +107,16 @@ function DocumentSubSubCategoryView() {
       </div>
       <Card className='p-0'>
         <Card.Header className="">
-          <div className=" d-flex justify-content-between ">
+        <div className='d-flex justify-content-between'>
             <div>
-              <Card.Title as="h5">Documents</Card.Title>
+                 <Card.Title as="h5">Documents</Card.Title>
             </div>
             <div>
-              <Link to={`/documents/document`}>
-                <BsArrowLeftCircleFill color="black" size={'20px'} />
-              </Link>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
             </div>
           </div>
         </Card.Header>

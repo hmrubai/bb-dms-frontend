@@ -4,6 +4,7 @@ import { Button, Form, Row, Col, Card } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { useGetCatagoryByIdQuery, useUpdateCatagoryMutation } from '../../../services/catagoryApi';
 import { toast } from 'react-toastify';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
 // import { useSelector } from 'react-redux';
 
 function CatagoryEdit() {
@@ -46,13 +47,25 @@ function CatagoryEdit() {
 
   if (cataResSucess) {
     toast.success(cataResData.message);
-    history.push('/catagories/catagory');
+    history.goBack();
   }
 
   return (
     <Card>
       <Card.Header>
-        <Card.Title as="h5">Edit Catagory</Card.Title>
+       
+        <div className='d-flex justify-content-between'>
+            <div>
+              <Card.Title as="h5">Edit Catagory</Card.Title>
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
       </Card.Header>
       <Card.Body>
         <Row>

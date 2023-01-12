@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetCategoryAllShowQuery, useGetSubCatagoryShowQuery } from '../../services/catagoryApi';
@@ -55,13 +56,25 @@ function DocumentAdd() {
 
   if (res.isSuccess) {
     toast.success(res.data.message);
-    history.push('/documents/document');
+    history.goBack();
   }
 
   return (
     <Card>
       <Card.Header>
-        <Card.Title as="h5">Add Document</Card.Title>
+    
+        <div className='d-flex justify-content-between'>
+            <div>
+                   <Card.Title as="h5">Add Document</Card.Title> 
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
       </Card.Header>
       <Card.Body>
         <Row>

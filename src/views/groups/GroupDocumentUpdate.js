@@ -44,7 +44,7 @@ function GroupDocumentUpdate() {
 
   if (isSuccessUp) {
     toast.success(data.message);
-    history.push('/groups/');
+    history.goBack();
   }
 
   console.log(data)

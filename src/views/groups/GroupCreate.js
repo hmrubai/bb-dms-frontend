@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useCreateGroupMutation } from '../../services/groupApi';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
 
 function GroupCreate() {
   const history = useHistory();
@@ -54,7 +55,7 @@ function GroupCreate() {
 
   if (res.isSuccess) {
     toast.success(res.data.message);
-    history.push('/groups/group');
+    history.goBack();
   }
 
   useEffect(() => {
@@ -78,7 +79,19 @@ function GroupCreate() {
       <Form onSubmit={submitHandel} encType="multipart/form-data">
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Create Group</Card.Title>
+           
+            <div className='d-flex justify-content-between'>
+            <div>
+           <Card.Title as="h5">Create Group</Card.Title>
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
           </Card.Header>
           <Card.Body>
             <Row>

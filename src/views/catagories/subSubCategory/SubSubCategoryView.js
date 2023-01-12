@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card, Row } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import Loading from '../../../components/Loading/Loading';
 
 import { useGetSubSubCategoryByIdQuery } from '../../../services/subSubCategoryApi';
 import DayJS from 'react-dayjs';
 function SubSubCategoryView() {
   const { id } = useParams();
-
+const history = useHistory();
   // const  response  = useGetCatagoryByIdQuery(id);
   const { data, isLoading } = useGetSubSubCategoryByIdQuery(id);
 
@@ -28,12 +28,19 @@ function SubSubCategoryView() {
       <Card>
         <Card.Header>
           <div>
-            <Card.Title as="h5">Sub Sub Catagory</Card.Title>
-            <span className="me-auto">
-              <Link to={`/catagories/sub_category`}>
-                <BsArrowLeftCircleFill color="black" size={'20px'} />
-              </Link>
-            </span>
+         
+            <div className='d-flex justify-content-between'>
+            <div>
+         <Card.Title as="h5">Sub Sub Catagory</Card.Title>
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
           </div>
         </Card.Header>
         <Card.Header>

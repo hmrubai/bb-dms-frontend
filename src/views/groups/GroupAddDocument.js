@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useAddGroupDocumentMutation } from '../../services/groupApi';
-import { useSelector } from './../../store/index';
+// import { useSelector } from './../../store/index';
 
 function GroupAddDocument() {
   const history = useHistory();
@@ -41,7 +41,7 @@ function GroupAddDocument() {
 
   if (res.isSuccess) {
     toast.success(res.data.message);
-    history.push('/groups/group');
+    history.goBack();
   }
 
   return (

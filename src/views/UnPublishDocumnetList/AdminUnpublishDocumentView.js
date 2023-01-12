@@ -5,13 +5,13 @@ import { Card, Row, Col, Button } from 'react-bootstrap';
 import {
 
   BsArrowLeftCircleFill,
-  BsFillArrowDownCircleFill,
   BsFillInfoCircleFill,
   BsReplyAllFill,
 
   BsXCircleFill
 } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import downloade from '../../assets/images/File/download.png';
 // import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import { toast, ToastContainer } from 'react-toastify';
@@ -23,6 +23,7 @@ import Loading from '../../components/Loading/Loading';
 
 function AdminUnpublishDocumentView() {
   const { id } = useParams();
+  const history = useHistory();
 
   const [documentpublish,] = useDocumentpublishMutation();
   const { data, isLoading, isSuccess } = useUnpublishDocumentQuery(id);
@@ -68,9 +69,19 @@ function AdminUnpublishDocumentView() {
         <ToastContainer />
         <Card.Header>
         <div className="d-flex justify-content-between">
+       
+            <div className='d-flex justify-content-between'>
             <div>
               <Card.Title as="h5">Documnet </Card.Title>
             </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
             <div>
                <span className="me-auto">
               <Link to={`/`}>
@@ -92,12 +103,10 @@ function AdminUnpublishDocumentView() {
                   <Col md={3}>
                     <Card>
                       <div className="d-flex">
-                        <div>
-                          <Button className="label theme-bg text-white f-12" onClick={(e) => download(e)}>
-                            <BsFillArrowDownCircleFill color="blue" size={18} className="m-1" />
-                            Download
-                          </Button>
-                        </div>
+                      <div>
+                        <img onClick={(e) => download(e)} className="btn" width={85} src={downloade} alt="" />
+                      </div>
+               
 
                         {data.admin === 'Pending' && (
                           // <  className="pointer mx-1 border " color="green" size={22} onClick={() => />

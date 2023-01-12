@@ -5,6 +5,7 @@ import { useAddCatagoryMutation } from '../../../services/catagoryApi';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSelector } from './../../../store/index';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
 function CatagoryAdd() {
   // const authPermission = useSelector((state) => state.auth.permissions);
   const auth = useSelector((state) => state.auth.user);
@@ -33,13 +34,25 @@ function CatagoryAdd() {
 
   if (isSuccess) {
     toast.success(data.message);
-    history.push('/catagories/catagory');
+    history.goBack();
   }
   // if (authPermission.includes('category_create')) {
     return (
       <Card>
         <Card.Header>
-          <Card.Title as="h5">Add Catagory</Card.Title>
+      
+          <div className='d-flex justify-content-between'>
+            <div>
+            <Card.Title as="h5">Add Catagory</Card.Title>
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
         </Card.Header>
         <Card.Body>
           <Row>

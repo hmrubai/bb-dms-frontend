@@ -1,16 +1,14 @@
 import React from 'react';
 
 import { Card, Button } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import {
   BsFillPlusCircleFill,
-  BsXCircleFill,
-  BsFillCheckCircleFill,
   BsFillEyeFill,
   BsFillArrowDownCircleFill,
   BsFillTrashFill,
-  BsFillInfoCircleFill,
-  BsPencilSquare
+  BsPencilSquare,
+  BsArrowLeftCircleFill
 } from 'react-icons/bs';
 import { useGroupDeleteDocumentMutation, useGroupDocumentQuery, useSingalGroupQuery } from '../../services/groupApi';
 import Loading from './../../components/Loading/Loading';
@@ -21,16 +19,16 @@ import fileDownload from 'js-file-download';
 import Swal from 'sweetalert2';
 import { useSelector } from './../../store/index';
 import { HiUserGroup } from 'react-icons/hi';
-import avatar from '../../assets/images/user/avatar-1.jpg'
+import avatar from '../../assets/images/user/avatar-1.jpg';
 function GroupDocument() {
   const { id } = useParams();
-  
+  let history = useHistory();
+
   const { data, isFetching, isSuccess } = useGroupDocumentQuery(id);
   const [groupDeleteDocument] = useGroupDeleteDocumentMutation();
-  const { data: singalData, isFetching: singalDataFetching, isSuccess: singalDataSuccess } = useSingalGroupQuery(id);
+  const { data: singalData, isSuccess: singalDataSuccess } = useSingalGroupQuery(id);
 
   const auth = useSelector((state) => state.auth.user);
-
 
   const deleteHandel = async (Did) => {
     Swal.fire({
@@ -80,24 +78,33 @@ function GroupDocument() {
       </div>
       <Card>
         <Card.Header>
-          {singalDataSuccess && <Card.Title as="h5">{singalData.data.name}</Card.Title>}
-          {singalDataSuccess &&
-            singalData.data.user.map((item) => (
-              <span>
-                <img
-                  width={20}
-                  alt={item.name}
-                  className="rounded-circle pb-1 "
-                  variant="top"
-                  src={item.image ? `${process.env.REACT_APP_IMAGE_URL}${item.image}` : { avatar}
-                }
-                />
+          <div className=" d-flex justify-content-between">
+            <div>
+              {singalDataSuccess && <Card.Title as="h5">{singalData.data.name}</Card.Title>}
+              {singalDataSuccess &&
+                singalData.data.user.map((item) => (
+                  <span>
+                    <img
+                      width={20}
+                      alt={item.name}
+                      className="rounded-circle pb-1 "
+                      variant="top"
+                      src={item.image ? `${process.env.REACT_APP_IMAGE_URL}${item.image}` : { avatar }}
+                    />
+                  </span>
+                ))}
+            </div>
+            <div>
+              <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
               </span>
-            ))}
+            </div>
+          </div>
         </Card.Header>
-  
+
         {isFetching && <Loading />}
-     
 
         {isSuccess && (
           <div className="d-flex flex-wrap justify-content-center justify-content-md-start">
@@ -121,7 +128,7 @@ function GroupDocument() {
                       <div className="mb-1 ">
                         <span>
                           <HiUserGroup className=" mx-1 mb-1" color="green" />
-                          {item.group.name}
+                          {item.group.name.slice(0, 15)}
                         </span>
                       </div>
                       <div></div>
@@ -136,25 +143,22 @@ function GroupDocument() {
                   </Card.Body>
 
                   <div className=" text-center p-2 shadow my-3 mt-4">
-          
-                      <div>
-                        <Link className='px-1' to={`/groups/group_document_view/${item.id}`}>
-                          <BsFillEyeFill color="blue" size={22} />
+                    <div>
+                      <Link className="px-1" to={`/groups/group_document_view/${item.id}`}>
+                        <BsFillEyeFill color="blue" size={22} />
                       </Link>
                       {auth.id === item?.user.id && (
-                      <Link to={`/groups/group_document_update/${item.id}`} className="px-2">
-                        <BsPencilSquare size={18} />
-                      </Link>
-)}
-                        <span className="pointer m-2">
-                          <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
-                        </span>
-                        {auth.id === item?.user.id && (
-                          <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
-                        )}
-                      </div>
-                    
-               
+                        <Link to={`/groups/group_document_update/${item.id}`} className="px-2">
+                          <BsPencilSquare size={18} />
+                        </Link>
+                      )}
+                      <span className="pointer m-2">
+                        <BsFillArrowDownCircleFill onClick={(e) => download(e, item)} color="black" size={18} />
+                      </span>
+                      {auth.id === item?.user.id && (
+                        <BsFillTrashFill className="pointer mx-1" color="red" size={17} onClick={() => deleteHandel(item.id)} />
+                      )}
+                    </div>
                   </div>
                 </Card>
               </div>

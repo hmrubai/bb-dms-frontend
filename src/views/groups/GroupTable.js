@@ -1,22 +1,22 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import group from './../../assets/images/File/group.png';
-import { Link } from 'react-router-dom';
-import { BsPencilSquare, BsFillTrashFill, BsFillEyeFill } from 'react-icons/bs';
-import { HiUserGroup } from 'react-icons/hi';
-import { useDeleteGroupMutation, useSingalGroupQuery, useUserWiseGroupViewQuery } from '../../services/groupApi';
+import { Link, useHistory } from 'react-router-dom';
+import { BsPencilSquare, BsFillTrashFill, BsFillEyeFill, BsArrowLeftCircleFill } from 'react-icons/bs';
+
+import { useDeleteGroupMutation, useUserWiseGroupViewQuery } from '../../services/groupApi';
 import Loading from './../../components/Loading/Loading';
 import Swal from 'sweetalert2';
 import { useSelector } from './../../store/index';
 import avator from './../../assets/images/user/avatar-1.jpg';
 
 export const GroupTable = () => {
-  const { data, isFetching, isLoading, isSuccess } = useUserWiseGroupViewQuery();
+  const { data, isFetching, isSuccess } = useUserWiseGroupViewQuery();
   // const { data, isFetching, isSuccess, isLoading } = useSingalGroupQuery(id)
   const [deleteGroup] = useDeleteGroupMutation();
   const auth = useSelector((state) => state.auth.user);
+const history = useHistory();
 
-  console.log(data)
 
   const deleteHandel = async (id) => {
     Swal.fire({
@@ -41,8 +41,22 @@ export const GroupTable = () => {
       <div className="mb-2"></div>
       <Card>
         <Card.Header>
-          <Card.Title as="h5">Groups </Card.Title>
+          <div className=' d-flex justify-content-between'>
+            <div>
+              <Card.Title as="h5">Groups </Card.Title>
+            </div>
+            <div>
+                <span className="me-auto pointer">
+                <div onClick={()=>history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
         </Card.Header>
+
+
+          
 
         {isFetching && <Loading />}
 
@@ -61,7 +75,7 @@ export const GroupTable = () => {
 
                 <Card.Body className="py-0 my-0 pt-2 ">
                   <Card.Title style={{ fontSize: '100%' }} className="text-center font-weight-bold">
-                    {item?.group?.name}
+                    {item?.group?.name.slice(0, 15)}
                   </Card.Title>
                   <Card.Text className="">
                     {' '}

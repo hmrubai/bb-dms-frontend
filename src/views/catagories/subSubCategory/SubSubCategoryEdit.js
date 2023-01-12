@@ -2,15 +2,17 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Card } from 'react-bootstrap';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useGetSubSubCategoryByIdQuery, useUpdateSubSubCatagoryMutation } from '../../../services/subSubCategoryApi';
+import { toast } from 'react-toastify';
 
 function CatagoryEdit() {
     const {  id } = useParams();
   const history = useHistory();
 
-  const [updateSubSubCatagory ] = useUpdateSubSubCatagoryMutation() || {};
+  const [updateSubSubCatagory ,{data:subSubData,isSuccess:subSubIsScucess}] = useUpdateSubSubCatagoryMutation() || {};
   const { data, isSuccess,  } = useGetSubSubCategoryByIdQuery(id);
   const [name, setName] = useState();
   const [description, setDescription] = useState();
@@ -36,15 +38,39 @@ function CatagoryEdit() {
     formData.append('description', description)
     formData.append('status', status)
     formData.append('image', image)
-    updateSubSubCatagory({ id: id, data: formData });
-    history.push('/catagories/sub_sub_category');
+
+    try {
+      updateSubSubCatagory({ id: id, data: formData }).unwrap();
+    } catch (error) {
+      toast.success(error.data.message);
+      
+    }
+    
+    
   };
-  console.log(status)
+  if(subSubIsScucess){
+    toast.success(subSubData.message);
+    history.goBack();
+  }
+
+
  
   return (
     <Card>
       <Card.Header>
-        <Card.Title as="h5">Edit Sub Sub Category</Card.Title>
+       
+        <div className='d-flex justify-content-between'>
+            <div>
+             <Card.Title as="h5">Edit Sub Sub Category</Card.Title>    
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
       </Card.Header>
       <Card.Body>
         <Row>

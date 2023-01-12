@@ -55,7 +55,7 @@ const DashDefault = () => {
         <Col md={12} xl={4}>
           <Card>
             <Card.Body>
-              <h6 className="mb-4">Total Published Documnets</h6>
+              <h6 className="mb-4">  Total Published Documnets</h6>
               <div className="row d-flex align-items-center">
                 <div className="col-9">
                   <h3 className="f-w-300 d-flex align-items-center m-b-0">

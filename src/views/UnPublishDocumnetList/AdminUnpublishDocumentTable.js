@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BsFillClockFill, BsFillEyeFill, BsFillTrashFill, BsReplyAllFill, BsXCircleFill } from 'react-icons/bs';
+import { BsFillClockFill, BsFillEyeFill, BsFillTrashFill, BsXCircleFill } from 'react-icons/bs';
 import {RiUploadCloud2Fill } from 'react-icons/ri';
 // import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';

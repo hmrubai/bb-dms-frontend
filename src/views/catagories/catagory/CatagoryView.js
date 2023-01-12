@@ -1,13 +1,14 @@
 import React from 'react';
 import { Card, Row } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Loading from '../../../components/Loading/Loading';
 import { useGetCatagoryByIdQuery } from '../../../services/catagoryApi';
 import DayJS from 'react-dayjs';
 
 function CatagoryView() {
   const { id } = useParams();
+  const history = useHistory();
 
   const { data,isLoading } = useGetCatagoryByIdQuery(id);
 
@@ -26,16 +27,20 @@ function CatagoryView() {
 
   return (
     <>
-      <Card>
+      <Card> 
       <Card.Header>
-        <div>
-          <Card.Title as="h5">Catagory</Card.Title>
-          <span className="me-auto">
-            <Link to={`/catagories/catagory`}>
-              <BsArrowLeftCircleFill color="black" size={'20px'} />
-            </Link>
-          </span>
-        </div>
+      <div className='d-flex justify-content-between'>
+            <div>
+                <Card.Title as="h5">Catagory</Card.Title>
+            </div>
+            <div>
+            <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
+          </div>
         </Card.Header>
       <Card.Header>
         <div className='text-center'>
