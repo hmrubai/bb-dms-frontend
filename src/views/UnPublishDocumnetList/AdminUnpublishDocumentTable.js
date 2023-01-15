@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillClockFill, BsFillEyeFill, BsFillTrashFill, BsXCircleFill } from 'react-icons/bs';
-import {RiUploadCloud2Fill } from 'react-icons/ri';
+import { RiUploadCloud2Fill } from 'react-icons/ri';
 // import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import Swal from 'sweetalert2';
@@ -15,11 +15,11 @@ function AdminUnpublishDocumentTable({ list, index }) {
   const deleteHandel = async (id) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      // text: "You won't be able to revert this!",
       icon: 'error',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33 ',
+      cancelButtonColor: ' #4e4e4e',
       confirmButtonText: 'Yes, delete it!',
       width: 400
     }).then((result) => {
@@ -36,7 +36,7 @@ function AdminUnpublishDocumentTable({ list, index }) {
       // text: "You won't be able to revert this!",
       icon: 'warning',
       confirmButtonColor: 'green',
-      cancelButtonColor: '#d33',
+      cancelButtonColor: '#4e4e4e',
       confirmButtonText: 'Yes, Publish it!',
       width: 200,
       showCancelButton: true
@@ -49,38 +49,36 @@ function AdminUnpublishDocumentTable({ list, index }) {
   };
 
   return (
-    <tbody>
-      <tr>
-        <th scope="row">{index + 1}</th>
-        <td>{list.name}</td>
-        <td> {list.user.name}</td>
-        <td>
-          {' '}
-          <span>
-            <BsXCircleFill color="red" />
-          </span>{' '}
-          {list.admin_status}
-        </td>
-        <td>
-          Date: <DayJS format="YYYY-MM-DD">{list.created_at}</DayJS> |<BsFillClockFill color="black" />| Time:{' '}
-          <DayJS format="h:mm A">{list.created_at}</DayJS>
-        </td>
+    <tr>
+      <th scope="row">{index + 1}</th>
+      <td>{list.name}</td>
+      <td> {list.user.name}</td>
+      <td>
+        {' '}
+        <span>
+          <BsXCircleFill color="red" />
+        </span>{' '}
+        {list.admin_status}
+      </td>
+      <td>
+        Date: <DayJS format="YYYY-MM-DD">{list.created_at}</DayJS> |<BsFillClockFill color="black" />| Time:{' '}
+        <DayJS format="h:mm A">{list.created_at}</DayJS>
+      </td>
 
-        <td>
-          <Link to={`/documents/unpublish_document_view/${list.id}`}>
-            <BsFillEyeFill color="black" size={20} />
-          </Link>
+      <td>
+        <Link to={`/documents/unpublish_document_view/${list.id}`}>
+          <BsFillEyeFill color="black" size={20} />
+        </Link>
 
-          <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(list.id)}>
-            <BsFillTrashFill color="red" size={17} />
-          </button>
+        <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(list.id)}>
+          <BsFillTrashFill color="red" size={17} />
+        </button>
 
-          {list.admin_status === 'Pending' && (
-            <RiUploadCloud2Fill className="pointer mx-1  " color="Teal" size={20} onClick={() => DocumentPublish(list.id)} />
-          )}
-        </td>
-      </tr>
-    </tbody>
+        {list.admin_status === 'Pending' && (
+          <RiUploadCloud2Fill className="pointer mx-1  " color="Teal" size={20} onClick={() => DocumentPublish(list.id)} />
+        )}
+      </td>
+    </tr>
   );
 }
 

@@ -44,9 +44,11 @@ function UserTable() {
                   <th>Action</th>
                 </tr>
               </thead>
+              <tbody>
               {isSuccess&&data.data.map((user,index) => (
                 <UserTableBody key={ index } user={user} index={index} />
               ))}
+              </tbody>
             </Table>
 
             <Pagination className=" justify-content-end   mr-5">

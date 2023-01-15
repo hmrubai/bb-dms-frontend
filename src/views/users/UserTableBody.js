@@ -14,11 +14,11 @@ function UserTableBody({ user, index }) {
   const deleteHandel = async (id) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
+      // text: "You won't be able to revert this!",
+      icon: 'error',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33 ',
+      cancelButtonColor: ' #4e4e4e',
       confirmButtonText: 'Yes, delete it!',
       width: 400
     }).then((result) => {
@@ -30,7 +30,7 @@ function UserTableBody({ user, index }) {
   };
 
   return (
-    <tbody>
+
       <tr>
         <th scope="row">{index + 1}</th>
         <td>{user.name}</td>
@@ -52,13 +52,13 @@ function UserTableBody({ user, index }) {
           {/* )} */}
 
           {/* {authPermission.includes('user_delete') && ( */}
-            <button style={{ 'border-style': 'none' }} onClick={() => deleteHandel(user.id)}>
+            <Link to="#" style={{ 'border-style': 'none' }} onClick={() => deleteHandel(user.id)}>
               <BsFillTrashFill color="red" size={17} />
-            </button>
+            </Link>
           {/* )} */}
         </td>
       </tr>
-    </tbody>
+
   );
 }
 

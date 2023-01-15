@@ -13,13 +13,10 @@ function GroupAddDocument() {
   // const auth = useSelector((state) => state.auth.user);
 
   const [addGroupDocument, res] = useAddGroupDocumentMutation()
-  
-  console.log(res);
-
   const [name, setName] = useState();
   const [description, setDescription] = useState();
-
   const [file, setFile] = useState();
+  
 
   const submitHandel = async (e) => {
     e.preventDefault();

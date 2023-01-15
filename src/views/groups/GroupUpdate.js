@@ -88,7 +88,7 @@ function GroupUpdate() {
       url: `${process.env.REACT_APP_BASE_URL}all_user_for_group`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
       }
     }).then((res) => {
       setUser(res.data);

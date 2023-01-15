@@ -35,8 +35,8 @@ function GroupDocument() {
       title: 'Are you sure?',
       // text: "You won't be able to revert this!",
       icon: 'error',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#4e4e4e',
       confirmButtonText: 'Yes, delete it!',
       width: 200,
       showCancelButton: true
@@ -54,7 +54,7 @@ function GroupDocument() {
       url: `${process.env.REACT_APP_BASE_URL}download_file/${item.id}`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
       },
       responseType: 'blob'
     })
@@ -106,6 +106,13 @@ function GroupDocument() {
 
         {isFetching && <Loading />}
 
+        {data?.length === 0 && (
+          <div className="d-flex justify-content-center">
+            <p className="text-center">No Document Found :)</p>
+          </div>
+            )}
+
+  
         {isSuccess && (
           <div className="d-flex flex-wrap justify-content-center justify-content-md-start">
             {data?.map((item) => (

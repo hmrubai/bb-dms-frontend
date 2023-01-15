@@ -14,9 +14,9 @@ export const userApi = createApi({
         url: `users?page=${page}`,
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`,
+          Authorization: `Bearer ${Cookies.get('dms_token')}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
@@ -30,9 +30,9 @@ export const userApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`,
+          Authorization: `Bearer ${Cookies.get('dms_token')}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
@@ -44,9 +44,9 @@ export const userApi = createApi({
         url: `users/${id}`,
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`,
+          Authorization: `Bearer ${Cookies.get('dms_token')}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       invalidatesTags: ['User']
@@ -59,7 +59,7 @@ export const userApi = createApi({
           method: 'POST',
           body: user,
           headers: {
-            Authorization: `Bearer ${Cookies.get('token')}`
+            Authorization: `Bearer ${Cookies.get('dms_token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -73,7 +73,7 @@ export const userApi = createApi({
           method: 'POST',
           body: data,
           headers: {
-            Authorization: `Bearer ${Cookies.get('token')}`
+            Authorization: `Bearer ${Cookies.get('dms_token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -86,7 +86,7 @@ export const userApi = createApi({
         url: `users/${id}`,
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
           // 'Content-type': 'application/json; charset=UTF-8'
         }
       }),

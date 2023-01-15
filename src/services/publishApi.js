@@ -15,7 +15,7 @@ export const publishApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       providesTags: ['Publish']
@@ -27,7 +27,7 @@ export const publishApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       providesTags: ['Publish']
@@ -39,7 +39,7 @@ export const publishApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       providesTags: ['Publish']
@@ -51,7 +51,7 @@ export const publishApi = createApi({
           url: `admin_document_publish/${id}`,
           method: 'POST',
           headers: {
-            Authorization: `Bearer ${Cookies.get('token')}`
+            Authorization: `Bearer ${Cookies.get('dms_token')}`
           }
         };
       },
@@ -63,7 +63,7 @@ export const publishApi = createApi({
         url: `document/${id}`,
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       invalidatesTags: ['Publish']
@@ -75,7 +75,7 @@ export const publishApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -87,7 +87,7 @@ export const publishApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       providesTags: ['Publish']

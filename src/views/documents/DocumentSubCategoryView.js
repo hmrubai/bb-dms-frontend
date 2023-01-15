@@ -47,11 +47,11 @@ function DocumentSubCategoryView() {
   const deleteHandel = async (id) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
+      // text: "You won't be able to revert this!",
+      icon: 'error',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33 ',
+      cancelButtonColor: ' #4e4e4e',
       confirmButtonText: 'Yes, delete it!',
       width: 400
     }).then((result) => {
@@ -72,7 +72,7 @@ function DocumentSubCategoryView() {
       // text: "You won't be able to revert this!",
       icon: 'warning',
       confirmButtonColor: 'green',
-      cancelButtonColor: '#d33',
+      cancelButtonColor: '<div id="4e4e4e"></div>',
       confirmButtonText: 'Yes, Publish it!',
       width: 200,
       showCancelButton: true
@@ -92,7 +92,7 @@ function DocumentSubCategoryView() {
       url: `${process.env.REACT_APP_BASE_URL}download/${item.id}`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
       },
       responseType: 'blob'
     })

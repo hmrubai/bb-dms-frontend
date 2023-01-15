@@ -15,7 +15,7 @@ export const groupApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       providesTags: ['Group']
@@ -28,7 +28,7 @@ export const groupApi = createApi({
           method: 'POST',
           body: group,
           headers: {
-            Authorization: `Bearer ${Cookies.get('token')}`
+            Authorization: `Bearer ${Cookies.get('dms_token')}`
           }
         };
       },
@@ -41,7 +41,7 @@ export const groupApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       providesTags: ['Group']
@@ -56,7 +56,7 @@ export const groupApi = createApi({
           headers: {
             // 'Content-type': 'application/json; charset=UTF-8'
           
-              "Authorization": `Bearer ${Cookies.get("token")}`
+              "Authorization": `Bearer ${Cookies.get("dms_token")}`
        
           }
         };
@@ -70,7 +70,7 @@ export const groupApi = createApi({
         url: `delete_group/${id}`,
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
         }
       }),
       invalidatesTags: ['Group']
@@ -82,7 +82,7 @@ export const groupApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       providesTags: ['Group']
@@ -97,7 +97,7 @@ export const groupApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       providesTags: ['Group']
@@ -109,7 +109,7 @@ export const groupApi = createApi({
           method: 'POST',
           body: data,
           headers: {
-            "Authorization": `Bearer ${Cookies.get("token")}`
+            "Authorization": `Bearer ${Cookies.get("dms_token")}`
           }
 
         };
@@ -124,7 +124,7 @@ export const groupApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       providesTags: ['Group']
@@ -136,7 +136,7 @@ export const groupApi = createApi({
       url: `delete_group_documnet/${id}`,
       method: 'DELETE',
       headers: {
-        "Authorization": `Bearer ${Cookies.get("token")}`
+        "Authorization": `Bearer ${Cookies.get("dms_token")}`
       }
     }),
     invalidatesTags: ['Group']
@@ -150,7 +150,7 @@ export const groupApi = createApi({
         method: 'POST',
         body: data,
         headers: {
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
 
       };
@@ -167,7 +167,7 @@ export const groupApi = createApi({
         headers: {
           // 'Content-type': 'application/json; charset=UTF-8'
         
-            "Authorization": `Bearer ${Cookies.get("token")}`
+            "Authorization": `Bearer ${Cookies.get("dms_token")}`
      
         }
       };

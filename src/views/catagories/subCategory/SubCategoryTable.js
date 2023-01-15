@@ -57,9 +57,16 @@ function SubCategoryTable() {
                   <th>Action</th>
                 </tr>
               </thead>
+              <tbody>
               {data.data.map((subCatagory,index) => (
                 <SubCategoryTableBody key={index} subCatagory={subCatagory} index={index} />
               ))}
+              </tbody>
+              {data?.data?.length === 0 && (
+          <div className="d-flex justify-content-center">
+            <p className="text-center">No sub Category Found:)</p>
+          </div>
+            )}
             </Table>
 
             <Pagination className=" justify-content-end   mr-5">

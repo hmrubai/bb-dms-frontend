@@ -9,9 +9,9 @@ import Signup1 from './views/auth/signup/SignUp1';
 import SignIn1 from './views/auth/signin/SignIn1';
 
 const App = () => {
-  const token = Cookies.get('token');
+  const dms_token = Cookies.get('dms_token');
 
-  if (!token) {
+  if (!dms_token) {
     return (
       <React.Fragment>
         <Router>

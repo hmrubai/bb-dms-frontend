@@ -37,7 +37,7 @@ const DashDefault = () => {
       url: `${process.env.REACT_APP_BASE_URL}download/${item.id}`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
       },
       responseType: 'blob'
     })
@@ -152,6 +152,7 @@ const DashDefault = () => {
                 <Loading animation="border" variant="primary" />
               </div>
             )}
+        
             {docSuccess && (
               <div className="d-flex flex-wrap justify-content-center justify-content-md-start">
                 {allDoc?.data.map((item) => (

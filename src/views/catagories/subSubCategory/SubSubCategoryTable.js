@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Card, Table } from 'react-bootstrap';
 import Loading from '../../../components/Loading/Loading';
-import SubSubCategoryTableBody from '../../../views/catagories/subSubCategory/SubSubCategoryTableBody'
+import SubSubCategoryTableBody from '../../../views/catagories/subSubCategory/SubSubCategoryTableBody';
 
 import Pagination from 'react-bootstrap/Pagination';
 import { ToastContainer } from 'react-toastify';
@@ -10,13 +10,12 @@ import { useGetAllSubSubCategoryQuery } from '../../../services/subSubCategoryAp
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { useHistory } from 'react-router-dom';
 
-
 function SubSubCategoryTable() {
   const [page, setPage] = useState(1);
-  const history =useHistory()
+  const history = useHistory();
   // const [show, setShow] = useState(false);
 
-  const { data, isFetching, isLoading } =useGetAllSubSubCategoryQuery (page);
+  const { data, isFetching, isLoading } = useGetAllSubSubCategoryQuery(page);
 
   if (isLoading) {
     return (
@@ -29,23 +28,22 @@ function SubSubCategoryTable() {
   } else {
     return (
       <>
-         <ToastContainer />
+        <ToastContainer />
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
-           
-            <div className='d-flex justify-content-between'>
-            <div>
-               <Card.Title as="h5">Sub Sub Category</Card.Title>
+            <div className="d-flex justify-content-between">
+              <div>
+                <Card.Title as="h5">Sub Sub Category</Card.Title>
+              </div>
+              <div>
+                <span className="me-auto pointer">
+                  <div onClick={() => history.goBack()}>
+                    <BsArrowLeftCircleFill color="black" size={'20px'} />
+                  </div>
+                </span>
+              </div>
             </div>
-            <div>
-            <span className="me-auto pointer">
-                <div onClick={() => history.goBack()}>
-                  <BsArrowLeftCircleFill color="black" size={'20px'} />
-                </div>
-              </span>
-            </div>
-          </div>
           </Card.Header>
           <Card.Body>
             <Table responsive striped>
@@ -61,9 +59,16 @@ function SubSubCategoryTable() {
                   <th>Action</th>
                 </tr>
               </thead>
-              {data.data.map((subSubCatagory, index) => (
-              <SubSubCategoryTableBody key={index} subSubCatagory={subSubCatagory} index={index } />
-              ))}
+              <tbody>
+                {data.data.map((subSubCatagory, index) => (
+                  <SubSubCategoryTableBody key={index} subSubCatagory={subSubCatagory} index={index} />
+                ))}
+              </tbody>
+              {data?.data?.length === 0 && (
+                <div className="d-flex justify-content-center">
+                  <p className="text-center">No Sub Sub Category Found :)</p>
+                </div>
+              )}
             </Table>
 
             <Pagination className=" justify-content-end   mr-5">

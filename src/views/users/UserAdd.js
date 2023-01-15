@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useGetAllPermissionQuery } from '../../services/permissionApi';
 import { useAddUserMutation } from '../../services/userApi';
 import { useSelector } from 'react-redux';
+import avatar from '../../assets/images/user/avatar-1.jpg'
 
 function UserAdd() {
   const authPermission = useSelector((state) => state.auth.permissions);
@@ -36,8 +37,12 @@ function UserAdd() {
       formData.append('status', status);
     }
     formData.append('password', password);
+
+
+
     if (image !== undefined) {
-      formData.append('image', image);
+
+       formData.append('image', image);
     }
 
     if (permission.length > 0) {

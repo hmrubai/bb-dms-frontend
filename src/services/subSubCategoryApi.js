@@ -15,9 +15,9 @@ export const subSubCategoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
-              "Authorization": `Bearer ${Cookies.get("token")}`,
+              "Authorization": `Bearer ${Cookies.get("dms_token")}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
@@ -29,9 +29,9 @@ export const subSubCategoryApi = createApi({
         url: `sub_sub_category/${id}`,
         method: 'GET',
         headers: {
-              "Authorization": `Bearer ${Cookies.get("token")}`,
+              "Authorization": `Bearer ${Cookies.get("dms_token")}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       invalidatesTags: ['SubSubCategory']
@@ -44,7 +44,7 @@ export const subSubCategoryApi = createApi({
           method: 'POST',
           body: SubSubCategory,
           headers: {
-                "Authorization": `Bearer ${Cookies.get("token")}`,
+                "Authorization": `Bearer ${Cookies.get("dms_token")}`,
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -58,7 +58,7 @@ export const subSubCategoryApi = createApi({
           method: 'POST',
           body: data,
           headers: {
-            Authorization: `Bearer ${Cookies.get('token')}`
+            Authorization: `Bearer ${Cookies.get('dms_token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -71,7 +71,7 @@ export const subSubCategoryApi = createApi({
         url: `sub_sub_category/${id}`,
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
           // 'Content-type': 'application/json; charset=UTF-8'
         }
       }),

@@ -69,7 +69,7 @@ function DocumentView() {
       url: `${process.env.REACT_APP_BASE_URL}download/${doc.id}`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
       },
       responseType: 'blob'
     })
@@ -88,7 +88,7 @@ function DocumentView() {
       // text: "You won't be able to revert this!",
       icon: 'warning',
       confirmButtonColor: 'green',
-      cancelButtonColor: '#d33',
+      cancelButtonColor: '#4e4e4e',
       confirmButtonText: 'Yes, Publish it!',
       width: 200,
       showCancelButton: true

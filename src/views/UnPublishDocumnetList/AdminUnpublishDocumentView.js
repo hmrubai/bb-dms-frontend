@@ -34,7 +34,7 @@ function AdminUnpublishDocumentView() {
       url: `${process.env.REACT_APP_BASE_URL}download/${data.id}`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
       },
       responseType: 'blob'
     })

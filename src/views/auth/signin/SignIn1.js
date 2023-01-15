@@ -6,12 +6,12 @@ import { authApiContext } from '../../../contexts/Api/AuthApi';
 import Breadcrumb from '../../../layouts/AdminLayout/Breadcrumb';
 import logo from '../../../../src/assets/images/logo.png';
 import { ToastContainer } from 'react-toastify';
-import Loading from '../../../components/Loading/Loading';
 
-const SignUp1 = () => {
+
+const Signin1 = () => {
   const { login } = useContext(authApiContext);
 
-  const [isLoding, setIsloding] = useState(false);
+
 
   const [allData, setData] = useState({
     email: '',
@@ -26,12 +26,10 @@ const SignUp1 = () => {
       email: '',
       password: ''
     });
-    setIsloding(true);
+
   };
 
-  if (localStorage.getItem('user')) {
-    setIsloding(false);
-  }
+
 
   return (
     <React.Fragment>
@@ -48,7 +46,7 @@ const SignUp1 = () => {
           </div>
 
           <Card className="borderless">
-            {isLoding === true ? <Loading /> : null}
+
             <Row className="align-items-center">
               <Col>
                 <Card.Body className="text-center">
@@ -107,4 +105,4 @@ const SignUp1 = () => {
   );
 };
 
-export default SignUp1;
+export default Signin1;

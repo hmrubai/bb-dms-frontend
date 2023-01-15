@@ -33,6 +33,25 @@ const menuItems = {
       ]
     },
 
+   
+    {
+      id: 'documents',
+      title: 'Documents',
+      type: 'group',
+      icon: 'icon-group',
+      children: [
+        {
+          id: 'documents',
+          title: 'Documents',
+          type: 'item',
+          url: '/documents/document',
+          icon: 'feather icon-layout',
+        },
+    
+     
+        // addnew
+      ]
+    },
     {
       id: 'categories',
       title: 'Categories',
@@ -69,30 +88,6 @@ const menuItems = {
       ]
     },
     {
-      id: 'documents',
-      title: 'Documents',
-      type: 'group',
-      icon: 'icon-group',
-      children: [
-        {
-          id: 'documents',
-          title: 'Documents',
-          type: 'item',
-          url: '/documents/document',
-          icon: 'feather icon-layout',
-        },
-        {
-          id: 'Unpublish Documents',
-          title: 'Unpublish Documents',
-          type: 'item',
-          url: '/documents/adminunpublish_document_list',
-          icon: 'feather icon-share-2',
-        },
-     
-        // addnew
-      ]
-    },
-    {
       id: 'settings',
       title: 'Settings',
       type: 'group',
@@ -100,6 +95,14 @@ const menuItems = {
      
  
       children: [
+        
+        {
+          id: 'Unpublish Documents',
+          title: 'Unpublish Documents',
+          type: 'item',
+          url: '/documents/adminunpublish_document_list',
+          icon: 'feather icon-share-2',
+        },
         {
           id: 'users',
           title: 'User Settings',

@@ -15,9 +15,9 @@ export const catagoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`,
+          Authorization: `Bearer ${Cookies.get('dms_token')}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
@@ -29,9 +29,9 @@ export const catagoryApi = createApi({
         url: `category/${id}`,
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`,
+          Authorization: `Bearer ${Cookies.get('dms_token')}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       invalidatesTags: ['Category']
@@ -44,7 +44,7 @@ export const catagoryApi = createApi({
           method: 'POST',
           body: catagory,
           headers: {
-            Authorization: `Bearer ${Cookies.get('token')}`
+            Authorization: `Bearer ${Cookies.get('dms_token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -58,7 +58,7 @@ export const catagoryApi = createApi({
           method: 'POST',
           body: data,
           headers: {
-            Authorization: `Bearer ${Cookies.get('token')}`
+            Authorization: `Bearer ${Cookies.get('dms_token')}`
             // 'Content-type': 'application/json; charset=UTF-8'
           }
         };
@@ -71,7 +71,7 @@ export const catagoryApi = createApi({
         url: `category/${id}`,
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`
+          Authorization: `Bearer ${Cookies.get('dms_token')}`
           // 'Content-type': 'application/json; charset=UTF-8'
         }
       }),
@@ -83,7 +83,7 @@ export const catagoryApi = createApi({
         url: `category_all`,
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`,
+          Authorization: `Bearer ${Cookies.get('dms_token')}`,
           'Content-type': 'application/json; charset=UTF-8'
         }
       }),
@@ -96,9 +96,9 @@ export const catagoryApi = createApi({
         url: `category_show/${id}`,
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`,
+          Authorization: `Bearer ${Cookies.get('dms_token')}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       invalidatesTags: ['Category']
@@ -111,9 +111,9 @@ export const catagoryApi = createApi({
         // transformResponse: (res) => res.reverse(),
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${Cookies.get('token')}`,
+          Authorization: `Bearer ${Cookies.get('dms_token')}`,
           'Content-type': 'application/json; charset=UTF-8'
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`
+          // "Authorization": `Bearer ${localStorage.getItem("dms_token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),

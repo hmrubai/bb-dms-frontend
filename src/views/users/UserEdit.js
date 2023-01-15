@@ -37,7 +37,7 @@ const UserEdit = (props) => {
       url: `${process.env.REACT_APP_BASE_URL}permission`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
       }
     })
       .then((res) => {
@@ -55,7 +55,7 @@ const UserEdit = (props) => {
       url: `${process.env.REACT_APP_BASE_URL}users/${id}`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
       }
     })
       .then((res) => {

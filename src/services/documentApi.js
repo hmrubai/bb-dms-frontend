@@ -16,7 +16,7 @@ export const documentApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       // transformResponse: (res) => res.reverse(),
@@ -30,7 +30,7 @@ export const documentApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -46,7 +46,7 @@ export const documentApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -63,7 +63,7 @@ export const documentApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -80,7 +80,7 @@ export const documentApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -98,7 +98,7 @@ export const documentApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       // invalidatesTags: ['DocumentData'],
@@ -117,7 +117,7 @@ export const documentApi = createApi({
           headers: {
             // 'Content-type': 'application/json; charset=UTF-8'
           
-              "Authorization": `Bearer ${Cookies.get("token")}`
+              "Authorization": `Bearer ${Cookies.get("dms_token")}`
        
           }
         };
@@ -132,7 +132,7 @@ export const documentApi = createApi({
         url: `document/${id}`,
         method: 'DELETE',
         headers: {
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       invalidatesTags: ['DocumentData']
@@ -144,7 +144,7 @@ export const documentApi = createApi({
         method: 'GET',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          "Authorization": `Bearer ${Cookies.get("token")}`
+          "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
       invalidatesTags: ['DocumentData']
@@ -157,7 +157,7 @@ export const documentApi = createApi({
           method: 'POST',
           body: data,
           headers: {
-            "Authorization": `Bearer ${Cookies.get("token")}`
+            "Authorization": `Bearer ${Cookies.get("dms_token")}`
           }
 
         };
@@ -171,7 +171,7 @@ export const documentApi = createApi({
           url: `document_publish/${id}`,
           method: 'POST',
           headers: {
-            "Authorization": `Bearer ${Cookies.get("token")}`
+            "Authorization": `Bearer ${Cookies.get("dms_token")}`
           }
 
         };

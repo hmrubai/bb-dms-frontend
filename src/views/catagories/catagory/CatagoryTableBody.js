@@ -12,11 +12,11 @@ function CatagoryTableBody({ catagory ,index}) {
   const deleteHandel = async (id) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
+      // text: "You won't be able to revert this!",
+      icon: 'error',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33 ',
+      cancelButtonColor: ' #4e4e4e',
       confirmButtonText: 'Yes, delete it!',
       width: 400
     }).then((result) => {
@@ -28,7 +28,7 @@ function CatagoryTableBody({ catagory ,index}) {
   };
 
   return (
-    <tbody>
+   
       <tr>
         <th scope="row">{index+1}</th>
         <td>{catagory.name}</td>
@@ -55,7 +55,7 @@ function CatagoryTableBody({ catagory ,index}) {
           
         </td>
       </tr>
-    </tbody>
+
   );
 }
 

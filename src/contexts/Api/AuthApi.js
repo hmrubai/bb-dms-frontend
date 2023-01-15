@@ -56,8 +56,10 @@ const AuthApi = ({ children }) => {
   };
 
   const logOut = () => {
-    Cookies.remove('token');
-    localStorage.removeItem('user');
+    Cookies.remove('dms_token');
+    localStorage.removeItem('dms_user');
+    localStorage.removeItem('dms_permissions');
+
     toast.success('Logout Successfully');
     window.location.reload(false);
   };

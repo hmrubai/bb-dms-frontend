@@ -46,13 +46,15 @@ function AdminUnpublishDocumentList() {
                   <th>Action</th>
                 </tr>
               </thead>
+              <tbody>
               {isFetching && (
                 <div className="text-center">
                   <Loading />
                 </div>
               )}
 
-              {isSuccess && data.map((list, index) => <AdminUnpublishDocumentTable key={index} list={list} index={index} />)}
+                {isSuccess && data.map((list, index) => <AdminUnpublishDocumentTable key={index} list={list} index={index} />)}
+                </tbody>
             </Table>
           </Card.Body>
         </Card>

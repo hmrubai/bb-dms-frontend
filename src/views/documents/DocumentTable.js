@@ -30,6 +30,11 @@ function DocumentTable() {
         </Card.Header>
         <Card.Body className="m-0 p-0">{isLoading && <Loading />}</Card.Body>
         <Card.Body className="m-0 p-0">{isError && <div>No catagory :</div>}</Card.Body>
+        {data?.length === 0 && (
+          <div className="d-flex justify-content-center">
+            <p className="text-center">No Document Found :)</p>
+          </div>
+            )}
         {isSuccess && (
           <div className="d-flex flex-wrap ">
             {data.map((category, i) => (
