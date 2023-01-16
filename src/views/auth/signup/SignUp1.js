@@ -10,6 +10,7 @@ const SignIn1 = () => {
   const { registration } = useContext(authApiContext);
   const [allData, setData] = useState({
     name: '',
+    username: '',
     email: '',
     number: '',
     password: '',
@@ -58,6 +59,17 @@ const SignIn1 = () => {
                         placeholder="Full Name"
                         name="name"
                         value={allData.name}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div className="input-group mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Username"
+                        name="username"
+                        value={allData.username}
                         onChange={handleChange}
                         required
                       />

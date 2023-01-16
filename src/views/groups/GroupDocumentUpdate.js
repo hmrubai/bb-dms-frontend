@@ -1,15 +1,16 @@
+import JoditEditor from 'jodit-react';
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGroupDocumentUpdateMutation, useGroupSingalDocumnetQuery } from '../../services/groupApi';
 
-
 function GroupDocumentUpdate() {
   const history = useHistory();
+  const editor = useRef(null);
   const { id } = useParams();
-  const { data: singleDoc, isSuccess } =useGroupSingalDocumnetQuery (id);
+  const { data: singleDoc, isSuccess } = useGroupSingalDocumnetQuery(id);
   const [groupDocumentUpdate, { data, isSuccess: isSuccessUp }] = useGroupDocumentUpdateMutation();
 
   const [name, setName] = useState();
@@ -42,12 +43,12 @@ function GroupDocumentUpdate() {
     }
   };
 
+  console.log('singleDoc', isSuccessUp);
+
   if (isSuccessUp) {
     toast.success(data.message);
     history.goBack();
   }
-
-  console.log(data)
 
   return (
     <Card>
@@ -59,7 +60,7 @@ function GroupDocumentUpdate() {
           <Col>
             <Form onSubmit={submitHandel} encType="multipart/form-data">
               <Row>
-                <Col md={6}>
+                <Col md={12}>
                   <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
@@ -72,22 +73,19 @@ function GroupDocumentUpdate() {
                     />
                   </Form.Group>
                 </Col>
-                <Col md={6}>
-                    <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows="1"
-                  placeholder="Description"
-                  name="description"
-                  onChange={(e) => setDescription(e.target.value)}
-                  value={description}
-                />
-              </Form.Group>
+                <Col md={12}>
+                  <Form.Label>Description</Form.Label>
+
+                  <JoditEditor
+                    ref={editor}
+                    value={description}
+                    // config={config}
+                    tabIndex={1} // tabIndex of textarea
+                    onBlur={(newContent) => setDescription(newContent)} // preferred to use only this option to update the content for performance reasons
+                    // onChange={(newContent) => {setDescription(newContent.target.value)}}
+                  />
                 </Col>
               </Row>
-
-        
 
               <img className="img-circle mb-1" src={`${process.env.REACT_APP_File_URL}${file}`} width="90px" alt="" />
 

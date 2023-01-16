@@ -129,7 +129,9 @@ function GroupDocumentView() {
                         <Card.Title as="h5">Description</Card.Title>
                       </Card.Header>
                       <Card.Body className="p-0">
-                        <p className=" ">{data.description === 'undefined' ? 'No Description' : <b>{data.description}</b>}</p>
+                      <p className="  ">
+                        {data.description === 'undefined' ? 'No Description' : <div dangerouslySetInnerHTML={{ __html: data.description }} />}
+                      </p>
                       </Card.Body>
                     </Card>
                   </Col>

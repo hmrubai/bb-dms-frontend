@@ -19,7 +19,23 @@ function GroupCreate() {
   const [user, setUser] = useState([]);
   const [member, setMember] = useState([]);
 
-  // console.log(res);
+
+  const addUserMember = (e) => {
+    axios({
+      url: `${process.env.REACT_APP_BASE_URL}all_user_for_group`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${Cookies.get('dms_token')}`
+      }
+    }).then((res) => {
+      setUser(res.data);
+    });
+  };
+
+    useEffect(() => {
+    addUserMember();
+  }, []);
+
 
   const submitHandel = async (e) => {
     e.preventDefault();
@@ -58,21 +74,9 @@ function GroupCreate() {
     history.goBack();
   }
 
-  useEffect(() => {
-    addUserMember();
-  }, []);
 
-  const addUserMember = (e) => {
-    axios({
-      url: `${process.env.REACT_APP_BASE_URL}all_user_for_group`,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
-      }
-    }).then((res) => {
-      setUser(res.data);
-    });
-  };
+
+
 
   return (
     <>
@@ -107,7 +111,11 @@ function GroupCreate() {
                   <Col md={6}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                       <Form.Label>Select Group Member</Form.Label>
-                      <Multiselect options={user} placeholder="Select Member" onSelect={(e) => setMember(e)} displayValue="username" 
+                      <Multiselect
+                        options={user}
+                        placeholder="Select Member"
+                        onSelect={(e) => setMember(e)}
+                        displayValue="username" 
                         showArrow={true}
                       />
                     </Form.Group>

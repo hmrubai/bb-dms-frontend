@@ -31,6 +31,9 @@ const AuthApi = ({ children }) => {
       if (error.response.data.errors.email) {
         toast.warning(error.response.data.errors.email[0]);
       }
+      if (error.response.data.errors.username) {
+        toast.warning(error.response.data.errors.username[0]);
+      }
     }
   };
 

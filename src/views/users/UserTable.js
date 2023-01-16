@@ -8,10 +8,13 @@ import { ToastContainer } from 'react-toastify';
 import UserTableBody from './UserTableBody';
 import Loading from '../../components/Loading/Loading';
 import { useGetAllUserQuery } from '../../services/userApi';
+import { BsArrowLeftCircleFill } from 'react-icons/bs';
+import { useHistory } from 'react-router-dom';
 
 function UserTable() {
+  const history = useHistory();
   const [page, setPage] = useState(1);
-  const { data, isFetching, isLoading,isSuccess } = useGetAllUserQuery(page);
+  const { data, isFetching, isLoading, isSuccess } = useGetAllUserQuery(page);
   if (isLoading) {
     return (
       <>
@@ -27,7 +30,18 @@ function UserTable() {
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
-            <Card.Title as="h5">Users</Card.Title>
+            <div className="d-flex justify-content-between">
+              <div>
+                <Card.Title as="h5">User</Card.Title>
+              </div>
+              <div>
+                <span className="me-auto pointer">
+                  <div onClick={() => history.goBack()}>
+                    <BsArrowLeftCircleFill color="black" size={'20px'} />
+                  </div>
+                </span>
+              </div>
+            </div>
           </Card.Header>
           <Card.Body>
             <Table responsive striped>
@@ -44,11 +58,7 @@ function UserTable() {
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-              {isSuccess&&data.data.map((user,index) => (
-                <UserTableBody key={ index } user={user} index={index} />
-              ))}
-              </tbody>
+              <tbody>{isSuccess && data.data.map((user, index) => <UserTableBody key={index} user={user} index={index} />)}</tbody>
             </Table>
 
             <Pagination className=" justify-content-end   mr-5">

@@ -2,15 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { Card, Row, Col, Button, Form } from 'react-bootstrap';
-import {
-  BsArrowLeftCircleFill,
-  BsFillCheckCircleFill,
-  BsFillInfoCircleFill,
-  BsXCircleFill
-} from 'react-icons/bs';
+import { BsArrowLeftCircleFill, BsFillCheckCircleFill, BsFillInfoCircleFill, BsXCircleFill } from 'react-icons/bs';
 
-
-import {  useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from './../../store/index';
 import DayJS from 'react-dayjs';
 import { toast, ToastContainer } from 'react-toastify';
@@ -26,10 +20,10 @@ import Modal from 'react-bootstrap/Modal';
 import { useShareDocumentMutation, useUserWiseGroupViewQuery } from '../../services/groupApi';
 
 function DocumentView() {
-  const history=useHistory();
-  const [shareDocument,] = useShareDocumentMutation();
+  const history = useHistory();
+  const [shareDocument] = useShareDocumentMutation();
   const [documentpublish] = useDocumentpublishMutation();
-  const { data,  isSuccess } = useUserWiseGroupViewQuery();
+  const { data, isSuccess } = useUserWiseGroupViewQuery();
   const doc = useSelector((state) => state.document.documentView);
 
   const [smShow, setSmShow] = useState(false);
@@ -39,8 +33,6 @@ function DocumentView() {
     description: '',
     file: ''
   });
-
-
 
   const shareDocHandler = (doc) => {
     setShare({
@@ -52,16 +44,12 @@ function DocumentView() {
 
   const shareHandler = async () => {
     try {
-     await shareDocument({ name: share.name, description: share.description, file: share.file, group_id: group_id }).unwrap();
+      await shareDocument({ name: share.name, description: share.description, file: share.file, group_id: group_id }).unwrap();
       setSmShow(false);
-
     } catch (error) {
-      toast.error(error.data.message);
+      toast.error('Group not selected');
     }
   };
-
-
-
 
   const download = (e) => {
     e.preventDefault();
@@ -75,7 +63,6 @@ function DocumentView() {
     })
       .then((response) => {
         fileDownload(response.data, `${doc.name}.${response.data.type.split('/').pop()}`);
-        
       })
       .catch((error) => {
         toast.error('Something went wrong');
@@ -100,13 +87,14 @@ function DocumentView() {
     });
   };
 
-
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer />
       <Modal size="sm" show={smShow} onHide={() => setSmShow(false)} aria-labelledby="example-modal-sizes-title-sm">
         <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-xs"><img width={35 } src={shere_ic} alt="" />  Share Documnet</Modal.Title>
+          <Modal.Title id="example-modal-sizes-title-xs">
+            <img width={35} src={shere_ic} alt="" /> Share Documnet
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="form-group">
@@ -243,7 +231,9 @@ function DocumentView() {
                       <Card.Title as="h5">Description</Card.Title>
                     </Card.Header>
                     <Card.Body className="p-0">
-                      <p className="  ">{doc.description === 'undefined' ? 'No Description' : <b>{doc.description}</b>}</p>
+                      <p className="  ">
+                        {doc.description === 'undefined' ? 'No Description' : <div dangerouslySetInnerHTML={{ __html: doc.description }} />}
+                      </p>
                     </Card.Body>
                   </Card>
                 </Col>

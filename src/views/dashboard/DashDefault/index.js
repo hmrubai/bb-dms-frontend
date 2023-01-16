@@ -22,7 +22,7 @@ import { useState } from 'react';
 
 const DashDefault = () => {
   const [search] = useState('');
-  const { data: allDoc, isSuccess: docSuccess, isLoading } = useDashboardPublishDocumentQuery();
+  const { data: allDoc, isSuccess: docSuccess, isLoading, isError } = useDashboardPublishDocumentQuery();
   const { data: puballDoc } = useAllPublishDocumentQuery({ search: search });
   const { data: yourDoc } = useYourDocumentQuery();
 
@@ -55,7 +55,7 @@ const DashDefault = () => {
         <Col md={12} xl={4}>
           <Card>
             <Card.Body>
-              <h6 className="mb-4">  Total Published Documnets</h6>
+              <h6 className="mb-4"> Total Published Documnets</h6>
               <div className="row d-flex align-items-center">
                 <div className="col-9">
                   <h3 className="f-w-300 d-flex align-items-center m-b-0">
@@ -152,7 +152,13 @@ const DashDefault = () => {
                 <Loading animation="border" variant="primary" />
               </div>
             )}
-        
+
+            {isError && (
+             <div className="d-flex justify-content-center">
+                <p> Something went wrong (:</p>
+              </div>
+            )}
+
             {docSuccess && (
               <div className="d-flex flex-wrap justify-content-center justify-content-md-start">
                 {allDoc?.data.map((item) => (

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card, Row } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 
 import { useGetUserByIdQuery } from '../../services/userApi';
 import DayJS from 'react-dayjs';
 function CategoryView() {
   const { id } = useParams();
-
+  const history = useHistory();
   const { data, isLoading } = useGetUserByIdQuery(id);
 
   if (isLoading) {
@@ -26,13 +26,17 @@ function CategoryView() {
     <>
       <Card>
         <Card.Header>
-          <div>
-            <Card.Title as="h5">User</Card.Title>
-            <span className="me-auto">
-              <Link to={`/users/user`}>
-                <BsArrowLeftCircleFill color="black" size={'20px'} />
-              </Link>
-            </span>
+          <div className="d-flex justify-content-between">
+            <div>
+              <Card.Title as="h5">User</Card.Title>
+            </div>
+            <div>
+              <span className="me-auto pointer">
+                <div onClick={() => history.goBack()}>
+                  <BsArrowLeftCircleFill color="black" size={'20px'} />
+                </div>
+              </span>
+            </div>
           </div>
         </Card.Header>
         <Card.Header>

@@ -11,7 +11,7 @@ import { useSelector } from './../../store/index';
 import avator from './../../assets/images/user/avatar-1.jpg';
 
 export const GroupTable = () => {
-  const { data, isFetching, isSuccess } = useUserWiseGroupViewQuery();
+  const { data, isFetching, isSuccess, isError } = useUserWiseGroupViewQuery();
   // const { data, isFetching, isSuccess, isLoading } = useSingalGroupQuery(id)
   const [deleteGroup] = useDeleteGroupMutation();
   const auth = useSelector((state) => state.auth.user);
@@ -55,19 +55,24 @@ export const GroupTable = () => {
         </Card.Header>
 
         {isFetching && <Loading />}
+
+        {isError && (
+          <div className="d-flex justify-content-center">
+            <p className="text-center">Something went wrong (:</p>
+          </div>
+        )}
+
         {data?.data?.length === 0 && (
           <div className="d-flex justify-content-center">
             <p className="text-center">No Group Found:)</p>
           </div>
-            )}
-    
+        )}
 
-        <div className="d-flex flex-wrap justify-content-center justify-content-md-start "  >
-     
+        <div className="d-flex flex-wrap justify-content-center justify-content-md-start ">
           {isSuccess &&
             data.data?.map((item, i) => (
-              <Card key={i} className=" mx-2 shadow " >
-                <div className="d-flex " >
+              <Card key={i} className=" mx-2 shadow ">
+                <div className="d-flex ">
                   <div>
                     <Link className="text-center" to={`/groups/group_document/${item.group.id}`}>
                       <Card.Img
@@ -78,12 +83,11 @@ export const GroupTable = () => {
                       />
                     </Link>
                   </div>
-                  <div className='mx-3 ' style={{ width: '100px' }}>
+                  <div className="mx-3 " style={{ width: '100px' }}>
                     <Card.Title style={{ fontSize: '100%' }} className="font-weight-bold m-0 mt-4 ">
                       {item?.group?.name.slice(0, 15)}
                     </Card.Title>
-                    <Card.Text >
-                
+                    <Card.Text>
                       <img
                         className=" rounded-circle mb-1 mr-1"
                         width={15}
@@ -118,7 +122,6 @@ export const GroupTable = () => {
                     </div>
                   </div>
                 </div>
-
               </Card>
             ))}
         </div>

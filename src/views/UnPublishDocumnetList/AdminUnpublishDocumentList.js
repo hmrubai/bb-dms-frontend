@@ -10,7 +10,7 @@ import AdminUnpublishDocumentTable from './AdminUnpublishDocumentTable';
 
 function AdminUnpublishDocumentList() {
   const history = useHistory();
-  const { data, isSuccess,isFetching } = useAdminUnpublishDocumentListQuery();
+  const { data, isSuccess, isFetching, isError } = useAdminUnpublishDocumentListQuery();
   const authPermission = useSelector((state) => state.auth.permissions);
 
   if (authPermission.includes('superadmin_view')) {
@@ -20,21 +20,21 @@ function AdminUnpublishDocumentList() {
         <div className="mb-2"></div>
         <Card>
           <Card.Header>
-          
-            <div className='d-flex justify-content-between'>
-            <div>
-              <Card.Title as="h5">Unpublish Document List</Card.Title>
+            <div className="d-flex justify-content-between">
+              <div>
+                <Card.Title as="h5">Unpublish Document List</Card.Title>
+              </div>
+              <div>
+                <span className="me-auto pointer">
+                  <div onClick={() => history.goBack()}>
+                    <BsArrowLeftCircleFill color="black" size={'20px'} />
+                  </div>
+                </span>
+              </div>
             </div>
-            <div>
-            <span className="me-auto pointer">
-                <div onClick={() => history.goBack()}>
-                  <BsArrowLeftCircleFill color="black" size={'20px'} />
-                </div>
-              </span>
-            </div>
-          </div>
           </Card.Header>
           <Card.Body className="table-responsive table-scroll table-earnings ">
+            
             <Table responsive striped>
               <thead style={{ background: 'grey' }}>
                 <tr className=" text-white">
@@ -47,14 +47,26 @@ function AdminUnpublishDocumentList() {
                 </tr>
               </thead>
               <tbody>
-              {isFetching && (
-                <div className="text-center">
-                  <Loading />
-                </div>
-              )}
+                {isFetching && (
+                  <div className="text-center">
+                    <Loading />
+                  </div>
+                )}
+
+                {isError && (
+                  <div className="d-flex justify-content-center">
+                    <p>Something went wrong (:</p>
+                  </div>
+                )}
+
+                {data?.length === 0 && (
+                  <div className="d-flex justify-content-center">
+                    <p>No Data Found :)</p>
+                  </div>
+                )}
 
                 {isSuccess && data.map((list, index) => <AdminUnpublishDocumentTable key={index} list={list} index={index} />)}
-                </tbody>
+              </tbody>
             </Table>
           </Card.Body>
         </Card>
