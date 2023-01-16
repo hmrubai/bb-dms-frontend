@@ -22,6 +22,7 @@ function UserAdd() {
   const [status, setStatus] = useState('Pending');
   const [password, setPassword] = useState();
   const [image, setImage] = useState();
+  const [previewImage, setImagePreview] = useState();
   const [permission, setPermission] = useState([]);
   const permissionArr = JSON.stringify(permission);
 
@@ -69,6 +70,11 @@ function UserAdd() {
       setPermission(permission.filter((item) => item !== value));
     }
   };
+
+  function handelImage(e) {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+  }
+
 
   if (authPermission.includes('user_create')) {
     return (
@@ -187,13 +193,17 @@ function UserAdd() {
                       />
                     </div>
                   </div>
+                  <div>
+                    <img src={previewImage} className="py-2" width="90px"  alt="" />
+                    </div>
+
 
                   <Form.Group controlId="exampleForm.ControlInput1">
                     <input
                       type="file"
                       name="image"
                       accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                      onChange={(e) => setImage(e.target.files[0])}
+                      onChange={(e) => { setImage(e.target.files[0]); handelImage(e);}}
                     />
                   </Form.Group>
                   {/* <Button variant="primary" type="submit">

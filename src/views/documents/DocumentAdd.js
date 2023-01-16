@@ -9,6 +9,7 @@ import { useAddDocumentMutation } from '../../services/documentApi';
 import { useGetSubSubCatagoryShowQuery } from '../../services/subCategoryApi';
 import { useSelector } from './../../store/index';
 import JoditEditor from 'jodit-react';
+
 function DocumentAdd() {
   const history = useHistory();
   const auth = useSelector((state) => state.auth.user);
@@ -117,7 +118,7 @@ function DocumentAdd() {
                         name="sub_catagory_id"
                         onChange={(e) => setsub_catagory_id(e.target.value)}
                       >
-                        <option value={null}>Selact Sub Category</option>
+                        <option>Selact SC</option>
 
                         {subCategoryShow?.sub_catagory?.map((item) => (
                           <option value={item.id}>{item.name}</option>
@@ -132,7 +133,7 @@ function DocumentAdd() {
                         name="sub_sub_catagory_id"
                         onChange={(e) => setSub_sub_catagory_id(e.target.value)}
                       >
-                        <option value={null}>Selact Sub Sub Category</option>
+                        <option >Selact SSC</option>
 
                         {subSubCategoryShow?.sub_sub_catagory?.map((item) => (
                           <option value={item.id}>{item.name}</option>

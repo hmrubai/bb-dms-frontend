@@ -16,6 +16,7 @@ function GroupCreate() {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [image, setImage] = useState();
+  const [previewImage, setImagePreview] = useState();
   const [user, setUser] = useState([]);
   const [member, setMember] = useState([]);
 
@@ -73,7 +74,9 @@ function GroupCreate() {
     toast.success(res.data.message);
     history.goBack();
   }
-
+  function handelImage(e) {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+  }
 
 
 
@@ -134,6 +137,9 @@ function GroupCreate() {
                     </Form.Group>
                   </Col>
                   <Col>
+                    <div>
+                    <img src={previewImage} className="py-2" width="90px"  alt="" />
+                    </div>
                     <Form.Label>Feature image</Form.Label>
                     <br />
                     <Form.Group controlId="exampleForm.ControlInput1">
@@ -141,7 +147,7 @@ function GroupCreate() {
                         type="file"
                         name="image"
                         accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                        onChange={(e) => setImage(e.target.files[0])}
+                        onChange={(e) => { setImage(e.target.files[0]); handelImage(e)}}
                       />
                     </Form.Group>
                   </Col>

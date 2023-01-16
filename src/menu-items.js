@@ -36,7 +36,7 @@ const menuItems = {
    
     {
       id: 'documents',
-      title: 'Documents',
+      title: 'Document',
       type: 'group',
       icon: 'icon-group',
       children: [
@@ -54,7 +54,7 @@ const menuItems = {
     },
     {
       id: 'categories',
-      title: 'Categories',
+      title: 'Category',
       type: 'group',
       icon: 'icon-ui',
       children: [
@@ -89,7 +89,7 @@ const menuItems = {
     },
     {
       id: 'settings',
-      title: 'Settings',
+      title: 'Setting',
       type: 'group',
        icon: 'feather icon-settings',
      

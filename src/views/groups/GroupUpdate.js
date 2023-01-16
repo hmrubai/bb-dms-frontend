@@ -24,7 +24,7 @@ function GroupUpdate() {
   const [user, setUser] = useState([]);
   const [member, setMember] = useState([]);
   const [defaultSelectMember, setDefaultSelectMember] = useState([]);
-
+  const [previewImage, setImagePreview] = useState();
 
   // console.log(res);
 
@@ -61,14 +61,14 @@ function GroupUpdate() {
     }
 
     try {
-      await updateGroup({ id: id, data: formData }).unwrap();
+      const result = await updateGroup({ id: id, data: formData }).unwrap();
+      toast.success(result.message);
     } catch (error) {
       toast.error(error?.data.message);
     }
   };
 
   if (resp.isSuccess) {
-    toast.success(resp.data.message);
     history.goBack();
   }
 
@@ -94,6 +94,11 @@ function GroupUpdate() {
       setUser(res.data);
     });
   };
+
+  function handelImage(e) {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+  }
+
 
   return (
     <>
@@ -154,8 +159,11 @@ function GroupUpdate() {
                   </Col>
                   <Col>
                     
-                    <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
-                    <br/>
+                    <img className="img-circle py-2" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
+                    <br />
+                    <div>
+                    <img src={previewImage} className="py-2" width="90px"  alt="" />
+                    </div>
                     <Form.Label>Feature image</Form.Label>
                     <br />
                     <Form.Group controlId="exampleForm.ControlInput1">
@@ -163,7 +171,7 @@ function GroupUpdate() {
                         type="file"
                         name="image"
                         accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                        onChange={(e) => setImage(e.target.files[0])}
+                        onChange={(e) => { setImage(e.target.files[0]); handelImage(e);}}
                       />
                     </Form.Group>
                   </Col>

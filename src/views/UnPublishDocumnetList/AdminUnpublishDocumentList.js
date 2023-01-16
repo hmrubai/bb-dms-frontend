@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Table } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Loading from '../../components/Loading/Loading';
 import { useAdminUnpublishDocumentListQuery } from '../../services/publishApi';
@@ -74,9 +74,16 @@ function AdminUnpublishDocumentList() {
     );
   } else {
     return (
+      <>
       <div class="alert alert-danger" role="alert">
         You are not authorized to access this page! Only Admin can access this page.
-      </div>
+       
+        </div>
+        <div className='text-center'>
+          <Link className='btn btn-primary ' to="/dashboard">Go Back</Link>
+        </div>
+        
+      </>
     );
   }
 }

@@ -20,7 +20,7 @@ function SubCategoryAdd() {
   const [catagory_id, setCatagoryId] = useState();
   const [sub_catagory_id, setSubCatagoryId] = useState();
   const [image, setImage] = useState();
-  
+  const [previewImage, setImagePreview] = useState();
   const { data: subCategoryShow, isSuccess: cataSucess } = useGetSubCatagoryShowQuery(catagory_id);
 
   const submitHandel = async (e) => {
@@ -46,6 +46,9 @@ function SubCategoryAdd() {
     history.goBack();
   }
   
+  function handelImage(e) {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+  }
 
 
 
@@ -113,14 +116,16 @@ function SubCategoryAdd() {
           
 
               
-             
+              <div>
+                    <img src={previewImage} className="py-2" width="90px"  alt="" />
+                    </div>
 
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input
                   type="file"
                   name="image"
                   accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onChange={(e) => {setImage(e.target.files[0]); handelImage(e);}}
                 />
               </Form.Group>
               <Button variant="primary" type="submit">

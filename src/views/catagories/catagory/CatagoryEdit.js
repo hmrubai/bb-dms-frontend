@@ -17,6 +17,7 @@ function CatagoryEdit() {
   const [description, setDescription] = useState();
   const [status, setStatus] = useState();
   const [image, setImage] = useState();
+  const [previewImage, setImagePreview] = useState();
 
   useEffect(() => {
     if (isSuccess) {
@@ -50,22 +51,25 @@ function CatagoryEdit() {
     history.goBack();
   }
 
+  function handelImage(e) {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+  }
+
   return (
     <Card>
       <Card.Header>
-       
-        <div className='d-flex justify-content-between'>
-            <div>
-              <Card.Title as="h5">Edit Catagory</Card.Title>
-            </div>
-            <div>
-            <span className="me-auto pointer">
-                <div onClick={() => history.goBack()}>
-                  <BsArrowLeftCircleFill color="black" size={'20px'} />
-                </div>
-              </span>
-            </div>
+        <div className="d-flex justify-content-between">
+          <div>
+            <Card.Title as="h5">Edit Catagory</Card.Title>
           </div>
+          <div>
+            <span className="me-auto pointer">
+              <div onClick={() => history.goBack()}>
+                <BsArrowLeftCircleFill color="black" size={'20px'} />
+              </div>
+            </span>
+          </div>
+        </div>
       </Card.Header>
       <Card.Body>
         <Row>
@@ -105,14 +109,20 @@ function CatagoryEdit() {
                 />
               </Form.Group>
 
-              <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
+              <img className="img-circle py-2" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
+              <div>
+                <img src={previewImage} className="py-2" width="90px" alt="" />
+              </div>
 
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input
                   type="file"
                   name="image"
                   accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                    handelImage(e);
+                  }}
                 />
               </Form.Group>
               <Button variant="primary" type="submit">

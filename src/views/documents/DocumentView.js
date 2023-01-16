@@ -44,8 +44,14 @@ function DocumentView() {
 
   const shareHandler = async () => {
     try {
-      await shareDocument({ name: share.name, description: share.description, file: share.file, group_id: group_id }).unwrap();
+      const result = await shareDocument({
+        name: share.name,
+        description: share.description,
+        file: share.file,
+        group_id: group_id
+      }).unwrap();
       setSmShow(false);
+      toast.success(result.message);
     } catch (error) {
       toast.error('Group not selected');
     }
@@ -139,16 +145,16 @@ function DocumentView() {
               <Row>
                 <Col md={3}>
                   <Card>
-                    <div className="d-flex">
+                    <div className="d-flex justify-content-center">
                       <div>
                         <img onClick={(e) => download(e)} className="btn" width={85} src={downloade} alt="" />
                       </div>
-                      {doc.status === 'Pending' && (
-                        <div>
-                          <img onClick={(e) => DocumentPublish(doc.id)} className="btn" width={85} src={cloud} alt="" />
-                        </div>
-                      )}
 
+                      <div>
+                        {doc.status === 'Pending' && (
+                          <img onClick={(e) => DocumentPublish(doc.id)} className="btn" width={85} src={cloud} alt="" />
+                        )}
+                      </div>
                       <div>
                         <img
                           onClick={() => {

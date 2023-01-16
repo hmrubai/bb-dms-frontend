@@ -46,14 +46,15 @@ function DocumentEdit() {
     }
 
     try {
-      await updateDocument({ id: id, data: formData }).unwrap();
+      const result = await updateDocument({ id: id, data: formData }).unwrap();
+        toast.success(result.message);
     } catch (error) {
       toast.error(error.data.message);
     }
   };
 
   if (isSuccessUp) {
-    toast.success(data.message);
+  
     history.goBack();
   }
 

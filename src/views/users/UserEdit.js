@@ -30,6 +30,7 @@ const UserEdit = (props) => {
   const [gender, setGender] = useState();
   const [status, setStatus] = useState();
   const [image, setImage] = useState();
+  const [previewImage, setImagePreview] = useState();
 
   //permission list api request
   const permission = (e) => {
@@ -126,6 +127,12 @@ const UserEdit = (props) => {
     toast.success(res.data.message);
     history.push('/users/user');
   }
+
+  function handelImage(e) {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+  }
+
+
 
   // {authPermission.includes('user_create') && ()}
   if (authPermission.includes('user_edit')) {
@@ -233,8 +240,13 @@ const UserEdit = (props) => {
                         </div>
                       </Col>
                       <Col md={12}>
-                         <img className="img-circle mb-1" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
-                        </Col>
+                         <img className="img-circle py-2" src={`${process.env.REACT_APP_IMAGE_URL}${image}`} width="90px" alt="" />
+                         <div>
+                    <img src={previewImage} className="py-2" width="90px"  alt="" />
+                    </div>
+                      </Col>
+                      
+                   
                      
                       <Col md={6}>
                         <Form.Group controlId="exampleForm.ControlInput1">
@@ -242,7 +254,7 @@ const UserEdit = (props) => {
                             type="file"
                             name="image"
                             accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf "
-                            onChange={(e) => setImage(e.target.files[0])}
+                            onChange={(e) => {setImage(e.target.files[0]); handelImage(e)}}
                           />
                         </Form.Group>
                       </Col>

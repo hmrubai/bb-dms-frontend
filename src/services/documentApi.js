@@ -147,7 +147,7 @@ export const documentApi = createApi({
           "Authorization": `Bearer ${Cookies.get("dms_token")}`
         }
       }),
-      invalidatesTags: ['DocumentData']
+      providesTags: ['DocumentData']
     }),
 
     updateDocument: builder.mutation({

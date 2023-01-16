@@ -18,6 +18,7 @@ function GroupAddDocument() {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [file, setFile] = useState();
+  const [previewImage, setImagePreview] = useState();
 
   const submitHandel = async (e) => {
     e.preventDefault();
@@ -41,6 +42,11 @@ function GroupAddDocument() {
     toast.success(res.data.message);
     history.goBack();
   }
+
+  function handelImage(e) {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+  }
+
 
   return (
     <Card>
@@ -70,13 +76,15 @@ function GroupAddDocument() {
                   />
                 </Col>
               </Row>
-
+              <div>
+                    <img src={previewImage} className="py-2" width="90px"  alt="" />
+                    </div>
               <Form.Group controlId="exampleForm.ControlInput1">
                 <input
                   type="file"
                   name="file"
                   accept="image/png ,image/jpg,image/jpeg , image/svg+xml ,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.openxmlformats-officedocument.presentationml.presentation/application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document/application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet/application/vnd.oasis.opendocument.text/application/vnd.oasis.opendocument.spreadsheet/application/vnd.oasis.opendocument.presentation"
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={(e) => { setFile(e.target.files[0]); handelImage(e);}}
                   required
                 />
               </Form.Group>
