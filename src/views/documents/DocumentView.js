@@ -145,7 +145,7 @@ function DocumentView() {
               <Row>
                 <Col md={3}>
                   <Card>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex flex-wrap justify-content-start">
                       <div>
                         <img onClick={(e) => download(e)} className="btn" width={85} src={downloade} alt="" />
                       </div>

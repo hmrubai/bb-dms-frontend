@@ -4,12 +4,14 @@ import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { authUser, userPermission } from '../../features/authSlice';
+import { useHistory } from 'react-router-dom';
 
 export const authApiContext = React.createContext();
 
 const AuthApi = ({ children }) => {
   const [resData, setRes] = useState();
   const [ErrData, setError] = useState();
+
 
   const dispatch = useDispatch();
   const registration = async (data) => {
@@ -22,7 +24,8 @@ const AuthApi = ({ children }) => {
       });
       toast.success(response.data.message);
       setRes(response.data);
-      window.location.replace(`${process.env.REACT_APP_APP_URL}auth/signin`);
+      window.location.replace(`${process.env.REACT_APP_APP_URL}#/auth/signin`);
+ 
 
     } catch (error) {
       if (error.response.data.errors.password) {
